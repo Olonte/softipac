@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.olonte</groupId>
+	<artifactId>softipac</artifactId>
+	<name>softipac</name>
+	<packaging>war</packaging>
+	<version>1.0.0-BUILD-SNAPSHOT</version>
+	<properties>
+		<!-- Java Version -->
+		<java-version>1.8</java-version>
+		
+		<!-- Spring Framework Version -->
+		<org.springframework-version>4.3.8.RELEASE</org.springframework-version>
+		<org.springframework.context.support-version>5.0.1.RELEASE</org.springframework.context.support-version>
+		
+		<!-- Maven Plugin Version -->
+		<maven-eclipse-plugin-version>2.9</maven-eclipse-plugin-version>
+		<org.apache.maven.plugins-version>2.5.1</org.apache.maven.plugins-version>
+		<org.apache.maven.war.plugins-version>2.6</org.apache.maven.war.plugins-version>
+		
+		<!-- Aspectj Version -->
+		<org.aspectj-version>1.6.10</org.aspectj-version>
+		
+		<!-- Loggin Version -->
+		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<log4j-version>1.2.15</log4j-version>
+		
+		<!-- Javax Version -->
+		<javax.inject-version>1</javax.inject-version>
+		<javax.servlet.api-version>3.1.0</javax.servlet.api-version>
+		<javax.servlet.jsp-version>2.1</javax.servlet.jsp-version>
+		<javax.servlet.jstl-version>1.2</javax.servlet.jstl-version>
+		
+		<!-- JPA Version -->
+		<org.springframework.data-version>1.11.4.RELEASE</org.springframework.data-version>
+		<org.springframework.orm-version>4.3.7.RELEASE</org.springframework.orm-version>
+		
+		<!-- Hibernate Version -->
+		<org.hibernate-version>5.2.10.Final</org.hibernate-version>
+		<org.hibernate.javax.persistence-version>1.0.0.Final</org.hibernate.javax.persistence-version>
+		<org.hibernate.ehcache-version>5.2.10.Final</org.hibernate.ehcache-version>
+		<com.fasterxml.jackson.datatype-version>2.9.0</com.fasterxml.jackson.datatype-version>
+		
+		<!-- EhCache Version -->
+		<net.sf.ehcache-version>2.10.4</net.sf.ehcache-version>
+		
+		<!-- MySQL Version -->
+		<mysql-version>5.1.39</mysql-version>
+		
+		<!-- QueryDSL Version -->
+		<org.eclipse.jdt.core.compiler-version>4.6.1</org.eclipse.jdt.core.compiler-version>
+		<com.querydsl-version>4.1.0</com.querydsl-version>
+		 <com.mysema.maven-version>1.1.3</com.mysema.maven-version>
+		 <com.google.code.findbugs-version>3.0.1</com.google.code.findbugs-version>
+		
+		<!-- Security Version -->
+		<org.springframework.security-version>4.2.3.RELEASE</org.springframework.security-version>
+	</properties>
+	<dependencies>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework-version}</version>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				 </exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework.context.support-version}</version>
+		</dependency>
+				
+		<!-- AspectJ -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>	
+		
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${org.slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j-version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+			</exclusions>
+			<scope>runtime</scope>
+		</dependency>
+        
+		<!-- @Inject Dependencies -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>${javax.inject-version}</version>
+		</dependency>
+	   		
+		<!-- Servlet Dependencies-->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${javax.servlet.api-version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>${javax.servlet.jsp-version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${javax.servlet.jstl-version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- JPA Dependencies -->
+		<dependency>
+	    	<groupId>org.springframework.data</groupId>
+	    	<artifactId>spring-data-jpa</artifactId>
+	    	<version>${org.springframework.data-version}</version>
+		</dependency>
+		<dependency>
+	    	<groupId>org.springframework</groupId>
+	    	<artifactId>spring-orm</artifactId>
+	    	<version>${org.springframework.orm-version}</version>
+		</dependency>
+		
+		<!-- Hibernate Dependencies -->
+		<dependency>
+	    	<groupId>org.hibernate</groupId>
+	    	<artifactId>hibernate-core</artifactId>
+	    	<version>${org.hibernate-version}</version>
+		</dependency>
+		<dependency>
+	    	<groupId>org.hibernate.javax.persistence</groupId>
+	    	<artifactId>hibernate-jpa-2.1-api</artifactId>
+	    	<version>${org.hibernate.javax.persistence-version}</version>
+		</dependency>	
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-hibernate5</artifactId>
+			<version>${com.fasterxml.jackson.datatype-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-ehcache</artifactId>
+			<version>${org.hibernate.ehcache-version}</version>
+		</dependency>
+		
+		<!--  EhCache Core API Dependencies -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>${net.sf.ehcache-version}</version>
+		</dependency>
+		
+		<!-- MySQL Database Driver Dependencies -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-version}</version>
+		</dependency>
+		
+		<!-- Query DSL Dependencies  -->
+		<dependency>
+		    <groupId>org.eclipse.jdt.core.compiler</groupId>
+		    <artifactId>ecj</artifactId>
+		    <version>${org.eclipse.jdt.core.compiler-version}</version>
+		</dependency>
+		<dependency>
+			  <groupId>com.querydsl</groupId>
+			  <artifactId>querydsl-apt</artifactId>
+			  <version>${com.querydsl-version}</version>
+		</dependency>
+		<dependency>
+    		<groupId>com.querydsl</groupId>
+    		<artifactId>querydsl-jpa</artifactId>
+    		<version>${com.querydsl-version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.google.code.findbugs</groupId>
+		    <artifactId>annotations</artifactId>
+		    <version>${com.google.code.findbugs-version}</version>
+		</dependency>
+		
+		<!-- Security Dependencies -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${org.springframework.security-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${org.springframework.security-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${org.springframework.security-version}</version>
+		</dependency>
+		
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.7</version>
+			<scope>test</scope>
+		</dependency>        
+	</dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>${maven-eclipse-plugin-version}</version>
+                <configuration>
+                    <additionalProjectnatures>
+                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                    </additionalProjectnatures>
+                    <additionalBuildcommands>
+                        <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+                    </additionalBuildcommands>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${org.apache.maven.plugins-version}</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+             <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>	
+				<version>${org.apache.maven.war.plugins-version}</version>
+				<configuration>
+					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+					<warName>softipac</warName>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+             <!-- Configuration Querydsl -->
+            <plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>${com.mysema.maven-version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+        </plugins>
+    </build>
+</project>
