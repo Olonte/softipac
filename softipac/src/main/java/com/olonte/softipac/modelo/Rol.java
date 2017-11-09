@@ -24,7 +24,7 @@ public class Rol {
 	private String rol;
 	
 	@ManyToMany(mappedBy = "roles")
-	private Set<Usuario> usuarios = new HashSet<Usuario>();
+	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 
 	public Rol() {
 	}

@@ -24,7 +24,7 @@ public class Genero {
 	private String genero;
 	
 	@OneToMany
-	private Set<Usuario> usuarios = new HashSet<Usuario>();
+	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 
 	public Genero() {
 	}

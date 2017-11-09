@@ -24,7 +24,7 @@ public class TipoCita {
 	private String tipo;
 	
 	@OneToMany
-	private Set<Cita> citas = new HashSet<Cita>();
+	private Set<Cita> citas = new HashSet<Cita>(0);
 
 	public TipoCita() {
 	}

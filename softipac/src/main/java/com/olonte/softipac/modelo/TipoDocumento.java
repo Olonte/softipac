@@ -24,7 +24,7 @@ public class TipoDocumento {
 	private String tipo;
 	
 	@OneToMany
-	private Set<Documento> documentos = new HashSet<Documento>();
+	private Set<Documento> documentos = new HashSet<Documento>(0);
 
 	public TipoDocumento() {
 	}

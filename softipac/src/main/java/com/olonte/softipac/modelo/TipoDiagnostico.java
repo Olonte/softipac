@@ -24,7 +24,7 @@ public class TipoDiagnostico {
 	private String tipo;
 	
 	@OneToMany
-	private Set<Diagnostico> diagnosticos = new HashSet<Diagnostico>();
+	private Set<Diagnostico> diagnosticos = new HashSet<Diagnostico>(0);
 
 	public TipoDiagnostico() {
 	}

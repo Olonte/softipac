@@ -36,7 +36,7 @@ public class Eps {
 	private String email;
 	
 	@OneToMany
-	private Set<Usuario> usuarios = new HashSet<Usuario>();
+	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 
 	public Eps() {
 	}

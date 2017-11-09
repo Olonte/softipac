@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,8 +26,8 @@ public class Diagnostico {
 	@Column(name = "diagnostico")
 	private String diagnostico;
 	
-	@ManyToOne
-	@JoinColumn(name = "tipodiagnostico_idtipodiagnostico", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "tipodiagnostico_idtipodiagnostico",  referencedColumnName = "idtipodiagnostico", nullable = false)
 	private TipoDiagnostico tipoDiagnostico;
 	
 	@ManyToMany(mappedBy = "diagnosticos")
@@ -42,8 +43,6 @@ public class Diagnostico {
 	public void setIdDiagnostico(Integer idDiagnostico) {
 		this.idDiagnostico = idDiagnostico;
 	}
-
-
 
 	public String getDiagnostico() {
 		return diagnostico;

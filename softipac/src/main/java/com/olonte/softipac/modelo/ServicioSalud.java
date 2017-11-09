@@ -30,7 +30,7 @@ public class ServicioSalud {
 	private String rips;
 	
 	@OneToMany
-	private Set<Usuario> usuarios = new HashSet<Usuario>();
+	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 
 	public ServicioSalud() {
 	}

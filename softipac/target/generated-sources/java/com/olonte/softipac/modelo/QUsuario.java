@@ -24,8 +24,6 @@ public class QUsuario extends EntityPathBase<Usuario> {
 
     public final SetPath<Usuario, QUsuario> afinidadUsuarios = this.<Usuario, QUsuario>createSet("afinidadUsuarios", Usuario.class, QUsuario.class, PathInits.DIRECT2);
 
-    public final SetPath<Cita, QCita> citas = this.<Cita, QCita>createSet("citas", Cita.class, QCita.class, PathInits.DIRECT2);
-
     public final SetPath<Diagnostico, QDiagnostico> diagnosticos = this.<Diagnostico, QDiagnostico>createSet("diagnosticos", Diagnostico.class, QDiagnostico.class, PathInits.DIRECT2);
 
     public final StringPath direccion = createString("direccion");
@@ -66,6 +64,8 @@ public class QUsuario extends EntityPathBase<Usuario> {
 
     public final StringPath segundoApellido = createString("segundoApellido");
 
+    public final QServicioSalud servicioSalud;
+
     public final StringPath telefonoCelular = createString("telefonoCelular");
 
     public final StringPath telefonoFijo = createString("telefonoFijo");
@@ -73,6 +73,8 @@ public class QUsuario extends EntityPathBase<Usuario> {
     public final QTipoUsuario tipoUsuario;
 
     public final StringPath tutela = createString("tutela");
+
+    public final SetPath<Cita, QCita> usuario_idusuapl = this.<Cita, QCita>createSet("usuario_idusuapl", Cita.class, QCita.class, PathInits.DIRECT2);
 
     public QUsuario(String variable) {
         this(Usuario.class, forVariable(variable), INITS);
@@ -98,6 +100,7 @@ public class QUsuario extends EntityPathBase<Usuario> {
         this.estado = inits.isInitialized("estado") ? new QEstado(forProperty("estado")) : null;
         this.genero = inits.isInitialized("genero") ? new QGenero(forProperty("genero")) : null;
         this.parentesco = inits.isInitialized("parentesco") ? new QParentesco(forProperty("parentesco")) : null;
+        this.servicioSalud = inits.isInitialized("servicioSalud") ? new QServicioSalud(forProperty("servicioSalud")) : null;
         this.tipoUsuario = inits.isInitialized("tipoUsuario") ? new QTipoUsuario(forProperty("tipoUsuario")) : null;
     }
 

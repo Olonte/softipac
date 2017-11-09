@@ -3,6 +3,7 @@ package com.olonte.softipac.modelo;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,8 +23,8 @@ public class Documento {
 	@Column(name = "documento")
 	private String documento;
 	
-	@ManyToOne
-	@JoinColumn(name = "tipodocumento_idtipodocumento")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "tipodocumento_idtipodocumento", referencedColumnName = "idtipodocumento" , nullable = false)
 	private TipoDocumento tipoDocumento;
 	
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

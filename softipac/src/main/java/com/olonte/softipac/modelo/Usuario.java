@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,45 +57,7 @@ public class Usuario {
 	
 	@Column(name = "lugarnacimiento")
 	private String lugarNacimiento;
-	
-	@ManyToOne
-	@JoinColumn(name = "tipousuario_idtipousuario", nullable = false)
-	private TipoUsuario tipoUsuario;
-	
-	@OneToOne(mappedBy = "usuario")
-	private Documento documento;
-	
-	@ManyToOne
-	@JoinColumn(name = "genero_idgenero", nullable = true)
-	private Genero genero;
-	
-	@ManyToOne
-	@JoinColumn(name = "escolaridad_idescolaridad", nullable = true)
-	private Escolaridad escolaridad;
-	
-	@ManyToOne
-	@JoinColumn(name = "eps_ideps", nullable = true)
-	private Eps eps;
-	
-	@ManyToOne
-	@JoinColumn(name = "estado_idestado", nullable = true)
-	private Estado estado;
-	
-	@ManyToOne
-	@JoinColumn(name = "parentesco_idparentesco", nullable = true)
-	private Parentesco parentesco;
-	
-	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "registrodiagnostico",
-			joinColumns = {
-					@JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
-					},
-			inverseJoinColumns = {
-					@JoinColumn(name = "diagnostico_iddiagnostico", referencedColumnName = "iddiagnostico")
-					}
-	)
-	private Set<Diagnostico> diagnosticos = new HashSet<Diagnostico>();
-	
+
 	@Column(name = "direccion")
 	private String direccion;
 	
@@ -110,6 +73,51 @@ public class Usuario {
 	@Column(name = "ocupacion")
 	private String ocupacion;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "tipousuario_idtipousuario", referencedColumnName = "idtipousuario", nullable = false)
+	private TipoUsuario tipoUsuario;
+	
+	@OneToOne(mappedBy = "usuario")
+	private Documento documento;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "genero_idgenero", referencedColumnName = "idgenero", nullable = true)
+	private Genero genero;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "escolaridad_idescolaridad", referencedColumnName = "idescolaridad", nullable = true)
+	private Escolaridad escolaridad;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "eps_ideps", referencedColumnName = "ideps", nullable = true)
+	private Eps eps;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "estado_idestado", referencedColumnName = "idestado", nullable = true)
+	private Estado estado;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "parentesco_idparentesco", referencedColumnName = "idparentesco", nullable = true)
+	private Parentesco parentesco;
+	
+	@ManyToMany(cascade = CascadeType.MERGE)
+	@JoinTable(name = "registrodiagnostico",
+			joinColumns = {
+					@JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
+					},
+			inverseJoinColumns = {
+					@JoinColumn(name = "diagnostico_iddiagnostico", referencedColumnName = "iddiagnostico")
+					}
+	)
+	private Set<Diagnostico> diagnosticos = new HashSet<Diagnostico>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "citaUusarioId.usuario_idusuapl")
+	private Set<Cita> usuario_idusuapl = new HashSet<Cita>(0);
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "serviciosalud_idserviciosalud", referencedColumnName = "idserviciosalud", nullable = true)
+	private ServicioSalud servicioSalud;
+	
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "perfil",
 			joinColumns = {
@@ -119,7 +127,7 @@ public class Usuario {
 					@JoinColumn(name = "rol_idrol", referencedColumnName = "idrol")
 					}
 	)
-	private Set<Rol> roles = new HashSet<Rol>();
+	private Set<Rol> roles = new HashSet<Rol>(0);
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "afinidad",
@@ -130,11 +138,7 @@ public class Usuario {
 					@JoinColumn(name = "idfamiliar", referencedColumnName = "idusuario")
 					}
 	)
-	private Set<Usuario> afinidadUsuarios = new HashSet<Usuario>();
-	
-	@OneToMany
-	@JoinColumn(name = "")
-	private Set<Cita> citas = new HashSet<Cita>();
+	private Set<Usuario> afinidadUsuarios = new HashSet<Usuario>(0);
 
 	public Usuario() {
 	}
@@ -339,13 +343,20 @@ public class Usuario {
 		this.roles = roles;
 	}
 
-	public Set<Cita> getCitas() {
-		return citas;
+	public Set<Cita> getUsuario_idusuapl() {
+		return usuario_idusuapl;
 	}
 
-	public void setCitas(Set<Cita> citas) {
-		this.citas = citas;
+	public void setUsuario_idusuapl(Set<Cita> usuario_idusuapl) {
+		this.usuario_idusuapl = usuario_idusuapl;
+	}
+
+	public ServicioSalud getServicioSalud() {
+		return servicioSalud;
+	}
+
+	public void setServicioSalud(ServicioSalud servicioSalud) {
+		this.servicioSalud = servicioSalud;
 	}
 	
-
 }

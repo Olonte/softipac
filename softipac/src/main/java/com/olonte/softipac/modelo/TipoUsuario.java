@@ -24,7 +24,7 @@ public class TipoUsuario {
 	private String tipo;
 	
 	@OneToMany
-	private Set<Usuario> usuarios = new HashSet<Usuario>();
+	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 
 	public TipoUsuario() {
 	}
