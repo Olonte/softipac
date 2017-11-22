@@ -77,7 +77,8 @@ public class Usuario {
 	@JoinColumn(name = "tipousuario_idtipousuario", referencedColumnName = "idtipousuario", nullable = false)
 	private TipoUsuario tipoUsuario;
 	
-	@OneToOne(mappedBy = "usuario")
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "documento_iddocumento", referencedColumnName = "iddocumento")
 	private Documento documento;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -111,7 +112,7 @@ public class Usuario {
 	)
 	private Set<Diagnostico> diagnosticos = new HashSet<Diagnostico>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "citaUusarioId.usuario_idusuapl")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "citaUsuarioId.usuario_idusuapl", cascade = CascadeType.ALL)
 	private Set<Cita> usuario_idusuapl = new HashSet<Cita>(0);
 	
 	@ManyToOne(fetch = FetchType.LAZY)

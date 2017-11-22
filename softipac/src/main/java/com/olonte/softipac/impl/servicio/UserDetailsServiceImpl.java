@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		Usuario usuario = this.usuarioRepositorio.findOne(UsuarioPredicado.buscarUsuarioPredicado(username));
+		Usuario usuario = this.usuarioRepositorio.findOne(UsuarioPredicado.bucarPorNombreUsuario(username));
 		
 		if (usuario == null) {
 			throw new UsernameNotFoundException("Usuario no encontrado");

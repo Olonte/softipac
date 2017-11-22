@@ -36,7 +36,7 @@
 					<div class="form-group">
 						<label><spring:message code="login.jsp.usuario.etiqueta"></spring:message></label>
 						<div class="input-group">
-							<input type="text" class="form-control" id="username" name="username" placeholder="<spring:message code="login.jsp.usuario.marcador.etiqueta"></spring:message>" required>
+							<input type="text" class="form-control" id="username" name="username" placeholder="<spring:message code="login.jsp.usuario.marcador"></spring:message>" required>
 							<div class="input-group-addon">
 								<i class="fa fa-user"></i>
 							</div>
@@ -46,7 +46,7 @@
 					<div class="form-group">
 						<label><spring:message code="login.jsp.clave.etiqueta"></spring:message></label>
 						<div class="input-group">
-							<input type="password" class="form-control" id="password" name="password" placeholder="<spring:message code="login.jsp.clave.marcador.etiqueta"></spring:message>" required>
+							<input type="password" class="form-control" id="password" name="password" placeholder="<spring:message code="login.jsp.clave.marcador"></spring:message>" required>
 							<div class="input-group-addon">
 								<i class="fa fa-lock"></i>
 							</div>

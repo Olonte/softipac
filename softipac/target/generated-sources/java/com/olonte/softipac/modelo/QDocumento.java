@@ -28,8 +28,6 @@ public class QDocumento extends EntityPathBase<Documento> {
 
     public final QTipoDocumento tipoDocumento;
 
-    public final QUsuario usuario;
-
     public QDocumento(String variable) {
         this(Documento.class, forVariable(variable), INITS);
     }
@@ -49,7 +47,6 @@ public class QDocumento extends EntityPathBase<Documento> {
     public QDocumento(Class<? extends Documento> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.tipoDocumento = inits.isInitialized("tipoDocumento") ? new QTipoDocumento(forProperty("tipoDocumento")) : null;
-        this.usuario = inits.isInitialized("usuario") ? new QUsuario(forProperty("usuario"), inits.get("usuario")) : null;
     }
 
 }

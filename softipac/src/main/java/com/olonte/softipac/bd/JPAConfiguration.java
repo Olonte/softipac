@@ -40,6 +40,11 @@ public class JPAConfiguration {
 	private String hbConncharSet     = "hibernate.connection.charSet";	
 	private String hbCurrSessContxCl = "hibernate.current_session_context_class";
 	private String hbArchAutodect    = "hibernate.archive.autodetection";
+	private String hbCacheSecLev     = "hibernate.cache.use_second_level_cache";
+	private String hbCacheProvCl     = "hibernate.cache.provider_class";
+	private String hbCacheRegFaCl    = "hibernate.cache.region.factory_class";
+	private String orghbEhCacheConf  = "org.hibernate.ehcache.configurationResourceName";
+	private String hbImplNamSt       = "hibernate.implicit_naming_strategy";
 	
 	
 	@Bean
@@ -95,6 +100,11 @@ public class JPAConfiguration {
 		properties.put(hbConncharSet, environment.getRequiredProperty("spring.jpa.connection.charset"));
 		properties.put(hbCurrSessContxCl, environment.getRequiredProperty("spring.jpa.currentSessionContextClass"));
 		properties.put(hbArchAutodect, environment.getRequiredProperty("spring.jpa.autodetection"));
+		properties.put(hbCacheSecLev, environment.getProperty("spring.hibernate.cache.use_second_level_cache"));
+		properties.put(hbCacheProvCl, environment.getProperty("spring.hibernate.cache.provider_class"));
+		properties.put(hbCacheRegFaCl, environment.getRequiredProperty("spring.hibernate.ecache_region_factory"));
+		properties.put(orghbEhCacheConf, environment.getRequiredProperty("spring.hibernate.ecached.config_res_name"));
+		properties.put(hbImplNamSt, environment.getRequiredProperty("spring.hibernate.implicit_naming_strategy"));
 		return properties;
 	}
 

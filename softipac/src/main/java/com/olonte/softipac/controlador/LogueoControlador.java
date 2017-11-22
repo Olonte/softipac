@@ -27,16 +27,16 @@ public class LogueoControlador {
 	}
 	
 	private String getPrincipal() {
-		String userName = null;
+		String nombreUsuario = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		if (principal instanceof UserDetails) {
-			userName = ((UserDetails)principal).getUsername();
+			nombreUsuario = ((UserDetails)principal).getUsername();
 		} else {
-			userName = principal.toString();
+			nombreUsuario = principal.toString();
 		}
 		
-		return userName;
+		return nombreUsuario;
 	}
 
 }

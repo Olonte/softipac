@@ -1,12 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<%@include file="/WEB-INF/views/template/header.jsp"%>
+	</head>
+	<body>
+		<div class="page-container">
+			<%@include file="/WEB-INF/views/template/menu.jsp"%> 
+			<%@include file="/WEB-INF/views/template/page-title.jsp"%> 
+			<div class="content-inner">
+				<div class="table-responsive">
+					<table id="citasUsuarios" class="table table-hober">
+						<thead>
+							<tr>
+					    		<th><spring:message code="listadoAgenda.jsp.fecha.etiqueta"></spring:message></th>
+                            	<th><spring:message code="listadoAgenda.jsp.hora.etiqueta"></spring:message></th>
+                            	<th><spring:message code="listadoAgenda.jsp.nombres.etiqueta"></spring:message></th>
+                            	<th><spring:message code="listadoAgenda.jsp.apellido.etiqueta"></spring:message></th>
+                            	<th><spring:message code="listadoAgenda.jsp.telfonofijo.etiqueta"></spring:message></th>
+                            	<th><spring:message code="listadoAgenda.jsp.celular.etiqueta"></spring:message></th>
+                            	<th><spring:message code="listadoAgenda.jsp.acciones.etiqueta"></spring:message></th>
+							<tr>
+						</thead><!-- .thead -->
+						<tbody>
+							<c:forEach items="${citas}" var ="cita">
+							</c:forEach>
+						</tbody><!-- .tbody -->
+					</table><!-- .table-responsive -->
+				</div><!-- .table-responsive -->
+			</div><!-- .content-inner -->
+		</div><!-- .page-container -->
+<%@include file="/WEB-INF/views/template/footer.jsp"%>	

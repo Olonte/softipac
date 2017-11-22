@@ -22,7 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "cita")
 @AssociationOverrides(
 		{
-			@AssociationOverride(
+			@AssociationOverride(         
 					name = "citaUsuarioId.usuario_idusuapl",
 					joinColumns = {
 							@JoinColumn(name = "usuario_idusuapl",
@@ -74,7 +74,7 @@ public class Cita {
 	
 	private Estado estado;
 	
-	private CitaUsuarioId citaUsuarioId;
+	private CitaUsuarioId citaUsuarioId = new CitaUsuarioId();
 
 	public Cita() {
 	}

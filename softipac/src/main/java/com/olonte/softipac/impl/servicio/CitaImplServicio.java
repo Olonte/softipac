@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.olonte.softipac.modelo.Cita;
+import com.olonte.softipac.predicado.CitaPredicado;
 import com.olonte.softipac.repositorio.CitaRepositorio;
 import com.olonte.softipac.servicio.CitaServicio;
 
@@ -23,6 +24,12 @@ public class CitaImplServicio implements CitaServicio {
 	public void guardarCita(Cita cita) {
 		this.citaRepositorio.save(cita);
 
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Cita buscarPorDocumento(String documento) {
+		return this.citaRepositorio.findOne(CitaPredicado.buscarPorDocumento(documento));
 	}
 
 }

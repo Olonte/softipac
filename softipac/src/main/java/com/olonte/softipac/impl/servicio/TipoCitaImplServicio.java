@@ -19,7 +19,7 @@ public class TipoCitaImplServicio implements TipoCitaServicio {
 
 	@Override
 	@Transactional(readOnly = true)
-	public TipoCita buscarPorId(int idTipoCita) {
+	public TipoCita buscarPorId(Integer idTipoCita) {
 		return this.tipoCitaRepositorio.findOne(TipoCitaPredicado.buscarPorId(idTipoCita));
 	}
 

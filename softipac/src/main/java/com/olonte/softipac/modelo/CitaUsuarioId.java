@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 public class CitaUsuarioId implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+	                
 	private Usuario usuario_idusuapl;
 	
 	private Usuario usuario_idusuario;

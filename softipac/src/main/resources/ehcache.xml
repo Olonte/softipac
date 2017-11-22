@@ -14,5 +14,121 @@
         memoryStoreEvictionPolicy="FIFO">
     </defaultCache>
     
+    <cache name="tiposUsuario" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap" />
+	</cache>
     
+    <cache name="tipoUsuarioPorId" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap" />
+	</cache>
+    
+    <cache name="estados" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	
+	<cache name="estadoPorId" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap" />
+	</cache>
+    
+    <cache name="tiposDocumento" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	
+	<cache name="generos" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap" />
+	</cache>
+
+	<cache name="escolaridades" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	
+	<cache name="eps" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap" />
+	</cache>
+
+	<cache name="parentescos" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	
+	<cache name="parentescoPorId" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	 
+	<cache name="diagnosticos" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	
+	<cache name="diagnosticoPorId" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	
+	<cache name="diagnosticoPorIds" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600">
+		<persistence strategy="localTempSwap" />
+	</cache>
+	
 </ehcache>	
