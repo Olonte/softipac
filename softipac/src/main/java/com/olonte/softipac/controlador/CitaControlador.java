@@ -14,6 +14,7 @@ import com.olonte.softipac.servicio.DiagnosticoServcio;
 import com.olonte.softipac.servicio.EpsServicio;
 import com.olonte.softipac.servicio.EscolaridadServicio;
 import com.olonte.softipac.servicio.GeneroServicio;
+import com.olonte.softipac.servicio.ParentescoServicio;
 import com.olonte.softipac.servicio.TipoDocumentoServicio;
 import com.olonte.softipac.servicio.UsuarioServcio;
 
@@ -32,23 +33,26 @@ public class CitaControlador {
 	
 	private DiagnosticoServcio diagnosticoServicio;
 	
-	@Autowired
+	private ParentescoServicio parentescoServicio;
+	
+	@Autowired	
 	public CitaControlador(UsuarioServcio usuarioServcio, TipoDocumentoServicio tipoDocumentoServicio,
 			GeneroServicio generoServicio, EscolaridadServicio escolaridadServicio, EpsServicio epsServicio,
-			DiagnosticoServcio diagnosticoServicio) {
+			DiagnosticoServcio diagnosticoServicio, ParentescoServicio parentescoServicio) {
 		this.usuarioServcio = usuarioServcio;
 		this.tipoDocumentoServicio = tipoDocumentoServicio;
 		this.generoServicio = generoServicio;
 		this.escolaridadServicio = escolaridadServicio;
 		this.epsServicio = epsServicio;
 		this.diagnosticoServicio = diagnosticoServicio;
+		this.parentescoServicio = parentescoServicio;
 	}
-
+	
 	@RequestMapping(value="/panelCita")
 	public String panelCita(){
 		return "panelCita";
 	}
-	
+
 	@RequestMapping(value = "/agenda", method = RequestMethod.GET)
 	public String crearNuevaAgenda(Model model) {
 		model.addAttribute("nuevaAgenda", new Agenda());
@@ -57,6 +61,7 @@ public class CitaControlador {
 		model.addAttribute("escolaridades", this.escolaridadServicio.buscarTodos());
 		model.addAttribute("eps", this.epsServicio.buscarTodos());
 		model.addAttribute("diagnosticos", this.diagnosticoServicio.buscarTodos());
+		model.addAttribute("parentescos", this.parentescoServicio.buscarTodos());
 		return "agenda";
 	}
 	

@@ -67,11 +67,11 @@ public class UsuarioImplServicio implements UsuarioServcio {
 		 * Se procesa el Paciente y el Acudiente
 		 */
 		agenda.getPaciente().setTipoUsuario(this.tipoUsuarioServicio.buscarPorId(idTipoUsuarioPaciente));
-		agenda.getAucudiente().setTipoUsuario(this.tipoUsuarioServicio.buscarPorId(idTipoUsuarioAcudiente));
+		agenda.getAcudiente().setTipoUsuario(this.tipoUsuarioServicio.buscarPorId(idTipoUsuarioAcudiente));
 		agenda.getPaciente().setEstado(estado);
-		agenda.getAucudiente().setEstado(estado);
+		agenda.getAcudiente().setEstado(estado);
 		agenda.getPaciente().setParentesco(this.parentescoServicio.bucarPorId(idParentesco));
-		agenda.getPaciente().getAfinidadUsuarios().add(agenda.getAucudiente());
+		agenda.getPaciente().getAfinidadUsuarios().add(agenda.getAcudiente());
 		guardarUsuario(agenda.getPaciente());
 		
 		/**

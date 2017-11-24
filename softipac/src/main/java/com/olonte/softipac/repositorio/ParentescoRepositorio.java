@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.olonte.softipac.modelo.Parentesco;
 
 @Repository
-public interface ParentescoRepositorio extends JpaRepository<Parentesco, Integer>, QueryDslPredicateExecutor<Integer> {
+public interface ParentescoRepositorio extends JpaRepository<Parentesco, Integer>, QueryDslPredicateExecutor<Parentesco> {
 
 }

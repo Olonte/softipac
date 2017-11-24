@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -35,6 +37,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 								referencedColumnName = "idusuario")	
 					})
 		})
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Cita {
 	
 	@Id

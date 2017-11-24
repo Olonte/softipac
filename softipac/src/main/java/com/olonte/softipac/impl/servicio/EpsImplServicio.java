@@ -21,7 +21,7 @@ public class EpsImplServicio implements EpsServicio {
 
 	@Override
 	@Transactional(readOnly = true)
-	@Cacheable(value = "eps")
+	@Cacheable(value = "epses")
 	public Iterable<Eps> buscarTodos() {
 		return this.epsRepositorio.findAll();
 	}

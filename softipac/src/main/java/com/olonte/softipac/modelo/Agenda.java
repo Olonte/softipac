@@ -9,17 +9,17 @@ public class Agenda {
 	
 	private Usuario paciente;
 	
-	private Usuario aucudiente;
+	private Usuario acudiente;
 	
 	private Set<Diagnostico> diagnosticos = new HashSet<Diagnostico>(0);
 
 	public Agenda() {
 	}
 
-	public Agenda(Cita cita, Usuario paciente, Usuario aucudiente, Set<Diagnostico> diagnosticos) {
+	public Agenda(Cita cita, Usuario paciente, Usuario acudiente, Set<Diagnostico> diagnosticos) {
 		this.cita = cita;
 		this.paciente = paciente;
-		this.aucudiente = aucudiente;
+		this.acudiente = acudiente;
 		this.diagnosticos = diagnosticos;
 	}
 
@@ -39,12 +39,12 @@ public class Agenda {
 		this.paciente = paciente;
 	}
 
-	public Usuario getAucudiente() {
-		return aucudiente;
+	public Usuario getAcudiente() {
+		return acudiente;
 	}
 
-	public void setAucudiente(Usuario aucudiente) {
-		this.aucudiente = aucudiente;
+	public void setAcudiente(Usuario acudiente) {
+		this.acudiente = acudiente;
 	}
 
 	public Set<Diagnostico> getDiagnosticos() {

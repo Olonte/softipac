@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.olonte.softipac.modelo.Parentesco;
+import com.olonte.softipac.predicado.ParentescoPredicado;
 import com.olonte.softipac.repositorio.ParentescoRepositorio;
 import com.olonte.softipac.servicio.ParentescoServicio;
 
@@ -23,7 +24,8 @@ public class ParentescoImplServicio implements ParentescoServicio {
 	@Transactional(readOnly = true)
 	@Cacheable(value = "parentescos")
 	public Iterable<Parentesco> buscarTodos() {
-		return this.parentescoRepositorio.findAll();
+		Integer idParentesco = 1;
+		return this.parentescoRepositorio.findAll(ParentescoPredicado.buscarTodos(idParentesco));
 	}
 
 	@Override

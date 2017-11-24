@@ -102,9 +102,10 @@ public class JPAConfiguration {
 		properties.put(hbArchAutodect, environment.getRequiredProperty("spring.jpa.autodetection"));
 		properties.put(hbCacheSecLev, environment.getProperty("spring.hibernate.cache.use_second_level_cache"));
 		properties.put(hbCacheProvCl, environment.getProperty("spring.hibernate.cache.provider_class"));
+		properties.put(hbImplNamSt, environment.getRequiredProperty("spring.hibernate.implicit_naming_strategy"));
 		properties.put(hbCacheRegFaCl, environment.getRequiredProperty("spring.hibernate.ecache_region_factory"));
 		properties.put(orghbEhCacheConf, environment.getRequiredProperty("spring.hibernate.ecached.config_res_name"));
-		properties.put(hbImplNamSt, environment.getRequiredProperty("spring.hibernate.implicit_naming_strategy"));
+		
 		return properties;
 	}
 

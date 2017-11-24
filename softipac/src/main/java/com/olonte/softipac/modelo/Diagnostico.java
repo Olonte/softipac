@@ -14,8 +14,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
 @Table(name = "diagnostico")
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Diagnostico {
 	
 	@Id

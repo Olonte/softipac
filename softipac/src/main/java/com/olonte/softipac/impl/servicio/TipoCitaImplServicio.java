@@ -1,6 +1,7 @@
 package com.olonte.softipac.impl.servicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.olonte.softipac.modelo.TipoCita;
@@ -19,6 +20,7 @@ public class TipoCitaImplServicio implements TipoCitaServicio {
 
 	@Override
 	@Transactional(readOnly = true)
+	@Cacheable(value = "tipoCitaPorId")
 	public TipoCita buscarPorId(Integer idTipoCita) {
 		return this.tipoCitaRepositorio.findOne(TipoCitaPredicado.buscarPorId(idTipoCita));
 	}
