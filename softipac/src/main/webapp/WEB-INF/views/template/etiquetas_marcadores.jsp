@@ -38,6 +38,12 @@
 					            <spring:message code="email.marcador" var="emailMarcador"></spring:message>
 					            <spring:message code="observacion.marcador" var="observacionMarcador"></spring:message>
 					            <spring:message code="ocupacion.marcador" var="ocupacionMarcador"></spring:message>
+					            
+<!-- ****************************************************Etiquetas Menu ******************************************************************* -->								 
+					            <spring:message code="titulo.barra.apa" var="barraApa"></spring:message>
+					            <spring:message code="menu.jsp.bienvenido" var="bienvenido"></spring:message>
+					            <spring:message code="menu.jsp.salir" var="menuSalir"></spring:message>
+					            <spring:message code="menu.jsp.icono.menu.titulo" var="icono"></spring:message>
 <!-- ****************************************************Etiquetas Login ******************************************************************* -->								
 					            <spring:message code="login.jsp.titulo" var="titulo"></spring:message>
 					            <spring:message code="login.jsp.nombre.sistema" var="nombreSistema"></spring:message>

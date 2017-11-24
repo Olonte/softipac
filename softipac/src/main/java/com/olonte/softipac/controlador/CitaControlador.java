@@ -1,6 +1,7 @@
 package com.olonte.softipac.controlador;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.olonte.softipac.modelo.Agenda;
+import com.olonte.softipac.modelo.UsuarioSession;
 import com.olonte.softipac.servicio.DiagnosticoServcio;
 import com.olonte.softipac.servicio.EpsServicio;
 import com.olonte.softipac.servicio.EscolaridadServicio;
@@ -19,7 +21,10 @@ import com.olonte.softipac.servicio.TipoDocumentoServicio;
 import com.olonte.softipac.servicio.UsuarioServcio;
 
 @Controller
+@Scope(value = "session")
 public class CitaControlador {
+	
+	private UsuarioSession usuarioSession;
 	
 	private UsuarioServcio usuarioServcio;
 	
@@ -35,10 +40,11 @@ public class CitaControlador {
 	
 	private ParentescoServicio parentescoServicio;
 	
+	
 	@Autowired	
 	public CitaControlador(UsuarioServcio usuarioServcio, TipoDocumentoServicio tipoDocumentoServicio,
 			GeneroServicio generoServicio, EscolaridadServicio escolaridadServicio, EpsServicio epsServicio,
-			DiagnosticoServcio diagnosticoServicio, ParentescoServicio parentescoServicio) {
+			DiagnosticoServcio diagnosticoServicio, ParentescoServicio parentescoServicio, UsuarioSession usuarioSession) {
 		this.usuarioServcio = usuarioServcio;
 		this.tipoDocumentoServicio = tipoDocumentoServicio;
 		this.generoServicio = generoServicio;
@@ -46,6 +52,7 @@ public class CitaControlador {
 		this.epsServicio = epsServicio;
 		this.diagnosticoServicio = diagnosticoServicio;
 		this.parentescoServicio = parentescoServicio;
+		this.usuarioSession = usuarioSession;
 	}
 	
 	@RequestMapping(value="/panelCita")
@@ -74,6 +81,11 @@ public class CitaControlador {
 			redirectAttributes.addFlashAttribute("msj_err","Error grabando el Paciente");
 		}
 		return "redirect:/agenda";
+	}
+	
+	@ModelAttribute(value = "usuarioLogueado")
+	public UsuarioSession getUsuarioSession() {
+		return usuarioSession;
 	}
 	
 	
