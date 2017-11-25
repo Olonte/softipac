@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.olonte.softipac.modelo.Agenda;
 import com.olonte.softipac.modelo.UsuarioSession;
+import com.olonte.softipac.servicio.CitaServicio;
 import com.olonte.softipac.servicio.DiagnosticoServcio;
 import com.olonte.softipac.servicio.EpsServicio;
 import com.olonte.softipac.servicio.EscolaridadServicio;
@@ -25,6 +26,8 @@ import com.olonte.softipac.servicio.UsuarioServcio;
 public class CitaControlador {
 	
 	private UsuarioSession usuarioSession;
+	
+	private CitaServicio citaServicio;
 	
 	private UsuarioServcio usuarioServcio;
 	
@@ -40,11 +43,13 @@ public class CitaControlador {
 	
 	private ParentescoServicio parentescoServicio;
 	
-	
 	@Autowired	
-	public CitaControlador(UsuarioServcio usuarioServcio, TipoDocumentoServicio tipoDocumentoServicio,
-			GeneroServicio generoServicio, EscolaridadServicio escolaridadServicio, EpsServicio epsServicio,
-			DiagnosticoServcio diagnosticoServicio, ParentescoServicio parentescoServicio, UsuarioSession usuarioSession) {
+	public CitaControlador(UsuarioSession usuarioSession, CitaServicio citaServicio, UsuarioServcio usuarioServcio,
+			TipoDocumentoServicio tipoDocumentoServicio, GeneroServicio generoServicio,
+			EscolaridadServicio escolaridadServicio, EpsServicio epsServicio, DiagnosticoServcio diagnosticoServicio,
+			ParentescoServicio parentescoServicio) {
+		this.usuarioSession = usuarioSession;
+		this.citaServicio = citaServicio;
 		this.usuarioServcio = usuarioServcio;
 		this.tipoDocumentoServicio = tipoDocumentoServicio;
 		this.generoServicio = generoServicio;
@@ -52,7 +57,6 @@ public class CitaControlador {
 		this.epsServicio = epsServicio;
 		this.diagnosticoServicio = diagnosticoServicio;
 		this.parentescoServicio = parentescoServicio;
-		this.usuarioSession = usuarioSession;
 	}
 	
 	@RequestMapping(value="/panelCita")
@@ -75,7 +79,7 @@ public class CitaControlador {
 	@RequestMapping(value = "/agenda", method = RequestMethod.POST)
 	public String procesarNuevaAgenda(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 		if (!bindingResult.hasErrors()) {
-			this.usuarioServcio.guardarPaciente(nuevaAgenda);
+			this.citaServicio.guardarCita(nuevaAgenda);
 			redirectAttributes.addFlashAttribute("msj_ext","Paciente guardado con éxito");
 		}else {
 			redirectAttributes.addFlashAttribute("msj_err","Error grabando el Paciente");
@@ -88,6 +92,4 @@ public class CitaControlador {
 		return usuarioSession;
 	}
 	
-	
-
 }

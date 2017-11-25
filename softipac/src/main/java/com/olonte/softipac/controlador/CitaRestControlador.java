@@ -3,6 +3,7 @@ package com.olonte.softipac.controlador;
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import com.olonte.softipac.servicio.HoraServicio;
 import com.olonte.softipac.servicio.UsuarioServcio;
 
 @RestController
+@Scope(value = "session")
 public class CitaRestControlador {
 	
 	private UsuarioServcio usuarioServcio;

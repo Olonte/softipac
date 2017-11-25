@@ -6,6 +6,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope(value = "session")
 public class UsuarioSession extends Usuario {
+	
+	public UsuarioSession(){
+	}
+	
 	public String obtenerNombresApellidos() {
 		return getNombres() + " " + getPrimerApellido();
 	}

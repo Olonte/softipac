@@ -32,4 +32,16 @@ $(document).ready( function() {
 		});
 	});
 	
+	/**
+	 * Función para seleccionar los diagnósticos del paciente
+	 */
+	
+	$('#pacienteDiagnosticos').change(function() {
+		var diagnostico =  $('#pacienteDiagnosticos').val();
+		if( diagnostico.length == 1 ) {
+			$('#agendaDiagnosticos').empty();
+			$('#agendaDiagnosticos').append($('<option>').val($("#pacienteDiagnosticos option:selected").val()).text($("#pacienteDiagnosticos option:selected").text()));
+		}
+	});
+	
 });

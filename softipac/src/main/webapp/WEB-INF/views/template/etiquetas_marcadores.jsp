@@ -24,6 +24,8 @@
 								<spring:message code="telefonoCelular.etiqueta" var="telefonoCelularEtiqueta"></spring:message>
 								<spring:message code="observacion.etiqueta" var="observacionEtiqueta"></spring:message>
 								<spring:message code="ocupacion.etiqueta" var="ocupacionEtiqueta"></spring:message>
+								<spring:message code="botonguardar.etiqueta" var="botonGuardarEtiqueta"></spring:message>
+								
 <!-- ****************************************************Marcadores*************************************************************************** -->
 								<spring:message code="fechacita.marcador" var="fechaMarcador"></spring:message>
 								<spring:message code="documento.marcador" var="documentoMarcador"></spring:message>
@@ -37,8 +39,7 @@
 					            <spring:message code="telefonoCelular.marcador" var="telefonoCelularMarcador"></spring:message>
 					            <spring:message code="email.marcador" var="emailMarcador"></spring:message>
 					            <spring:message code="observacion.marcador" var="observacionMarcador"></spring:message>
-					            <spring:message code="ocupacion.marcador" var="ocupacionMarcador"></spring:message>
-					            
+					            <spring:message code="ocupacion.marcador" var="ocupacionMarcador"></spring:message>				            
 <!-- ****************************************************Etiquetas Menu ******************************************************************* -->								 
 					            <spring:message code="titulo.barra.apa" var="barraApa"></spring:message>
 					            <spring:message code="menu.jsp.bienvenido" var="bienvenido"></spring:message>
@@ -58,7 +59,7 @@
 					            <spring:message code="login.jsp.usuario.marcador" var="usuarioMarcador"></spring:message>
 					            <spring:message code="login.jsp.clave.marcador" var="claveMarcador"></spring:message>
 <!-- ****************************************************Etiquetas Agenda ******************************************************************* -->								
-								<spring:message code="agenda.jsp.conf.hora.etiqueta" var="horaEtiqueta"></spring:message>
+								<spring:message code="agenda.jsp.conf.hora.etiqueta" var="confHoraEtiqueta"></spring:message>
 								<spring:message code="agenda.jsp.hora.etiqueta" var="horaEtiqueta"></spring:message>
 								<spring:message code="agenda.jsp.paciente.etiqueta" var="pacienteEtiqueta"></spring:message>
 					            

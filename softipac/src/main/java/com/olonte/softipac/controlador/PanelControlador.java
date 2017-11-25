@@ -41,6 +41,7 @@ public class PanelControlador {
 	
 	@ModelAttribute(value = "usuarioLogueado")
 	public UsuarioSession getUsuarioSession() {
+		usuarioSession.setIdUsuario(((UsuarioLoqueado)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsuario().getIdUsuario());
 		usuarioSession.setNombres(((UsuarioLoqueado)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsuario().getNombres());
 		usuarioSession.setPrimerApellido(((UsuarioLoqueado)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsuario().getPrimerApellido());
 		return usuarioSession;

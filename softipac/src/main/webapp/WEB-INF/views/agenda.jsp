@@ -22,7 +22,7 @@
 										<div class="card-header" role ="tab" id="headingTwo">
 											<a data-toggle="collapse" data-parent="#accordion" 
 												href="#collapseConfiguracion" aria-expanded="true" aria-controls="collapse">
-												 <h5 class="mb-0">${horaEtiqueta}</h5>
+												 <h5 class="mb-0">${confHoraEtiqueta}</h5>
 											</a>
 										</div><!-- .card-header -->
 										<div id="collapseConfiguracion" class="collapase show" role ="tabpanel" aria-labelledby="headingOne">
@@ -37,7 +37,7 @@
 																</div><!-- .input-group-->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
-														<div class="col-md-2">
+														<div class="col-md-4">
 															<div class="form-group">
 																<form:label path="cita.hora.idHora">${horaEtiqueta}</form:label>
 																<div class="input-group">
@@ -187,7 +187,7 @@
 							   								<div class="form-group">
 							   									<form:label path="diagnosticos">${diagnosticosEtiqueta}</form:label>
 							   									<div class="input-group">
-							   										<form:select path="paciente.diagnosticos" cssClass="form-control" items="${diagnosticos}" id="pacineteDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico" class="form-control"></form:select>
+							   										<form:select path="paciente.diagnosticos" cssClass="form-control" items="${diagnosticos}" id="pacienteDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico"></form:select>
 							   									</div><!-- .input-group -->
 							   								</div><!-- .form-group -->
 							   							</div><!-- .col-md-4 -->
@@ -310,21 +310,23 @@
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
 														<!-- *************************************************Observaciones************************************************************************** -->
-														<div class="col-md-4">
+														<div class="col-md-12">
 															<div class="form-group">
 																<form:label path="cita.observacion">${observacionEtiqueta}</form:label>
 																<div class="input-group">    
 																	<form:textarea type="text" cssClass="form-control" rows="10" cols="100" path="cita.observacion" id="observacion" name="observacion" placeholder="${observacionMarcador}" required="required"></form:textarea>
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
-														</div><!-- .col-md-4 -->
+														</div><!-- .col-md-12 -->
 	                                   				</div><!-- .row -->
 	                                    		</div><!-- .card-body -->
 	                                    	</div><!-- .card-block -->            
 										</div><!-- .collapse-show -->
 									</div><!-- .card -->
 									<div class="col-md-12">
-										<input id="btnLogin" type="submit" class="btn btn-blue" value="${botonGuardarEtiqueta}">
+										<center>
+											<input id="btnLogin" type="submit" class="btn btn-blue" value="${botonGuardarEtiqueta}" style="float:center;">
+										</center>
 									</div><!-- .col-md-12 -->
 								</form:form><!-- .form:form-->
 							</div><!-- .row -->
