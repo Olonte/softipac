@@ -15,7 +15,7 @@ public class Agenda {
 
 	public Agenda() {
 	}
-
+   
 	public Agenda(Cita cita, Usuario paciente, Usuario acudiente, Set<Diagnostico> diagnosticos) {
 		this.cita = cita;
 		this.paciente = paciente;

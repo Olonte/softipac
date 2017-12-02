@@ -35,7 +35,7 @@ public class Afinidad {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idafinidad")
 	private Integer idAfinidad;
-
+	
 	private AfinidadUsuarioId afinidadUsuarioId = new AfinidadUsuarioId();
 	
 	public Afinidad() {

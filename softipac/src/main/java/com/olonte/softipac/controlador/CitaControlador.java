@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.olonte.softipac.modelo.Agenda;
@@ -19,7 +20,7 @@ import com.olonte.softipac.servicio.EscolaridadServicio;
 import com.olonte.softipac.servicio.GeneroServicio;
 import com.olonte.softipac.servicio.ParentescoServicio;
 import com.olonte.softipac.servicio.TipoDocumentoServicio;
-import com.olonte.softipac.servicio.UsuarioServcio;
+import com.olonte.softipac.servicio.UsuarioServicio;
 
 @Controller
 @Scope(value = "session")
@@ -29,7 +30,7 @@ public class CitaControlador {
 	
 	private CitaServicio citaServicio;
 	
-	private UsuarioServcio usuarioServcio;
+	private UsuarioServicio usuarioServicio;
 	
 	private TipoDocumentoServicio tipoDocumentoServicio;
 	
@@ -44,13 +45,13 @@ public class CitaControlador {
 	private ParentescoServicio parentescoServicio;
 	
 	@Autowired	
-	public CitaControlador(UsuarioSession usuarioSession, CitaServicio citaServicio, UsuarioServcio usuarioServcio,
+	public CitaControlador(UsuarioSession usuarioSession, CitaServicio citaServicio, UsuarioServicio usuarioServicio,
 			TipoDocumentoServicio tipoDocumentoServicio, GeneroServicio generoServicio,
 			EscolaridadServicio escolaridadServicio, EpsServicio epsServicio, DiagnosticoServcio diagnosticoServicio,
 			ParentescoServicio parentescoServicio) {
 		this.usuarioSession = usuarioSession;
 		this.citaServicio = citaServicio;
-		this.usuarioServcio = usuarioServcio;
+		this.usuarioServicio = usuarioServicio;
 		this.tipoDocumentoServicio = tipoDocumentoServicio;
 		this.generoServicio = generoServicio;
 		this.escolaridadServicio = escolaridadServicio;
@@ -79,7 +80,7 @@ public class CitaControlador {
 	@RequestMapping(value = "/agenda", method = RequestMethod.POST)
 	public String procesarNuevaAgenda(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 		if (!bindingResult.hasErrors()) {
-			this.citaServicio.guardarCita(nuevaAgenda);
+			this.citaServicio.guardar(nuevaAgenda);
 			redirectAttributes.addFlashAttribute("msj_ext","Paciente guardado con éxito");
 		}else {
 			redirectAttributes.addFlashAttribute("msj_err","Error grabando el Paciente");
@@ -90,6 +91,28 @@ public class CitaControlador {
 	@ModelAttribute(value = "usuarioLogueado")
 	public UsuarioSession getUsuarioSession() {
 		return usuarioSession;
+	}
+	
+	@RequestMapping(value = "/listadoAgenda")
+	public String listarAgenda(Model model){
+		model.addAttribute("citas", this.citaServicio.buscarTodos());
+		return "listadoAgenda";
+	}
+	
+	@RequestMapping(value = "/editar/agenda")
+	public String editarCita(Model model, @RequestParam("idUsuario") Integer idUsuario) {
+		Agenda agenda = new Agenda();
+		agenda = this.citaServicio.buscarUsuarioAgenda(idUsuario);
+		model.addAttribute("nuevaAgenda", agenda);
+		model.addAttribute("horas",this.citaServicio.obtenerHoras(agenda));
+		model.addAttribute("tiposDocumento", this.tipoDocumentoServicio.buscarTodos());
+		model.addAttribute("generos", this.generoServicio.buscarTodos());
+		model.addAttribute("escolaridades", this.escolaridadServicio.buscarTodos());
+		model.addAttribute("eps", this.epsServicio.buscarTodos());
+		model.addAttribute("diagnosticos", this.diagnosticoServicio.buscarTodos());
+		model.addAttribute("diagnosticosPaciente", agenda.getPaciente().getDiagnosticos());
+		model.addAttribute("parentescos", this.parentescoServicio.buscarTodos());
+		return "agenda";
 	}
 	
 }

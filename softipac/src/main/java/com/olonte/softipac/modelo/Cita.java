@@ -49,13 +49,6 @@ public class Cita {
 	@Column(name = "fechacitaini")
 	private LocalDate fechaCitaIni;
 	
-	@DateTimeFormat(pattern = "")
-	@Column(name = "fechaevaluacion")
-	private LocalDate fechaEvaluacion;
-	
-	@Column(name = "horaevaluacion")
-	private String horaEvaluacion;
-	
 	@Column(name = "motivoconsulta")
 	private String motivoConsulta;
 	
@@ -97,22 +90,6 @@ public class Cita {
 
 	public void setFechaCitaIni(LocalDate fechaCitaIni) {
 		this.fechaCitaIni = fechaCitaIni;
-	}
-
-	public LocalDate getFechaEvaluacion() {
-		return fechaEvaluacion;
-	}
-
-	public void setFechaEvaluacion(LocalDate fechaEvaluacion) {
-		this.fechaEvaluacion = fechaEvaluacion;
-	}
-
-	public String getHoraEvaluacion() {
-		return horaEvaluacion;
-	}
-
-	public void setHoraEvaluacion(String horaEvaluacion) {
-		this.horaEvaluacion = horaEvaluacion;
 	}
 
 	public String getMotivoConsulta() {

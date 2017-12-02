@@ -30,11 +30,7 @@ public class QCita extends EntityPathBase<Cita> {
 
     public final DatePath<java.time.LocalDate> fechaCitaIni = createDate("fechaCitaIni", java.time.LocalDate.class);
 
-    public final DatePath<java.time.LocalDate> fechaEvaluacion = createDate("fechaEvaluacion", java.time.LocalDate.class);
-
     public final QHora hora;
-
-    public final StringPath horaEvaluacion = createString("horaEvaluacion");
 
     public final NumberPath<Integer> idCita = createNumber("idCita", Integer.class);
 

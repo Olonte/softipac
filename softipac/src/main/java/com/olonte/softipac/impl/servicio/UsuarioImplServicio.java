@@ -4,14 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.olonte.softipac.modelo.Rol;
+import com.olonte.softipac.json.JSON;
+import com.olonte.softipac.json.UsuarioJSON;
+import com.olonte.softipac.modelo.Diagnostico;
 import com.olonte.softipac.modelo.Usuario;
 import com.olonte.softipac.predicado.UsuarioPredicado;
 import com.olonte.softipac.repositorio.UsuarioRepositorio;
-import com.olonte.softipac.servicio.UsuarioServcio;
+import com.olonte.softipac.servicio.UsuarioServicio;
 
 @Service
-public class UsuarioImplServicio implements UsuarioServcio {
+public class UsuarioImplServicio implements UsuarioServicio {
 	
 	private UsuarioRepositorio usuarioRepositorio;
 	
@@ -28,30 +30,30 @@ public class UsuarioImplServicio implements UsuarioServcio {
 
 	@Override
 	@Transactional(readOnly = false)
-	public void guardarUsuario(Usuario usuario) {
+	public void guardar(Usuario usuario) {
 		this.usuarioRepositorio.save(usuario);
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public UsuarioJSON bucarPorDocumento(String documento) {
+		return JSON.obtenerUsuarioJSON(this.usuarioRepositorio.findOne(UsuarioPredicado.buscarPorDocumento(documento)));
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Usuario bucarPorDocumento(String documento) {
-		return obtenerJSON(this.usuarioRepositorio.findOne(UsuarioPredicado.buscarPorDocumento(documento)));
-	}
-	
-	private Usuario obtenerJSON(Usuario usuario) {
-		if (usuario != null) {
-			Usuario usuarioJSON = new Usuario();
-			usuarioJSON = usuario;
-			for (Rol rol : usuarioJSON.getRoles()) {
-				usuarioJSON.getRoles().add(rol);
-			}
-			for (Usuario familiar : usuarioJSON.getAfinidadUsuarios()) {
-				usuarioJSON.getAfinidadUsuarios().add(familiar);
-			}
-			return usuarioJSON;
-		}else {
-			return null;
+	public Usuario buscarPacientePorId(Integer idUsuario) {
+		Usuario paciente = this.usuarioRepositorio.findOne(idUsuario);
+		for (Diagnostico diagnostico : paciente.getDiagnosticos()) {
+			paciente.getDiagnosticos().add(diagnostico);
 		}
+		return paciente;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Usuario buscarAcudientePorId(Integer idUsuario) {
+		return this.usuarioRepositorio.findOne(UsuarioPredicado.buscarPorIdUsuario(idUsuario));
 	}
 
 }

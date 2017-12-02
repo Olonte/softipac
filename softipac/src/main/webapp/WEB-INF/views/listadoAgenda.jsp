@@ -4,22 +4,45 @@
 		<div class="page-container">
 			<%@include file="/WEB-INF/views/template/menu.jsp"%> 
 			<%@include file="/WEB-INF/views/template/page-title.jsp"%> 
+			<%@include file="/WEB-INF/views/template/etiquetas_marcadores.jsp"%> 
 			<div class="content-inner">
 				<div class="table-responsive">
-					<table id="citasUsuarios" class="table table-hober">
+					<table id="citasUsuarios" class="table table-hover">
 						<thead>
 							<tr>
-					    		<th><spring:message code="listadoAgenda.jsp.fecha.etiqueta"></spring:message></th>
-                            	<th><spring:message code="listadoAgenda.jsp.hora.etiqueta"></spring:message></th>
-                            	<th><spring:message code="listadoAgenda.jsp.nombres.etiqueta"></spring:message></th>
-                            	<th><spring:message code="listadoAgenda.jsp.apellido.etiqueta"></spring:message></th>
-                            	<th><spring:message code="listadoAgenda.jsp.telfonofijo.etiqueta"></spring:message></th>
-                            	<th><spring:message code="listadoAgenda.jsp.celular.etiqueta"></spring:message></th>
-                            	<th><spring:message code="listadoAgenda.jsp.acciones.etiqueta"></spring:message></th>
-							<tr>
+					    		<th>${fechaEtiqueta}</th>
+                            	<th>${horaEtiqueta}</th>
+                            	<th>${listAgendaNombresEtiqueta}</th>
+                            	<th>${apellidoEtiqueta}</th>
+                            	<th>${telefonofijoEtiqueta}</th>
+                            	<th>${celularEtiqueta}</th>
+                            	<th>${accionesEtiqueta}</th>
+							</tr>
 						</thead><!-- .thead -->
 						<tbody>
 							<c:forEach items="${citas}" var ="cita">
+						    	<tr>
+									<th>${cita.fechaCitaIni}</th>
+									<th>${cita.hora}</th>
+									<th>${cita.nombres}</th>
+									<th>${cita.primerApellido}</th>
+									<th>${cita.telefonoFijo}</th>
+									<th>${cita.telefonoCelular}</th>
+									<td>
+										<div class="btn-group btn-actions">
+		                                	<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+		                                    	${accionEtiqueta}
+		                                   		<i class="fa fa-angle-down"></i>
+		                                    </button>
+		                                    <div class="dropdown-menu">
+		                                    	<a href="<spring:url value="/editar/agenda?idUsuario=${cita.idUsuario}"/>" class="dropdown-item">
+		                                    		<i class="fa fa-edit"></i>
+		                                        	${editarEtiqueta}
+		                                    	</a>
+		          							</div><!-- .dropdown-menu -->
+		                                </div><!-- .btn-group -->
+									</td>
+								 </tr>
 							</c:forEach>
 						</tbody><!-- .tbody -->
 					</table><!-- .table-responsive -->

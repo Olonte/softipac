@@ -25,7 +25,9 @@
 								<spring:message code="observacion.etiqueta" var="observacionEtiqueta"></spring:message>
 								<spring:message code="ocupacion.etiqueta" var="ocupacionEtiqueta"></spring:message>
 								<spring:message code="botonguardar.etiqueta" var="botonGuardarEtiqueta"></spring:message>
-								
+							    <spring:message code="acciones.etiqueta" var="accionesEtiqueta"></spring:message>
+                            	<spring:message code="editar.etiqueta" var="editarEtiqueta"></spring:message>
+                            	<spring:message code="accion.etiqueta" var="accionEtiqueta"></spring:message>
 <!-- ****************************************************Marcadores*************************************************************************** -->
 								<spring:message code="fechacita.marcador" var="fechaMarcador"></spring:message>
 								<spring:message code="documento.marcador" var="documentoMarcador"></spring:message>
@@ -58,8 +60,27 @@
  <!-- ****************************************************Marcadores Login ******************************************************************* -->							 
 					            <spring:message code="login.jsp.usuario.marcador" var="usuarioMarcador"></spring:message>
 					            <spring:message code="login.jsp.clave.marcador" var="claveMarcador"></spring:message>
+<!-- ****************************************************Etiquetas Panel ******************************************************************* -->						            
+								 <spring:message code="panel.jsp.usuario.etiqueta" var="usuariosEtiqueta"></spring:message>
+								 <spring:message code="panel.jsp.cita.etiqueta" var="citasEtiqueta"></spring:message>
+<!-- ****************************************************Etiquetas PanelCita ******************************************************************* -->							
+								 <spring:message code="panelCita.jsp.agenda.etiqueta" var="agendaEtiqueta"></spring:message>
+								<spring:message code="panelCita.jsp.cita.etiqueta" var="citaEtiqueta"></spring:message>
+								<spring:message code="panelCita.jsp.listado-agenda.etiqueta" var="listadoAgendaEtiqueta"></spring:message>
+								<spring:message code="panelCita.jsp.listado-cita.etiqueta" var="listadoCitaEtiqueta"></spring:message>
+								 
 <!-- ****************************************************Etiquetas Agenda ******************************************************************* -->								
 								<spring:message code="agenda.jsp.conf.hora.etiqueta" var="confHoraEtiqueta"></spring:message>
 								<spring:message code="agenda.jsp.hora.etiqueta" var="horaEtiqueta"></spring:message>
 								<spring:message code="agenda.jsp.paciente.etiqueta" var="pacienteEtiqueta"></spring:message>
+								
+<!-- ****************************************************Etiquetas Listado Agenda ******************************************************************* -->							
+								<spring:message code="listadoAgenda.jsp.fecha.etiqueta" var="fechaEtiqueta"></spring:message>
+                            	<spring:message code="listadoAgenda.jsp.hora.etiqueta" var="horaEtiqueta"></spring:message>
+                            	<spring:message code="listadoAgenda.jsp.nombres.etiqueta" var="listAgendaNombresEtiqueta"></spring:message>
+                            	<spring:message code="listadoAgenda.jsp.apellido.etiqueta" var="apellidoEtiqueta"></spring:message>
+                            	<spring:message code="listadoAgenda.jsp.telefonofijo.etiqueta" var="telefonofijoEtiqueta"></spring:message>
+                            	<spring:message code="listadoAgenda.jsp.celular.etiqueta" var="celularEtiqueta"></spring:message>
+                            
+                            	 
 					            

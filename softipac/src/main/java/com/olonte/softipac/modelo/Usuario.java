@@ -21,13 +21,15 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idusuario")
+	@Column(name = "idusuario") 
 	private Integer idUsuario;
 	
 	@Column(name = "nombres", nullable = false)
@@ -97,7 +99,7 @@ public class Usuario {
 	@JoinColumn(name = "estado_idestado", referencedColumnName = "idestado", nullable = true)
 	private Estado estado;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "parentesco_idparentesco", referencedColumnName = "idparentesco", nullable = true)
 	private Parentesco parentesco;
 	
@@ -129,21 +131,15 @@ public class Usuario {
 					}
 	)
 	private Set<Rol> roles = new HashSet<Rol>(0);
+	
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "afinidad",
-			joinColumns = {
-					@JoinColumn(name = "usuario_idusuario", referencedColumnName = "idusuario")
-					},
-			inverseJoinColumns = {
-					@JoinColumn(name = "idfamiliar", referencedColumnName = "idusuario")
-					}
-	)
-	private Set<Usuario> afinidadUsuarios = new HashSet<Usuario>(0);
-
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "afinidadUsuarioId.usuario_idusuario", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private Set<Afinidad> usuario_idusuario = new HashSet<Afinidad>(0);
+	
 	public Usuario() {
 	}
-
+	
 	public Integer getIdUsuario() {
 		return idUsuario;
 	}
@@ -159,7 +155,7 @@ public class Usuario {
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
-
+	
 	public String getPrimerApellido() {
 		return primerApellido;
 	}
@@ -167,7 +163,7 @@ public class Usuario {
 	public void setPrimerApellido(String primerApellido) {
 		this.primerApellido = primerApellido;
 	}
-
+	
 	public String getSegundoApellido() {
 		return segundoApellido;
 	}
@@ -175,7 +171,7 @@ public class Usuario {
 	public void setSegundoApellido(String segundoApellido) {
 		this.segundoApellido = segundoApellido;
 	}
-
+	
 	public String getNomnbreUsuario() {
 		return nomnbreUsuario;
 	}
@@ -183,7 +179,7 @@ public class Usuario {
 	public void setNomnbreUsuario(String nomnbreUsuario) {
 		this.nomnbreUsuario = nomnbreUsuario;
 	}
-
+	
 	public String getPassword() {
 		return password;
 	}
@@ -191,7 +187,7 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 	public Integer getEdad() {
 		return edad;
 	}
@@ -199,7 +195,7 @@ public class Usuario {
 	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
-
+	
 	public String getTutela() {
 		return tutela;
 	}
@@ -207,7 +203,7 @@ public class Usuario {
 	public void setTutela(String tutela) {
 		this.tutela = tutela;
 	}
-
+	
 	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
@@ -215,7 +211,7 @@ public class Usuario {
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
-
+	
 	public String getLugarNacimiento() {
 		return lugarNacimiento;
 	}
@@ -223,7 +219,7 @@ public class Usuario {
 	public void setLugarNacimiento(String lugarNacimiento) {
 		this.lugarNacimiento = lugarNacimiento;
 	}
-
+	
 	public TipoUsuario getTipoUsuario() {
 		return tipoUsuario;
 	}
@@ -231,7 +227,7 @@ public class Usuario {
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
-
+	
 	public Documento getDocumento() {
 		return documento;
 	}
@@ -239,7 +235,7 @@ public class Usuario {
 	public void setDocumento(Documento documento) {
 		this.documento = documento;
 	}
-
+	
 	public Genero getGenero() {
 		return genero;
 	}
@@ -247,7 +243,7 @@ public class Usuario {
 	public void setGenero(Genero genero) {
 		this.genero = genero;
 	}
-
+	
 	public Escolaridad getEscolaridad() {
 		return escolaridad;
 	}
@@ -255,7 +251,7 @@ public class Usuario {
 	public void setEscolaridad(Escolaridad escolaridad) {
 		this.escolaridad = escolaridad;
 	}
-
+	
 	public Eps getEps() {
 		return eps;
 	}
@@ -263,7 +259,7 @@ public class Usuario {
 	public void setEps(Eps eps) {
 		this.eps = eps;
 	}
-
+	
 	public Estado getEstado() {
 		return estado;
 	}
@@ -271,7 +267,7 @@ public class Usuario {
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
-
+	
 	public Parentesco getParentesco() {
 		return parentesco;
 	}
@@ -279,7 +275,7 @@ public class Usuario {
 	public void setParentesco(Parentesco parentesco) {
 		this.parentesco = parentesco;
 	}
-
+	
 	public Set<Diagnostico> getDiagnosticos() {
 		return diagnosticos;
 	}
@@ -287,7 +283,7 @@ public class Usuario {
 	public void setDiagnosticos(Set<Diagnostico> diagnosticos) {
 		this.diagnosticos = diagnosticos;
 	}
-
+	
 	public String getDireccion() {
 		return direccion;
 	}
@@ -295,7 +291,7 @@ public class Usuario {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-
+	
 	public String getTelefonoFijo() {
 		return telefonoFijo;
 	}
@@ -303,7 +299,7 @@ public class Usuario {
 	public void setTelefonoFijo(String telefonoFijo) {
 		this.telefonoFijo = telefonoFijo;
 	}
-
+	
 	public String getTelefonoCelular() {
 		return telefonoCelular;
 	}
@@ -311,7 +307,7 @@ public class Usuario {
 	public void setTelefonoCelular(String telefonoCelular) {
 		this.telefonoCelular = telefonoCelular;
 	}
-
+	
 	public String getEmail() {
 		return email;
 	}
@@ -319,7 +315,7 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
 	public String getOcupacion() {
 		return ocupacion;
 	}
@@ -327,23 +323,23 @@ public class Usuario {
 	public void setOcupacion(String ocupacion) {
 		this.ocupacion = ocupacion;
 	}
-
-	public Set<Usuario> getAfinidadUsuarios() {
-		return afinidadUsuarios;
+	
+	public Set<Afinidad> getUsuario_idusuario() {
+		return usuario_idusuario;
 	}
 
-	public void setAfinidadUsuarios(Set<Usuario> afinidadUsuarios) {
-		this.afinidadUsuarios = afinidadUsuarios;
+	public void setUsuario_idusuario(Set<Afinidad> usuario_idusuario) {
+		this.usuario_idusuario = usuario_idusuario;
 	}
-
+	
 	public Set<Rol> getRoles() {
 		return roles;
 	}
-
+													
 	public void setRoles(Set<Rol> roles) {
 		this.roles = roles;
 	}
-
+	
 	public Set<Cita> getUsuario_idusuapl() {
 		return usuario_idusuapl;
 	}
@@ -351,7 +347,8 @@ public class Usuario {
 	public void setUsuario_idusuapl(Set<Cita> usuario_idusuapl) {
 		this.usuario_idusuapl = usuario_idusuapl;
 	}
-
+	
+	
 	public ServicioSalud getServicioSalud() {
 		return servicioSalud;
 	}

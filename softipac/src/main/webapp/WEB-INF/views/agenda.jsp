@@ -43,7 +43,7 @@
 																<div class="input-group">
 																	<form:select path="cita.hora.idHora" id="horas" class="form-control">
 																		<form:option  value="-1" label="${seleccionEtiqueta}"></form:option>
-																		<form:options itemValue="idHora" itemLabel="hora"></form:options>
+																		<form:options items="${horas}" itemValue="idHora" itemLabel="hora"></form:options>
 																	</form:select>
 																</div><!-- .form-group -->
 															</div><!-- .form-group -->
@@ -195,7 +195,7 @@
 							   								<div class="form-group">
 							   									<form:label path="paciente.diagnosticos">${diagnosticosPacienteEtiqueta}</form:label>
 							   									<div class="input-group">
-							   										<form:select path="diagnosticos" cssClass="form-control" id="agendaDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico" class="form-control"></form:select>
+							   										<form:select path="diagnosticos" cssClass="form-control" items="${diagnosticosPaciente}" id="agendaDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico" class="form-control"></form:select>
 							   									</div><!-- .input-group -->
 							   								</div><!-- .form-group -->
 							   							</div><!-- .col-md-4 -->
@@ -254,7 +254,7 @@
 															<div class="form-group">
 																<form:label path="acudiente.nombres">${nombresEtiqueta}</form:label>
 																<div class="input-group">    
-																	<form:input type="text" cssClass="form-control" path="acudiente.nombres" id="acudienteNombres" name="acudienteNombres" placeholder="${nombresEtiqueta}" required="required"></form:input>
+																	<form:input type="text" cssClass="form-control" path="acudiente.nombres" id="acudienteNombres" name="acudienteNombres" placeholder="${nombresMarcador}" required="required"></form:input>
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
