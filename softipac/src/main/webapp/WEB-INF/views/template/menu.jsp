@@ -29,10 +29,10 @@
 		    	</a>
 		    </li>
 		    <li>
-		    	<a href="panel_usuario.php"><i class="fa fa-fw fa-male"></i> Usuarios</a>
+		    	<a href="#"><i class="fa fa-fw fa-male"></i> Usuarios</a>
 		    </li>
 		    <li>
-		        <a href="panel_citas.php"><i class="fa fa-fw fa-copy"></i> Citas</a>
+		        <a href="<spring:url value="/panelCita"></spring:url>"><i class="fa fa-fw fa-copy"></i> Citas</a>
 		    </li>
 		</ul>
 	</div><!-- .sidebar-container -->

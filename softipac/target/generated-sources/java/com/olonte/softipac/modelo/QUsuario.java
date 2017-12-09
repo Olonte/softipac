@@ -46,6 +46,8 @@ public class QUsuario extends EntityPathBase<Usuario> {
 
     public final StringPath lugarNacimiento = createString("lugarNacimiento");
 
+    public final StringPath meses = createString("meses");
+
     public final StringPath nombres = createString("nombres");
 
     public final StringPath nomnbreUsuario = createString("nomnbreUsuario");

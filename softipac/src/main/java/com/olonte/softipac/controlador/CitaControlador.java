@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.olonte.softipac.modelo.Agenda;
+import com.olonte.softipac.modelo.CitaInformacion;
+import com.olonte.softipac.modelo.Usuario;
 import com.olonte.softipac.modelo.UsuarioSession;
 import com.olonte.softipac.servicio.CitaServicio;
 import com.olonte.softipac.servicio.DiagnosticoServcio;
@@ -21,6 +23,7 @@ import com.olonte.softipac.servicio.GeneroServicio;
 import com.olonte.softipac.servicio.ParentescoServicio;
 import com.olonte.softipac.servicio.TipoDocumentoServicio;
 import com.olonte.softipac.servicio.UsuarioServicio;
+import com.olonte.softipac.utilidad.Utilidad;
 
 @Controller
 @Scope(value = "session")
@@ -99,7 +102,7 @@ public class CitaControlador {
 		return "listadoAgenda";
 	}
 	
-	@RequestMapping(value = "/editar/agenda")
+	@RequestMapping(value = "/editar/agenda" )
 	public String editarCita(Model model, @RequestParam("idUsuario") Integer idUsuario) {
 		Agenda agenda = new Agenda();
 		agenda = this.citaServicio.buscarUsuarioAgenda(idUsuario);
@@ -115,4 +118,27 @@ public class CitaControlador {
 		return "agenda";
 	}
 	
+	@RequestMapping(value = "/citaInformacion", method = RequestMethod.GET)
+	public String crearNuevaCitaInformacion(Model model, @RequestParam("idUsuario") Integer idUsuario) {
+		CitaInformacion citaInformacion = new CitaInformacion();
+		Usuario familiar = this.usuarioServicio.buscarAcudientePorId(idUsuario);
+		citaInformacion.setCita(this.citaServicio.buscarPorIdPaciente(idUsuario));
+		citaInformacion.setPaciente(this.usuarioServicio.buscarPacientePorId(idUsuario));
+		if (familiar.getParentesco().getIdParentesco() == Utilidad.MADRE) {
+			citaInformacion.setMadre(familiar);
+		}else if (familiar.getParentesco().getIdParentesco() == Utilidad.PADRE) {
+			citaInformacion.setPadre(familiar);
+		}
+		citaInformacion.setAcudiente(familiar);
+		citaInformacion.setUsuarioAplica(getUsuarioSession().obtenerNombresApellidos());
+		model.addAttribute("citaInformacion", citaInformacion);
+		model.addAttribute("tiposDocumento", this.tipoDocumentoServicio.buscarTodos());
+		model.addAttribute("meses",this.citaServicio.obtenerMeses());
+		model.addAttribute("generos", this.generoServicio.buscarTodos());
+		model.addAttribute("escolaridades", this.escolaridadServicio.buscarTodos());
+		model.addAttribute("eps", this.epsServicio.buscarTodos());
+		model.addAttribute("diagnosticos", this.diagnosticoServicio.buscarTodos());
+		model.addAttribute("diagnosticosPaciente", citaInformacion.getPaciente().getDiagnosticos());
+		return "citaInformacion";
+	}
 }

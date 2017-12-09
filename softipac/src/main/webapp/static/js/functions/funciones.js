@@ -1,9 +1,13 @@
 $(document).ready( function() {
-	
+	/*****************************************************************************************************************************************
+	 * 																																		 *
+	 * 															Scripts	agenda.jsp															 *
+	 *****************************************************************************************************************************************/
 	/**
 	 * Se le asigna el funcionalidad de la fecha 
 	 */
 	$('#fechaCitaIni').datepicker();
+	
 	$('#fechaNacimiento').datepicker();
 	
 	/**
@@ -58,7 +62,7 @@ $(document).ready( function() {
 					 * Datos del Paciente
 					 */
 					$('#idPaciente').val(paciente.idUsuario);
-					$('#pacienteidTipoDocumento').val(paciente.documento.tipoDocumento.idTipoDocumento);
+					$('#pacienteIdTipoDocumento').val(paciente.documento.tipoDocumento.idTipoDocumento);
 					$('#pacienteDocumento').val(paciente.documento.documento);
 					$('#pacienteNombres').val(paciente.nombres);
 					$('#pacientePrimerApellido').val(paciente.primerApellido);
@@ -67,8 +71,8 @@ $(document).ready( function() {
 								paciente.fechaNacimiento.dayOfMonth + "/" + 
 								paciente.fechaNacimiento.year);
 					 $('#edad').val(paciente.edad);
-					 $('#pacienteidGenero').val(paciente.genero.idGenero);
-					 $('#pacienteidEscolaridad').val(paciente.escolaridad.idEscolaridad);
+					 $('#pacienteIdGenero').val(paciente.genero.idGenero);
+					 $('#pacienteIdEscolaridad').val(paciente.escolaridad.idEscolaridad);
 					 $('#pacienteTutela').val(paciente.tutela);
 					 $('#pacienteidEps').val(paciente.eps.idEps);
 					 $.each(paciente.diagnosticos, function(indice, valor) {
@@ -81,7 +85,7 @@ $(document).ready( function() {
 					 for (i = 0; i < paciente.familiares.length; i++) {
 						 if (paciente.familiares[i].tipoUsuario.idTipoUsuario = acudiente) { 
 							 $('#idAcudiente').val(paciente.familiares[i].idUsuario);
-							 $('#acudienteidTipoDocumento').val(paciente.familiares[i].documento.tipoDocumento.idTipoDocumento);
+							 $('#acudienteIdTipoDocumento').val(paciente.familiares[i].documento.tipoDocumento.idTipoDocumento);
 							 $('#acudienteDocumento').val(paciente.familiares[i].documento.documento);
 							 $('#idParentesco').val(paciente.familiares[i].parentesco.idParentesco);
 							 $('#acudienteNombres').val(paciente.familiares[i].nombres);
@@ -119,5 +123,5 @@ $(document).ready( function() {
 		}); // fin obtenerCita
 		
 	});// Fin pacienteDocumento
-
+  /***************************************************************************************************************************************************************/
 });

@@ -20,7 +20,6 @@ import com.olonte.softipac.modelo.CitaUsuarioId;
 import com.olonte.softipac.modelo.Estado;
 import com.olonte.softipac.modelo.Hora;
 import com.olonte.softipac.modelo.RegistroListaAgenda;
-import com.olonte.softipac.modelo.Usuario;
 import com.olonte.softipac.modelo.UsuarioSession;
 import com.olonte.softipac.predicado.CitaPredicado;
 import com.olonte.softipac.repositorio.CitaRepositorio;
@@ -144,6 +143,23 @@ public class CitaImplServicio implements CitaServicio {
 		ArrayList<Hora> horas = new ArrayList<Hora>();
 		horas.add(agenda.getCita().getHora());
 		return horas;
+	}
+
+	@Override
+	public ArrayList<String> obtenerMeses() {
+		ArrayList<String> meses = new ArrayList<>();
+		meses.add("1 Mes");
+		meses.add("2 Meses");
+		meses.add("3 Meses");
+		meses.add("4 Meses");
+		meses.add("5 Meses");
+		meses.add("6 Meses");
+		meses.add("7 Meses");
+		meses.add("8 Meses");
+		meses.add("9 Meses");
+		meses.add("10 Meses");
+		meses.add("11 Meses");
+		return meses;
 	}
 	
 }

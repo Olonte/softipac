@@ -23,8 +23,13 @@ public class HoraImplServicio implements HoraServicio {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Iterable<Hora> buscarPorFecha(LocalDate fecha) {
-		return this.horaRepositorio.findAll(HoraPredicado.buscarPorFecha(fecha));
+	public Iterable<Hora> buscarAgendaPorFecha(LocalDate fecha) {
+		return this.horaRepositorio.findAll(HoraPredicado.buscarAgendaPorFecha(fecha));
+	}
+
+	@Override
+	public Iterable<Hora> buscarEvaluacionPorFecha(LocalDate fecha) {
+		return null;
 	}
 
 }

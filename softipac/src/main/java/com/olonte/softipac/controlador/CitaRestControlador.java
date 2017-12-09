@@ -43,7 +43,7 @@ public class CitaRestControlador {
 
 	@RequestMapping(value ="/obtenerHora/{fechaCitaIni}", method = RequestMethod.GET)
 	public Iterable<Hora> buscarHorasDisponibles(@PathVariable("fechaCitaIni") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate fecha){
-		return this.horaServicio.buscarPorFecha(fecha);
+		return this.horaServicio.buscarAgendaPorFecha(fecha);
 	}
 	
 	@RequestMapping(value = "/obtenerPaciente/{pacienteDocumento}", method = RequestMethod.GET)

@@ -50,8 +50,8 @@ public class Usuario {
 	@Column(name = "edad", nullable = true)
 	private Integer edad;
 	
-	@Column(name = "tutela", nullable = true)
-	private String tutela;
+	@Column(name = "meses", nullable = true)
+	private String meses;
 	
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@Column(name = "fechanacimiento", nullable = true)
@@ -59,6 +59,9 @@ public class Usuario {
 	
 	@Column(name = "lugarnacimiento")
 	private String lugarNacimiento;
+	
+	@Column(name = "tutela", nullable = true)
+	private String tutela;
 
 	@Column(name = "direccion")
 	private String direccion;
@@ -196,14 +199,14 @@ public class Usuario {
 		this.edad = edad;
 	}
 	
-	public String getTutela() {
-		return tutela;
+	public String getMeses() {
+		return meses;
 	}
 
-	public void setTutela(String tutela) {
-		this.tutela = tutela;
+	public void setMeses(String meses) {
+		this.meses = meses;
 	}
-	
+
 	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
@@ -218,6 +221,14 @@ public class Usuario {
 
 	public void setLugarNacimiento(String lugarNacimiento) {
 		this.lugarNacimiento = lugarNacimiento;
+	}
+	
+	public String getTutela() {
+		return tutela;
+	}
+
+	public void setTutela(String tutela) {
+		this.tutela = tutela;
 	}
 	
 	public TipoUsuario getTipoUsuario() {

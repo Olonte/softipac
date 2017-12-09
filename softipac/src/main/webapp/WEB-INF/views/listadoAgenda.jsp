@@ -39,6 +39,10 @@
 		                                    		<i class="fa fa-edit"></i>
 		                                        	${editarEtiqueta}
 		                                    	</a>
+		                                    	<a href="<spring:url value="/citaInformacion?idUsuario=${cita.idUsuario}"/>" class="dropdown-item">
+		                                    		<i class="fa fa-file-text-o"></i>
+		                                        	${citaInformacionEtiqueta}
+		                                    	</a>
 		          							</div><!-- .dropdown-menu -->
 		                                </div><!-- .btn-group -->
 									</td>

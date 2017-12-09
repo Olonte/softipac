@@ -18,6 +18,8 @@ public class QHora extends EntityPathBase<Hora> {
 
     private static final long serialVersionUID = -658437673L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QHora hora1 = new QHora("hora1");
 
     public final SetPath<Cita, QCita> citas = this.<Cita, QCita>createSet("citas", Cita.class, QCita.class, PathInits.DIRECT2);
@@ -26,16 +28,27 @@ public class QHora extends EntityPathBase<Hora> {
 
     public final NumberPath<Integer> idHora = createNumber("idHora", Integer.class);
 
+    public final QTipoHora tipoHora;
+
     public QHora(String variable) {
-        super(Hora.class, forVariable(variable));
+        this(Hora.class, forVariable(variable), INITS);
     }
 
     public QHora(Path<? extends Hora> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
     }
 
     public QHora(PathMetadata metadata) {
-        super(Hora.class, metadata);
+        this(metadata, metadata.isRoot() ? INITS : PathInits.DEFAULT);
+    }
+
+    public QHora(PathMetadata metadata, PathInits inits) {
+        this(Hora.class, metadata, inits);
+    }
+
+    public QHora(Class<? extends Hora> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.tipoHora = inits.isInitialized("tipoHora") ? new QTipoHora(forProperty("tipoHora")) : null;
     }
 
 }

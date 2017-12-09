@@ -15,14 +15,14 @@
 										<c:when test="${not empty msj_err}"><%@include file="/WEB-INF/views/template/mensaje_error.jsp"%></c:when>
 									</c:choose>
 									<%@include file="/WEB-INF/views/template/etiquetas_marcadores.jsp"%> 
-									 <!-- **************************************************Id Cita**************************************************************** -->
+									<!-- **************************************************Id Cita**************************************************************** -->
 									<form:input type="hidden" class="form-control" path="cita.idCita" id="idCita" name="idCita"></form:input>
 									<!-- **************************************************Configuracion Fecha y Hora Cita************************************************************ -->
 									<div class="card">
 										<div class="card-header" role ="tab" id="headingTwo">
 											<a data-toggle="collapse" data-parent="#accordion" 
 												href="#collapseConfiguracion" aria-expanded="true" aria-controls="collapse">
-												 <h5 class="mb-0">${confHoraEtiqueta}</h5>
+												<h5 class="mb-0">${confHoraEtiqueta}</h5>
 											</a>
 										</div><!-- .card-header -->
 										<div id="collapseConfiguracion" class="collapase show" role ="tabpanel" aria-labelledby="headingOne">
@@ -47,13 +47,13 @@
 																	</form:select>
 																</div><!-- .form-group -->
 															</div><!-- .form-group -->
-														</div><!-- .col-md-2 -->
+														</div><!-- .col-md-4 -->
 													</div><!-- .row -->
 												</div><!-- .card-body -->
 											</div><!-- .card-block -->
 										</div><!-- collapseConfiguracion -->
 									</div><!-- .card -->
-								   <!-- *******************************************************Datos Paciente**************************************************************************************** -->
+									<!-- *******************************************************Datos Paciente**************************************************************************************** -->
 									<div class="card">
 										<div class="card-header" role="tab" id="headingTwo">
 											<a data-toggle="collapse" data-parent="#accordion" href="#collapsePaciente" aria-expanded="true" aria-controls="collapseOne">
@@ -64,21 +64,20 @@
 											<div class="card-block">
 												<div class="card-body">
 													<div class="row">
-														 <!-- **************************************************Id Paciente**************************************************************** -->
+														<!-- **************************************************Id Paciente**************************************************************** -->
 														<form:input type="hidden" cssClass="form-control" path="paciente.idUsuario" id="idPaciente" name="idPaciente"></form:input>
-														 <!-- **************************************************Datos  Documento Paciente**************************************************************** -->
+														<!-- **************************************************Datos  Documento Paciente**************************************************************** -->
 														<div class="col-md-4">
-															 <div class="form-group">
-							 									<form:label path="paciente.documento.tipoDocumento.idTipoDocumento">${tipoDocumentoEtiqueta}</form:label>
+															<div class="form-group">
+								 								<form:label path="paciente.documento.tipoDocumento.idTipoDocumento">${tipoDocumentoEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:select path="paciente.documento.tipoDocumento.idTipoDocumento" id="pacienteidTipoDocumento" class="form-control">
+																	<form:select path="paciente.documento.tipoDocumento.idTipoDocumento" id="pacienteIdTipoDocumento" class="form-control">
 																		<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																	</form:select>
 																</div><!-- .input-group -->
-							   								</div><!-- .form-group -->
+								   							</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
-														
 														<div class="col-md-4">
 															<div class="form-group">
 																<form:label path="paciente.documento.documento">${documentoEtiqueta}</form:label>
@@ -87,7 +86,6 @@
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
-														
 														<!-- ***********************************************Nombres y Apellidos Paciente************************************************************************* -->
 														<div class="col-md-4">
 															<div class="form-group">
@@ -97,7 +95,6 @@
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
-														
 														<div class="col-md-4">
 															<div class="form-group">
 																<form:label path="paciente.primerApellido">${primerApellidoEtiqueta}</form:label>
@@ -123,7 +120,7 @@
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
-													    <!-- ***********************************************Edad Paciente************************************************************************** -->
+														<!-- ***********************************************Edad Paciente************************************************************************** -->
 														<div class="col-md-4">
 															<div class="form-group">
 																<form:label path="paciente.edad">${edadEtiqueta}</form:label>
@@ -132,73 +129,74 @@
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
-														 <!-- **************************************************Datos  Genero Paciente**************************************************************** -->
+														<!-- **************************************************Datos  Genero Paciente**************************************************************** -->
 														<div class="col-md-4">
-															 <div class="form-group">
-							 									<form:label path="paciente.genero.idGenero">${generoEtiqueta}</form:label>
+															<div class="form-group">
+								 								<form:label path="paciente.genero.idGenero">${generoEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:select path="paciente.genero.idGenero" id="pacienteidGenero" class="form-control">
+																	<form:select path="paciente.genero.idGenero" id="pacienteIdGenero" class="form-control">
 																		<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${generos}" itemValue="idGenero" itemLabel="genero"></form:options>
 																	</form:select>
 																</div><!-- .input-group -->
-							   								</div><!-- .form-group -->
-							   							</div><!-- .col-md-4 -->
-							   							 <!-- **************************************************Datos  Escolaridad Paciente**************************************************************** -->
+								   							</div><!-- .form-group -->
+								   						</div><!-- .col-md-4 -->
+								   						<!-- **************************************************Datos  Escolaridad Paciente**************************************************************** -->
 														<div class="col-md-4">
-															 <div class="form-group">
-							 									<form:label path="paciente.escolaridad.idEscolaridad">${escolaridadEtiqueta}</form:label>
+															<div class="form-group">
+								 								<form:label path="paciente.escolaridad.idEscolaridad">${escolaridadEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:select path="paciente.escolaridad.idEscolaridad" id="pacienteidEscolaridad" class="form-control">
+																	<form:select path="paciente.escolaridad.idEscolaridad" id="pacienteIdEscolaridad" class="form-control">
 																		<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${escolaridades}" itemValue="idEscolaridad" itemLabel="escolaridad"></form:options>
 																	</form:select>
 																</div><!-- .input-group -->
-							   								</div><!-- .form-group -->
-							   							</div><!-- .col-md-4 -->
-							   							 <!-- **************************************************Datos  Tutela Paciente**************************************************************** -->
+								   							</div><!-- .form-group -->
+								   						</div><!-- .col-md-4 -->
+								   						<!-- **************************************************Datos  Tutela Paciente**************************************************************** -->
 														<div class="col-md-4">
-															 <div class="form-group">
-							 									<form:label path="paciente.tutela">${tutelaEtiqueta}</form:label>
+															<div class="form-group">
+								 								<form:label path="paciente.tutela">${tutelaEtiqueta}</form:label>
 																<div class="input-group">
 																	<form:select path="paciente.tutela" id="pacienteTutela" class="form-control">
-																		<spring:message code="seleccion.etiqueta" var="selEtiqueta"></spring:message>
 																		<form:option value="N" label="${seleccionEtiqueta}"></form:option>
 																		<form:option value="S">${tutelaSi}</form:option>
 																		<form:option value="N">${tutelaNo}</form:option>
 																	</form:select>
 																</div><!-- .input-group -->
-							   								</div><!-- .form-group -->
-							   							</div><!-- .col-md-4 -->
-							   							<!-- **************************************************Datos  Eps Paciente**************************************************************** -->
+								   							</div><!-- .form-group -->
+								   						</div><!-- .col-md-4 -->
+								   						<!-- **************************************************Datos  Eps Paciente**************************************************************** -->
 														<div class="col-md-4">
-															 <div class="form-group">
-							 									<form:label path="paciente.eps.idEps">${epsEtiqueta}</form:label>
+															<div class="form-group">
+								 								<form:label path="paciente.eps.idEps">${epsEtiqueta}</form:label>
 																<div class="input-group">
 																	<form:select path="paciente.eps.idEps" id="pacienteidEps" class="form-control">
 																		<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${eps}" itemValue="idEps" itemLabel="razonSocial"></form:options>
 																	</form:select>
 																</div><!-- .input-group -->
-							   								</div><!-- .form-group -->
-							   							</div><!-- .col-md-4 -->
-							   							<!-- **************************************************Datos  Diagnosticos Paciente**************************************************************** -->
-							   							<div class="col-md-4">
-							   								<div class="form-group">
-							   									<form:label path="diagnosticos">${diagnosticosEtiqueta}</form:label>
-							   									<div class="input-group">
-							   										<form:select path="paciente.diagnosticos" cssClass="form-control" items="${diagnosticos}" id="pacienteDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico"></form:select>
-							   									</div><!-- .input-group -->
-							   								</div><!-- .form-group -->
-							   							</div><!-- .col-md-4 -->
-							   							<div class="col-md-4">
-							   								<div class="form-group">
-							   									<form:label path="paciente.diagnosticos">${diagnosticosPacienteEtiqueta}</form:label>
-							   									<div class="input-group">
-							   										<form:select path="diagnosticos" cssClass="form-control" items="${diagnosticosPaciente}" id="agendaDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico" class="form-control"></form:select>
-							   									</div><!-- .input-group -->
-							   								</div><!-- .form-group -->
-							   							</div><!-- .col-md-4 -->
+								   							</div><!-- .form-group -->
+								   						</div><!-- .col-md-4 -->
+								   					</div><!-- .row -->
+								   					<!-- **************************************************Datos  Diagnosticos Paciente**************************************************************** -->
+								   					<div class="row">
+								   						<div class="col-md-4">
+								   							<div class="form-group">
+								   								<form:label path="diagnosticos">${diagnosticosEtiqueta}</form:label>
+								   									<div class="input-group">
+								   										<form:select path="paciente.diagnosticos" cssClass="form-control" items="${diagnosticos}" id="pacienteDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico"></form:select>
+								   									</div><!-- .input-group -->
+								   							</div><!-- .form-group -->
+								   						</div><!-- .col-md-4 -->
+								   						<div class="col-md-4">
+								   							<div class="form-group">
+								   								<form:label path="paciente.diagnosticos">${diagnosticosPacienteEtiqueta}</form:label>
+								   								<div class="input-group">
+								   									<form:select path="diagnosticos" cssClass="form-control" items="${diagnosticosPaciente}" id="agendaDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico" class="form-control"></form:select>
+								   								</div><!-- .input-group -->
+								   							</div><!-- .form-group -->
+								   						</div><!-- .col-md-4 -->
 													</div><!-- .row -->
 												</div><!-- .card-body -->
 											</div><!-- .card-block -->
@@ -208,28 +206,28 @@
 									<div class="card">
 										<div class="card-header" role="tab" id="headingTwo">
 											<a data-toggle="collapse" data-parent="#accordion" href="#collapsePaciente" aria-expanded="true" aria-controls="collapseOne">
-												<h5 class="mb-0"><spring:message code="agenda.jsp.acudiente.etiqueta"></spring:message></h5>
+												<h5 class="mb-0">${acudienteEtiqueta}</h5>
 											</a>
 										</div><!-- .card-header -->
 										<div id="collapseAcudiente" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
 											<div class="card-block">
-	                                    		<div class="card-body">
-	                                    			<div class="row">
-	                                    			   <!-- **************************************************Id Acuediente**************************************************************** -->
-	                                    				<form:input type="hidden" cssClass="form-control" path="acudiente.idUsuario" id="idAcudiente" name="idAcudiente"></form:input>
-	                                    			   <!-- **************************************************Datos  Documento Acudiente**************************************************************** -->
-	                                    				<div class="col-md-4">
-	                                    					<div class="form-group">
-							 									<form:label path="acudiente.documento.tipoDocumento.idTipoDocumento">${tipoDocumentoEtiqueta}</form:label>
+		                                    	<div class="card-body">
+		                                    		<div class="row">
+		                                    	    	<!-- **************************************************Id Acuediente**************************************************************** -->
+		                                    			<form:input type="hidden" cssClass="form-control" path="acudiente.idUsuario" id="idAcudiente" name="idAcudiente"></form:input>
+		                                    			<!-- **************************************************Datos  Documento Acudiente**************************************************************** -->
+		                                    			<div class="col-md-4">
+		                                    				<div class="form-group">
+								 								<form:label path="acudiente.documento.tipoDocumento.idTipoDocumento">${tipoDocumentoEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:select path="acudiente.documento.tipoDocumento.idTipoDocumento" id="acudienteidTipoDocumento" class="form-control">
+																	<form:select path="acudiente.documento.tipoDocumento.idTipoDocumento" id="acudienteIdTipoDocumento" class="form-control">
 																		<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																	</form:select>
 																</div><!-- .input-group -->
-							   								</div><!-- .form-group -->
-	                                    				</div><!-- col-md-4 -->
-	                                    				<div class="col-md-4">
+								   							</div><!-- .form-group -->
+		                                    			</div><!-- col-md-4 -->
+		                                    			<div class="col-md-4">
 															<div class="form-group">
 																<form:label path="acudiente.documento.documento">${documentoEtiqueta}</form:label>
 																<div class="input-group">
@@ -237,19 +235,19 @@
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
-														 <!-- **************************************************Datos  Parentesco Acudiente**************************************************************** -->
-	                                    				<div class="col-md-4">
-	                                    					<div class="form-group">
-							 									<form:label path="acudiente.parentesco.idParentesco">${parentescoEtiqueta}</form:label>
+														<!-- **************************************************Datos  Parentesco Acudiente**************************************************************** -->
+		                                    			<div class="col-md-4">
+		                                    				<div class="form-group">
+								 								<form:label path="acudiente.parentesco.idParentesco">${parentescoEtiqueta}</form:label>
 																<div class="input-group">
 																	<form:select path="acudiente.parentesco.idParentesco" id="idParentesco" class="form-control">
 																		<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${parentescos}" itemValue="idParentesco" itemLabel="parentesco"></form:options>
 																	</form:select>
 																</div><!-- .input-group -->
-							   								</div><!-- .form-group -->
-	                                    				</div><!-- col-md-4 -->
-	                                    				<!-- ***********************************************Nombres y Apellidos Acudiente************************************************************************* -->
+								   							</div><!-- .form-group -->
+		                                    			</div><!-- col-md-4 -->
+		                                    			<!-- ***********************************************Nombres y Apellidos Acudiente************************************************************************* -->
 														<div class="col-md-4">
 															<div class="form-group">
 																<form:label path="acudiente.nombres">${nombresEtiqueta}</form:label>
@@ -288,7 +286,7 @@
 															<div class="form-group">
 																<form:label path="acudiente.telefonoFijo">${telefonoFijoEtiqueta}</form:label>
 																<div class="input-group">    
-																	<form:input type="text" cssClass="form-control" path="acudiente.telefonoFijo" id="telefonoFijo" name="telefonoFijo" placeholder="${telefonoFijoMarcador}" required="required"></form:input>
+																	<form:input type="text" cssClass="form-control" path="acudiente.telefonoFijo" id="telefonoFijo" name="telefonoFijo" placeholder="${telefonoFijoMarcador}"></form:input>
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
@@ -305,7 +303,7 @@
 															<div class="form-group">
 																<form:label path="acudiente.email">${emailEtiqueta}</form:label>
 																<div class="input-group">    
-																	<form:input type="text" cssClass="form-control" path="acudiente.email" id="email" name="email" placeholder="${emailMarcador}" required="required"></form:input>
+																	<form:input type="text" cssClass="form-control" path="acudiente.email" id="email" name="email" placeholder="${emailMarcador}"></form:input>
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
@@ -314,13 +312,13 @@
 															<div class="form-group">
 																<form:label path="cita.observacion">${observacionEtiqueta}</form:label>
 																<div class="input-group">    
-																	<form:textarea type="text" cssClass="form-control" rows="10" cols="100" path="cita.observacion" id="observacion" name="observacion" placeholder="${observacionMarcador}" required="required"></form:textarea>
+																	<form:textarea type="text" cssClass="form-control" rows="10" cols="100" path="cita.observacion" id="observacion" name="observacion" placeholder="${observacionMarcador}"></form:textarea>
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-12 -->
-	                                   				</div><!-- .row -->
-	                                    		</div><!-- .card-body -->
-	                                    	</div><!-- .card-block -->            
+		                                   			</div><!-- .row -->
+		                                    	</div><!-- .card-body -->
+		                                    </div><!-- .card-block -->            
 										</div><!-- .collapse-show -->
 									</div><!-- .card -->
 									<div class="col-md-12">
@@ -335,4 +333,4 @@
 				</div><!-- .content-inner -->
 			</div><!-- .content-container -->
 		</div><!-- .page-container -->
-<%@include file="/WEB-INF/views/template/footer.jsp"%>		   
+ 	<%@include file="/WEB-INF/views/template/footer.jsp"%>		   

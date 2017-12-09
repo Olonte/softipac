@@ -5,5 +5,6 @@ import java.time.LocalDate;
 import com.olonte.softipac.modelo.Hora;
 
 public interface HoraServicio {
-	Iterable<Hora> buscarPorFecha(LocalDate fecha);
+	Iterable<Hora> buscarAgendaPorFecha(LocalDate fecha);
+	Iterable<Hora> buscarEvaluacionPorFecha(LocalDate fecha);
 }

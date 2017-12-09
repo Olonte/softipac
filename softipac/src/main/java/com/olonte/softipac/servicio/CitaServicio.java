@@ -15,4 +15,5 @@ public interface CitaServicio {
 	Agenda buscarUsuarioAgenda(Integer idUsuario);
 	Cita buscarPorIdPaciente(Integer idUsuario);
 	ArrayList<Hora> obtenerHoras(Agenda agenda);
+	ArrayList<String> obtenerMeses();
 }

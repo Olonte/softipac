@@ -64,7 +64,7 @@ public class QCita extends EntityPathBase<Cita> {
         super(type, metadata, inits);
         this.citaUsuarioId = inits.isInitialized("citaUsuarioId") ? new QCitaUsuarioId(forProperty("citaUsuarioId"), inits.get("citaUsuarioId")) : null;
         this.estado = inits.isInitialized("estado") ? new QEstado(forProperty("estado")) : null;
-        this.hora = inits.isInitialized("hora") ? new QHora(forProperty("hora")) : null;
+        this.hora = inits.isInitialized("hora") ? new QHora(forProperty("hora"), inits.get("hora")) : null;
         this.tipoCita = inits.isInitialized("tipoCita") ? new QTipoCita(forProperty("tipoCita")) : null;
     }
 
