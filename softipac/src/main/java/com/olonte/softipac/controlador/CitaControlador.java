@@ -24,6 +24,7 @@ import com.olonte.softipac.servicio.ParentescoServicio;
 import com.olonte.softipac.servicio.TipoDocumentoServicio;
 import com.olonte.softipac.servicio.UsuarioServicio;
 import com.olonte.softipac.utilidad.Utilidad;
+import com.olonte.softipac.validador.ValidadorUsuario;
 
 @Controller
 @Scope(value = "session")
@@ -52,6 +53,7 @@ public class CitaControlador {
 			TipoDocumentoServicio tipoDocumentoServicio, GeneroServicio generoServicio,
 			EscolaridadServicio escolaridadServicio, EpsServicio epsServicio, DiagnosticoServcio diagnosticoServicio,
 			ParentescoServicio parentescoServicio) {
+		
 		this.usuarioSession = usuarioSession;
 		this.citaServicio = citaServicio;
 		this.usuarioServicio = usuarioServicio;
@@ -61,84 +63,139 @@ public class CitaControlador {
 		this.epsServicio = epsServicio;
 		this.diagnosticoServicio = diagnosticoServicio;
 		this.parentescoServicio = parentescoServicio;
+		
 	}
 	
 	@RequestMapping(value="/panelCita")
-	public String panelCita(){
+	public String panelCita() {
+		
 		return "panelCita";
+		
 	}
-
+	
+	
 	@RequestMapping(value = "/agenda", method = RequestMethod.GET)
 	public String crearNuevaAgenda(Model model) {
+		
 		model.addAttribute("nuevaAgenda", new Agenda());
-		model.addAttribute("tiposDocumento", this.tipoDocumentoServicio.buscarTodos());
-		model.addAttribute("generos", this.generoServicio.buscarTodos());
-		model.addAttribute("escolaridades", this.escolaridadServicio.buscarTodos());
-		model.addAttribute("eps", this.epsServicio.buscarTodos());
-		model.addAttribute("diagnosticos", this.diagnosticoServicio.buscarTodos());
-		model.addAttribute("parentescos", this.parentescoServicio.buscarTodos());
+		iniciarListas(model);
+		
 		return "agenda";
+		
 	}
 	
 	@RequestMapping(value = "/agenda", method = RequestMethod.POST)
-	public String procesarNuevaAgenda(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, BindingResult bindingResult, RedirectAttributes redirectAttributes){
-		if (!bindingResult.hasErrors()) {
+	public String procesarNuevaAgenda(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+		
+		ValidadorUsuario validadorUsuario = new ValidadorUsuario();
+		validadorUsuario.validate(nuevaAgenda, bindingResult);
+		
+		if (bindingResult.hasErrors()) {
+			iniciarListas(model);
+			model.addAttribute("diagnosticosPaciente", nuevaAgenda.getPaciente().getDiagnosticos());
+			return "agenda";
+		}else{
 			this.citaServicio.guardar(nuevaAgenda);
 			redirectAttributes.addFlashAttribute("msj_ext","Paciente guardado con éxito");
-		}else {
-			redirectAttributes.addFlashAttribute("msj_err","Error grabando el Paciente");
 		}
+	
 		return "redirect:/agenda";
+		
 	}
 	
 	@ModelAttribute(value = "usuarioLogueado")
 	public UsuarioSession getUsuarioSession() {
+		
 		return usuarioSession;
+		
 	}
 	
 	@RequestMapping(value = "/listadoAgenda")
-	public String listarAgenda(Model model){
+	public String listarAgenda(Model model) {
+		
 		model.addAttribute("citas", this.citaServicio.buscarTodos());
+		
 		return "listadoAgenda";
+		
 	}
 	
-	@RequestMapping(value = "/editar/agenda" )
+	@RequestMapping(value = "/editar/agenda", method = RequestMethod.GET)
 	public String editarCita(Model model, @RequestParam("idUsuario") Integer idUsuario) {
+		
 		Agenda agenda = new Agenda();
 		agenda = this.citaServicio.buscarUsuarioAgenda(idUsuario);
+		
 		model.addAttribute("nuevaAgenda", agenda);
 		model.addAttribute("horas",this.citaServicio.obtenerHoras(agenda));
-		model.addAttribute("tiposDocumento", this.tipoDocumentoServicio.buscarTodos());
-		model.addAttribute("generos", this.generoServicio.buscarTodos());
-		model.addAttribute("escolaridades", this.escolaridadServicio.buscarTodos());
-		model.addAttribute("eps", this.epsServicio.buscarTodos());
-		model.addAttribute("diagnosticos", this.diagnosticoServicio.buscarTodos());
 		model.addAttribute("diagnosticosPaciente", agenda.getPaciente().getDiagnosticos());
-		model.addAttribute("parentescos", this.parentescoServicio.buscarTodos());
+		iniciarListas(model);
+		
 		return "agenda";
+		
+	}
+	
+	@RequestMapping(value = "/editar/agenda", method = RequestMethod.POST)
+	public String procesarEdicionCita(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		
+		ValidadorUsuario validadorUsuario = new ValidadorUsuario();
+		validadorUsuario.validate(nuevaAgenda, bindingResult);
+		
+		if (bindingResult.hasErrors()) {
+			iniciarListas(model);
+			model.addAttribute("diagnosticosPaciente", nuevaAgenda.getPaciente().getDiagnosticos());
+			return "agenda";
+		}else{
+			this.citaServicio.guardar(nuevaAgenda);
+			redirectAttributes.addFlashAttribute("msj_ext","Paciente guardado con éxito");
+		}
+	
+		return "redirect:/agenda";
+		
 	}
 	
 	@RequestMapping(value = "/citaInformacion", method = RequestMethod.GET)
 	public String crearNuevaCitaInformacion(Model model, @RequestParam("idUsuario") Integer idUsuario) {
+		
 		CitaInformacion citaInformacion = new CitaInformacion();
 		Usuario familiar = this.usuarioServicio.buscarAcudientePorId(idUsuario);
+		
 		citaInformacion.setCita(this.citaServicio.buscarPorIdPaciente(idUsuario));
 		citaInformacion.setPaciente(this.usuarioServicio.buscarPacientePorId(idUsuario));
+		
 		if (familiar.getParentesco().getIdParentesco() == Utilidad.MADRE) {
 			citaInformacion.setMadre(familiar);
 		}else if (familiar.getParentesco().getIdParentesco() == Utilidad.PADRE) {
 			citaInformacion.setPadre(familiar);
 		}
+		
 		citaInformacion.setAcudiente(familiar);
 		citaInformacion.setUsuarioAplica(getUsuarioSession().obtenerNombresApellidos());
+		
 		model.addAttribute("citaInformacion", citaInformacion);
+		model.addAttribute("diagnosticosPaciente", citaInformacion.getPaciente().getDiagnosticos());
+		iniciarListas(model);
+		
+		return "citaInformacion";
+		
+	}
+	
+	@RequestMapping(value = "/citaInformacion", method = RequestMethod.POST)
+	public String procesarNuevaCitaInformacion(@ModelAttribute("citaInformacion") CitaInformacion citaInformacion, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+		
+		return "redirect:/citaInformacion";
+		
+	}
+	
+	
+	
+	private void iniciarListas(Model model) {
+		
 		model.addAttribute("tiposDocumento", this.tipoDocumentoServicio.buscarTodos());
-		model.addAttribute("meses",this.citaServicio.obtenerMeses());
 		model.addAttribute("generos", this.generoServicio.buscarTodos());
 		model.addAttribute("escolaridades", this.escolaridadServicio.buscarTodos());
 		model.addAttribute("eps", this.epsServicio.buscarTodos());
 		model.addAttribute("diagnosticos", this.diagnosticoServicio.buscarTodos());
-		model.addAttribute("diagnosticosPaciente", citaInformacion.getPaciente().getDiagnosticos());
-		return "citaInformacion";
+		model.addAttribute("parentescos", this.parentescoServicio.buscarTodos());
+		
 	}
 }

@@ -4,9 +4,9 @@ import java.util.Set;
 
 public class CitaInformacion extends Agenda {
 	
-	Usuario padre;
-	Usuario madre;
-	String usuarioAplica;
+	private Usuario padre;
+	private Usuario madre;
+	private String usuarioAplica;
 	
 	public CitaInformacion(Cita cita, Usuario paciente, Usuario acudiente, Set<Diagnostico> diagnosticos) {
 		super(cita, paciente, acudiente, diagnosticos);

@@ -148,6 +148,7 @@ public class CitaImplServicio implements CitaServicio {
 	@Override
 	public ArrayList<String> obtenerMeses() {
 		ArrayList<String> meses = new ArrayList<>();
+		meses.add("Seleccione");
 		meses.add("1 Mes");
 		meses.add("2 Meses");
 		meses.add("3 Meses");

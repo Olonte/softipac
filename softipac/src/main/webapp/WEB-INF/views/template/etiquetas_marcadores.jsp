@@ -30,6 +30,7 @@
 							    <spring:message code="acciones.etiqueta" var="accionesEtiqueta"></spring:message>
                             	<spring:message code="editar.etiqueta" var="editarEtiqueta"></spring:message>
                             	<spring:message code="accion.etiqueta" var="accionEtiqueta"></spring:message>
+                            	<spring:message code="botonAdicionar.etiqueta" var="botonAdicionarEtiqueta"></spring:message>	
 <!-- ****************************************************Marcadores*************************************************************************** -->
 								<spring:message code="fechacita.marcador" var="fechaMarcador"></spring:message>
 								<spring:message code="documento.marcador" var="documentoMarcador"></spring:message>
@@ -43,7 +44,7 @@
 					            <spring:message code="telefonoCelular.marcador" var="telefonoCelularMarcador"></spring:message>
 					            <spring:message code="email.marcador" var="emailMarcador"></spring:message>
 					            <spring:message code="observacion.marcador" var="observacionMarcador"></spring:message>
-					            <spring:message code="ocupacion.marcador" var="ocupacionMarcador"></spring:message>				            
+					            <spring:message code="ocupacion.marcador" var="ocupacionMarcador"></spring:message>					            			            
 <!-- ****************************************************Etiquetas Menu ******************************************************************* -->								 
 					            <spring:message code="titulo.barra.apa" var="barraApa"></spring:message>
 					            <spring:message code="menu.jsp.bienvenido" var="bienvenido"></spring:message>
@@ -92,16 +93,16 @@
                             	<spring:message code="citaInformacion.jsp.motivoconsulta.etiqueta" var="motivoConsultaEtiqueta"></spring:message>
                             	<spring:message code="citaInformacion.jsp.diagnosticos.previos.etiqueta" var="diagnosticosPrevEtiqueta"></spring:message>
                             	<spring:message code="citaInformacion.jsp.expectativas.etiqueta" var="expectativasEtiqueta"></spring:message>
-                            	<spring:message code="citaInformacion.jsp.recomendaciones.etiqueta" var="recomendacioneEtiqueta"></spring:message>
-                            	<spring:message code="citaInformacion.jsp.informaciongen.etiqueta" var="infoGenEtiqueta"></spring:message>
+                            	<spring:message code="citaInformacion.jsp.recomTenerCta.etiqueta" var="recomTenerCtaEtiqueta"></spring:message>
+                            	<spring:message code="citaInformacion.jsp.inFoGral.etiqueta" var="inFoGralEtiqueta"></spring:message>
                             	<spring:message code="citaInformacion.jsp.fechaIniEvaluacion.etiqueta" var="fechaIniEvalEtiqueta"></spring:message>
                             	
  <!-- ****************************************************Marcadores Cita Informacion*************************************************************************** -->            		
                             	<spring:message code="citaInformacion.jsp.ocupacion.marcardor" var="marcadorEtiqueta"></spring:message> 
                             	<spring:message code="citaInformacion.jsp.motivoconsulta.marcardor" var="motivoConsultaMarcador"></spring:message>
                             	<spring:message code="citaInformacion.jsp.expectativas.marcador" var="expectativasMarcador"></spring:message> 	
-                            	<spring:message code="citaInformacion.jsp.recomendaciones.marcador" var="recomendacionesMarcador"></spring:message>
-                            	<spring:message code="citaInformacion.jsp.informaciongen.marcador" var="informaciongenMarcador"></spring:message>
+                            	<spring:message code="citaInformacion.jsp.recomTenerCta.marcador" var="recomTenerCtaMarcador"></spring:message>
+                            	<spring:message code="citaInformacion.jsp.inFoGral.marcador" var="inFoGralMarcador"></spring:message>
                             		
                             	 
 					            

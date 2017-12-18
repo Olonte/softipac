@@ -17,7 +17,9 @@ public class HoraPredicado {
 		return QHora.hora1.idHora.notIn(JPAExpressions.select(QCita.cita.hora.idHora)
 				.from(QCita.cita)
 				.where(QCita.cita.fechaCitaIni.eq(fecha)
-						.and(QHora.hora1.tipoHora.idTipoHora.eq(Utilidad.HORA_AGENDA))));
+						.and(QHora.hora1.tipoHora.idTipoHora.eq(Utilidad.HORA_AGENDA) ) ) )
+				.and(QHora.hora1.tipoHora.idTipoHora.eq(Utilidad.HORA_AGENDA));
+						
 	}
 	
 	public static Predicate bucarEvaluacionPorFecha(LocalDate fecha){

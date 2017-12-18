@@ -15,8 +15,9 @@
 										<c:when test="${not empty msj_err}"><%@include file="/WEB-INF/views/template/mensaje_error.jsp"%></c:when>
 									</c:choose>
 									<%@include file="/WEB-INF/views/template/etiquetas_marcadores.jsp"%> 
+									<c:set var="seleccion" value="${-1}"></c:set>
 									<!-- **************************************************Id Cita**************************************************************** -->
-									<form:input type="hidden" class="form-control" path="cita.idCita" id="idCita" name="idCita"></form:input>
+									<form:input type="hidden" cssClass="form-control" path="cita.idCita" id="idCita" name="idCita"></form:input>
 									<!-- **************************************************Configuracion Fecha y Hora Cita************************************************************ -->
 									<div class="card">
 										<div class="card-header" role ="tab" id="headingTwo">
@@ -41,10 +42,13 @@
 															<div class="form-group">
 																<form:label path="cita.hora.idHora">${horaEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:select path="cita.hora.idHora" id="horas" class="form-control">
-																		<form:option  value="-1" label="${seleccionEtiqueta}"></form:option>
+																	<form:select path="cita.hora.idHora" id="horas" cssClass="form-control">
+																		<form:option  value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${horas}" itemValue="idHora" itemLabel="hora"></form:options>
 																	</form:select>
+																	<div class="has-error">
+																		<form:errors path="cita.hora.idHora" cssClass="text-danger"></form:errors>
+																	</div>
 																</div><!-- .form-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
@@ -71,10 +75,13 @@
 															<div class="form-group">
 								 								<form:label path="paciente.documento.tipoDocumento.idTipoDocumento">${tipoDocumentoEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:select path="paciente.documento.tipoDocumento.idTipoDocumento" id="pacienteIdTipoDocumento" class="form-control">
-																		<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																	<form:select path="paciente.documento.tipoDocumento.idTipoDocumento" id="pacienteIdTipoDocumento" cssClass="form-control">
+																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																	</form:select>
+																	<div class="has-error">
+																		<form:errors path="paciente.documento.tipoDocumento.idTipoDocumento" cssClass="text-danger"></form:errors>
+																	</div><!-- .has-error -->
 																</div><!-- .input-group -->
 								   							</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
@@ -82,7 +89,7 @@
 															<div class="form-group">
 																<form:label path="paciente.documento.documento">${documentoEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:input type="text" cssClass="form-control" path="paciente.documento.documento" id="pacienteDocumento" name="documento" placeholder="${documentoMarcador}" required="required"></form:input>
+																	<form:input type="number" cssClass="form-control" path="paciente.documento.documento" id="pacienteDocumento" name="documento" placeholder="${documentoMarcador}" required="required"></form:input>
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
@@ -116,7 +123,7 @@
 															<div class="form-group">
 																<form:label path="paciente.fechaNacimiento">${fechaNacimientoEtiqueta}</form:label>
 																<div class="input-group">    
-																	<form:input type="text" cssClass="form-control" path="paciente.fechaNacimiento" id="fechaNacimiento" name="fechaNacimiento" placeholder="${fechaNacimientoMarcador}"></form:input>
+																	<form:input type="text" cssClass="form-control" path="paciente.fechaNacimiento" id="fechaNacimiento" name="fechaNacimiento" placeholder="${fechaNacimientoMarcador}" required="required"></form:input>
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
@@ -125,7 +132,7 @@
 															<div class="form-group">
 																<form:label path="paciente.edad">${edadEtiqueta}</form:label>
 																<div class="input-group">  
-																	<form:input type="text" class="form-control" path="paciente.edad" id="edad" name="edad" placeholder="${edadMarcador}"></form:input>
+																	<form:input type="number" cssClass="form-control" path="paciente.edad" id="edad" name="edad" placeholder="${edadMarcador}" required="required"></form:input>
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
@@ -134,10 +141,13 @@
 															<div class="form-group">
 								 								<form:label path="paciente.genero.idGenero">${generoEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:select path="paciente.genero.idGenero" id="pacienteIdGenero" class="form-control">
-																		<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																	<form:select path="paciente.genero.idGenero" id="pacienteIdGenero" cssClass="form-control">
+																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${generos}" itemValue="idGenero" itemLabel="genero"></form:options>
 																	</form:select>
+																	<div class="has-error">
+																		<form:errors path="paciente.genero.idGenero" cssClass="text-danger"></form:errors>
+																	</div><!-- .has-error -->
 																</div><!-- .input-group -->
 								   							</div><!-- .form-group -->
 								   						</div><!-- .col-md-4 -->
@@ -146,10 +156,13 @@
 															<div class="form-group">
 								 								<form:label path="paciente.escolaridad.idEscolaridad">${escolaridadEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:select path="paciente.escolaridad.idEscolaridad" id="pacienteIdEscolaridad" class="form-control">
-																		<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																	<form:select path="paciente.escolaridad.idEscolaridad" id="pacienteIdEscolaridad" cssClass="form-control">
+																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${escolaridades}" itemValue="idEscolaridad" itemLabel="escolaridad"></form:options>
 																	</form:select>
+																	<div class="has-error">
+																		<form:errors path="paciente.escolaridad.idEscolaridad" cssClass="text-danger"></form:errors>
+																	</div><!-- .has-error -->
 																</div><!-- .input-group -->
 								   							</div><!-- .form-group -->
 								   						</div><!-- .col-md-4 -->
@@ -158,11 +171,14 @@
 															<div class="form-group">
 								 								<form:label path="paciente.tutela">${tutelaEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:select path="paciente.tutela" id="pacienteTutela" class="form-control">
-																		<form:option value="N" label="${seleccionEtiqueta}"></form:option>
+																	<form:select path="paciente.tutela" id="pacienteTutela" cssClass="form-control">
+																		<form:option value="${Seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:option value="S">${tutelaSi}</form:option>
 																		<form:option value="N">${tutelaNo}</form:option>
 																	</form:select>
+																	<div class="has-error">
+																		<form:errors path="paciente.tutela" cssClass="text-danger"></form:errors>
+																	</div><!-- .has-error -->
 																</div><!-- .input-group -->
 								   							</div><!-- .form-group -->
 								   						</div><!-- .col-md-4 -->
@@ -171,10 +187,13 @@
 															<div class="form-group">
 								 								<form:label path="paciente.eps.idEps">${epsEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:select path="paciente.eps.idEps" id="pacienteidEps" class="form-control">
-																		<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																	<form:select path="paciente.eps.idEps" id="pacienteidEps" cssClass="form-control">
+																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${eps}" itemValue="idEps" itemLabel="razonSocial"></form:options>
 																	</form:select>
+																	<div class="has-error">
+																		<form:errors path="paciente.eps.idEps" cssClass="text-danger"></form:errors>
+																	</div><!-- .has-error -->
 																</div><!-- .input-group -->
 								   							</div><!-- .form-group -->
 								   						</div><!-- .col-md-4 -->
@@ -193,8 +212,11 @@
 								   							<div class="form-group">
 								   								<form:label path="paciente.diagnosticos">${diagnosticosPacienteEtiqueta}</form:label>
 								   								<div class="input-group">
-								   									<form:select path="diagnosticos" cssClass="form-control" items="${diagnosticosPaciente}" id="agendaDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico" class="form-control"></form:select>
+								   									<form:select path="diagnosticos" cssClass="form-control" items="${diagnosticosPaciente}" id="agendaDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico"></form:select>
 								   								</div><!-- .input-group -->
+								   								<div class="has-error">
+																	<form:errors path="paciente.diagnosticos" cssClass="text-danger"></form:errors>
+																</div><!-- .has-error -->
 								   							</div><!-- .form-group -->
 								   						</div><!-- .col-md-4 -->
 													</div><!-- .row -->
@@ -220,8 +242,8 @@
 		                                    				<div class="form-group">
 								 								<form:label path="acudiente.documento.tipoDocumento.idTipoDocumento">${tipoDocumentoEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:select path="acudiente.documento.tipoDocumento.idTipoDocumento" id="acudienteIdTipoDocumento" class="form-control">
-																		<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																	<form:select path="acudiente.documento.tipoDocumento.idTipoDocumento" id="acudienteIdTipoDocumento" cssClass="form-control">
+																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																	</form:select>
 																</div><!-- .input-group -->
@@ -240,10 +262,13 @@
 		                                    				<div class="form-group">
 								 								<form:label path="acudiente.parentesco.idParentesco">${parentescoEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:select path="acudiente.parentesco.idParentesco" id="idParentesco" class="form-control">
-																		<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																	<form:select path="acudiente.parentesco.idParentesco" id="idParentesco" cssClass="form-control">
+																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${parentescos}" itemValue="idParentesco" itemLabel="parentesco"></form:options>
 																	</form:select>
+																	<div class="has-error">
+																		<form:errors path="acudiente.parentesco.idParentesco" cssClass="text-danger"></form:errors>
+																	</div><!-- .has-error -->
 																</div><!-- .input-group -->
 								   							</div><!-- .form-group -->
 		                                    			</div><!-- col-md-4 -->
@@ -305,6 +330,9 @@
 																<div class="input-group">    
 																	<form:input type="text" cssClass="form-control" path="acudiente.email" id="email" name="email" placeholder="${emailMarcador}"></form:input>
 																</div><!-- .input-group -->
+																<div class="has-error">
+																	<form:errors path="acudiente.email" cssClass="text-danger"></form:errors>
+																</div><!-- .has-error -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
 														<!-- *************************************************Observaciones************************************************************************** -->

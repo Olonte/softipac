@@ -49,10 +49,10 @@ public class Usuario {
 	
 	@Column(name = "edad", nullable = true)
 	private Integer edad;
-	
+					
 	@Column(name = "meses", nullable = true)
 	private String meses;
-	
+				   
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@Column(name = "fechanacimiento", nullable = true)
 	private LocalDate fechaNacimiento;

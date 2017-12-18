@@ -48,7 +48,7 @@ $(document).ready( function() {
 	}); // fin pacienteDiagnosticos
 	
 	/**
-	 * Función que valida la disponibilidad de turnos para una cita
+	 * Función que obtiene los datos del paciente a partir del documento
 	 */
 	$('#pacienteDocumento').change(function () { // pacienteDocumento
 		var pacienteDocumento = $('#pacienteDocumento').val();
@@ -124,4 +124,13 @@ $(document).ready( function() {
 		
 	});// Fin pacienteDocumento
   /***************************************************************************************************************************************************************/
+	
+	
+	/**
+	 * Función que valida la disponibilidad de turnos para una cita
+	 *
+	$('#paciente_IdTipoDocumento').change(function () { // pacienteDocumento
+	
+	});
+	*/
 });
