@@ -73,6 +73,22 @@ public class CitaControlador {
 		
 	}
 	
+	private String validarAgenda(Agenda agenda, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		
+		ValidadorUsuario validadorUsuario = new ValidadorUsuario();
+		validadorUsuario.validate(agenda, bindingResult);
+		
+		if (bindingResult.hasErrors()) {
+			iniciarListas(model);
+			model.addAttribute("diagnosticosPaciente", agenda.getPaciente().getDiagnosticos());
+			return "agenda";
+		}else{
+			this.citaServicio.guardar(agenda);
+			redirectAttributes.addFlashAttribute("msj_ext","Paciente guardado con éxito");
+		}
+	
+		return "redirect:/agenda";
+	}
 	
 	@RequestMapping(value = "/agenda", method = RequestMethod.GET)
 	public String crearNuevaAgenda(Model model) {
@@ -87,19 +103,7 @@ public class CitaControlador {
 	@RequestMapping(value = "/agenda", method = RequestMethod.POST)
 	public String procesarNuevaAgenda(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes){
 		
-		ValidadorUsuario validadorUsuario = new ValidadorUsuario();
-		validadorUsuario.validate(nuevaAgenda, bindingResult);
-		
-		if (bindingResult.hasErrors()) {
-			iniciarListas(model);
-			model.addAttribute("diagnosticosPaciente", nuevaAgenda.getPaciente().getDiagnosticos());
-			return "agenda";
-		}else{
-			this.citaServicio.guardar(nuevaAgenda);
-			redirectAttributes.addFlashAttribute("msj_ext","Paciente guardado con éxito");
-		}
-	
-		return "redirect:/agenda";
+		return validarAgenda(nuevaAgenda, model, bindingResult, redirectAttributes);
 		
 	}
 	
@@ -137,19 +141,7 @@ public class CitaControlador {
 	@RequestMapping(value = "/editar/agenda", method = RequestMethod.POST)
 	public String procesarEdicionCita(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		
-		ValidadorUsuario validadorUsuario = new ValidadorUsuario();
-		validadorUsuario.validate(nuevaAgenda, bindingResult);
-		
-		if (bindingResult.hasErrors()) {
-			iniciarListas(model);
-			model.addAttribute("diagnosticosPaciente", nuevaAgenda.getPaciente().getDiagnosticos());
-			return "agenda";
-		}else{
-			this.citaServicio.guardar(nuevaAgenda);
-			redirectAttributes.addFlashAttribute("msj_ext","Paciente guardado con éxito");
-		}
-	
-		return "redirect:/agenda";
+		return validarAgenda(nuevaAgenda, model, bindingResult, redirectAttributes);
 		
 	}
 	
@@ -185,8 +177,6 @@ public class CitaControlador {
 		return "redirect:/citaInformacion";
 		
 	}
-	
-	
 	
 	private void iniciarListas(Model model) {
 		
