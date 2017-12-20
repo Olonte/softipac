@@ -162,5 +162,13 @@ public class CitaImplServicio implements CitaServicio {
 		meses.add("11 Meses");
 		return meses;
 	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void actualizar(Agenda agenda) {
+		this.usuarioServicio.guardar(agenda.getPaciente());
+		this.usuarioServicio.guardar(agenda.getAcudiente());
+		this.citaRepositorio.save(agenda.getCita());
+	}
 	
 }

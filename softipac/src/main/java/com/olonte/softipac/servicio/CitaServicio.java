@@ -10,6 +10,7 @@ import com.olonte.softipac.modelo.RegistroListaAgenda;
 
 public interface CitaServicio {
 	void guardar(Agenda agenda);
+	void actualizar(Agenda agenda);
 	CitaJSON buscarPorDocumento(String documento);
 	Iterable<RegistroListaAgenda> buscarTodos();
 	Agenda buscarUsuarioAgenda(Integer idUsuario);

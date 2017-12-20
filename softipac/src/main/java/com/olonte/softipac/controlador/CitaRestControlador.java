@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.olonte.softipac.json.CitaJSON;
 import com.olonte.softipac.json.UsuarioJSON;
-import com.olonte.softipac.modelo.Cita;
 import com.olonte.softipac.modelo.Hora;
-import com.olonte.softipac.modelo.Usuario;
 import com.olonte.softipac.servicio.CitaServicio;
 import com.olonte.softipac.servicio.DiagnosticoServcio;
 import com.olonte.softipac.servicio.HoraServicio;
@@ -40,17 +38,33 @@ public class CitaRestControlador {
 		this.citaServicio = citaServicio;
 		this.diagnosticoServcio = diagnosticoServcio;
 	}
+	
+	/**
+	 * 
+	 * @param fecha
+	 * @return
+	 */
 
 	@RequestMapping(value ="/obtenerHora/{fechaCitaIni}", method = RequestMethod.GET)
 	public Iterable<Hora> buscarHorasDisponibles(@PathVariable("fechaCitaIni") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate fecha){
 		return this.horaServicio.buscarAgendaPorFecha(fecha);
 	}
 	
+	/**
+	 * 
+	 * @param documento
+	 * @return
+	 */
 	@RequestMapping(value = "/obtenerPaciente/{pacienteDocumento}", method = RequestMethod.GET)
 	public UsuarioJSON obtenerUsuarioPorDocumento(@PathVariable("pacienteDocumento") String documento){
 		return this.usuarioServicio.bucarPorDocumento(documento);
 	}
 	
+	/**
+	 * 
+	 * @param documento
+	 * @return
+	 */
 	@RequestMapping(value = "/obtenerCita/{pacienteDocumento}", method = RequestMethod.GET)
 	public CitaJSON obtenerCitaPorDocumento(@PathVariable("pacienteDocumento") String documento){
 		return this.citaServicio.buscarPorDocumento(documento);

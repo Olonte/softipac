@@ -1,11 +1,13 @@
 package com.olonte.softipac.validador;
 
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.olonte.softipac.modelo.Agenda;
 import com.olonte.softipac.utilidad.Utilidad;
 
+@Component
 public class ValidadorUsuario implements Validator {
 	
 	@Override

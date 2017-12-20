@@ -18,16 +18,29 @@ public class PanelControlador {
 	
 	private UsuarioSession usuarioSession;
 	
+	/**
+	 * 
+	 * @param usuarioSession
+	 */
 	@Autowired
 	public PanelControlador(UsuarioSession usuarioSession) {
 		this.usuarioSession = usuarioSession;
 	}
-
+	
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/panel")
 	public String iniciar(Model model) {
 		return "panel";
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/logout")
 	public String salirPagina() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -39,6 +52,10 @@ public class PanelControlador {
 		return "redirect:/login?logout";
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	@ModelAttribute(value = "usuarioLogueado")
 	public UsuarioSession getUsuarioSession() {
 		usuarioSession.setIdUsuario(((UsuarioLoqueado)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsuario().getIdUsuario());

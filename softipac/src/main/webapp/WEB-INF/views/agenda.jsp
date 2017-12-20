@@ -16,8 +16,13 @@
 									</c:choose>
 									<%@include file="/WEB-INF/views/template/etiquetas_marcadores.jsp"%> 
 									<c:set var="seleccion" value="${-1}"></c:set>
-									<!-- **************************************************Id Cita**************************************************************** -->
+									<!-- **************************************************Id - Tipo - Estado Cita**************************************************************** -->
 									<form:input type="hidden" cssClass="form-control" path="cita.idCita" id="idCita" name="idCita"></form:input>
+									<form:input type="hidden" cssClass="form-control" path="cita.tipoCita.idTipoCita" id="tipoCita" name="tipoCita"></form:input>
+									<form:input type="hidden" cssClass="form-control" path="cita.estado.idEstado" id="estadoCita" name="estadoCita"></form:input>
+									<form:input type="hidden" cssClass="form-control" path="cita.citaUsuarioId.usuario_idusuapl.idUsuario" id="citaIdUsuarioApl" name="citaIdUsuarioApl"></form:input>
+									<form:input type="hidden" cssClass="form-control" path="cita.citaUsuarioId.usuario_idusuario.idUsuario" id="citaIdUsuario" name="citaIdUsuario"></form:input>
+									
 									<!-- **************************************************Configuracion Fecha y Hora Cita************************************************************ -->
 									<div class="card">
 										<div class="card-header" role ="tab" id="headingTwo">
@@ -68,8 +73,10 @@
 											<div class="card-block">
 												<div class="card-body">
 													<div class="row">
-														<!-- **************************************************Id Paciente**************************************************************** -->
+														<!-- **************************************************Id - Tipo - Estado Paciente**************************************************************** -->
 														<form:input type="hidden" cssClass="form-control" path="paciente.idUsuario" id="idPaciente" name="idPaciente"></form:input>
+														<form:input type="hidden" cssClass="form-control" path="paciente.tipoUsuario.idTipoUsuario" name="tipoUsarioPaciente"></form:input>
+														<form:input type="hidden" cssClass="form-control" path="paciente.estado.idEstado" name="estadoPaciente"></form:input>
 														<!-- **************************************************Datos  Documento Paciente**************************************************************** -->
 														<div class="col-md-4">
 															<div class="form-group">
@@ -235,8 +242,10 @@
 											<div class="card-block">
 		                                    	<div class="card-body">
 		                                    		<div class="row">
-		                                    	    	<!-- **************************************************Id Acuediente**************************************************************** -->
+		                                    	    	<!-- **************************************************Id - Tipo - Estado Acuediente**************************************************************** -->
 		                                    			<form:input type="hidden" cssClass="form-control" path="acudiente.idUsuario" id="idAcudiente" name="idAcudiente"></form:input>
+		                                    			<form:input type="hidden" cssClass="form-control" path="acudiente.tipoUsuario.idTipoUsuario" id="tipoUsuarioAcudiente" name="tipoUsuarioAcudiente"></form:input>
+		                                    			<form:input type="hidden" cssClass="form-control" path="acudiente.estado.idEstado" id="estadoAcudiente" name="estadoAcudiente"></form:input>
 		                                    			<!-- **************************************************Datos  Documento Acudiente**************************************************************** -->
 		                                    			<div class="col-md-4">
 		                                    				<div class="form-group">

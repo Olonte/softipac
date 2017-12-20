@@ -12,6 +12,11 @@ public interface Utilidad {
 	static final String DIAGNOSTICOS   = "paciente.diagnosticos";
 	static final String EMAIL          = "acudiente.email";
 	static final String PARENTESCO     = "acudiente.parentesco.idParentesco";
+	static final int AGENDA_NUEVA      = 1;
+	static final int AGENDA_PROCESADA  = 2;
+	static final int AGENDA_EDITADA    = 3;
+	static final int AGENDA_EDIT_PROC  = 4;
+	static final int CITA_INFO_NUEVA   = 5;
 	static final int CITA_AGENDA       = 1;
 	static final int CITA_INFORMACION  = 2;
 	static final int ESTADO_INACTIVO   = 2;
