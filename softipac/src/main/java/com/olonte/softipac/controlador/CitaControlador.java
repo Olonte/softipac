@@ -129,6 +129,16 @@ public class CitaControlador {
 	 */
 	@RequestMapping(value = "/agenda", method = RequestMethod.POST)
 	public String procesarNuevaAgenda(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		if (nuevaAgenda.getPaciente().getDiagnosticos().isEmpty()) {
+			if (this.diagnosticosTemp != null) {
+				if (!this.diagnosticosTemp.isEmpty()) {
+					nuevaAgenda.getPaciente().setDiagnosticos(this.diagnosticosTemp);
+				}
+			}
+		}else{
+			this.diagnosticosTemp = nuevaAgenda.getPaciente().getDiagnosticos();
+		}
+		
 		return validarAgenda(nuevaAgenda, model, bindingResult, redirectAttributes, Utilidad.AGENDA_PROCESADA);
 	}
 	
@@ -212,8 +222,7 @@ public class CitaControlador {
 		citaInformacion.setUsuarioAplica(getUsuarioSession().obtenerNombresApellidos());
 		
 		model.addAttribute("citaInformacion", citaInformacion);
-		model.addAttribute("diagnosticosPaciente", citaInformacion.getPaciente().getDiagnosticos());
-		iniciarListas(model, null, Utilidad.CITA_INFO_NUEVA);
+		iniciarListas(model, citaInformacion, Utilidad.CITA_INFO_NUEVA);
 		
 		return "citaInformacion";
 	}
@@ -247,6 +256,15 @@ public class CitaControlador {
 		switch (origen) {
 			case Utilidad.AGENDA_PROCESADA:
 				model.addAttribute("horas", this.horaServicio.buscarAgendaPorFecha(agenda.getCita().getFechaCitaIni()));
+				if (agenda.getPaciente().getDiagnosticos().isEmpty()) {
+					if (this.diagnosticosTemp != null) {
+						if (!this.diagnosticosTemp.isEmpty()) {
+							model.addAttribute("diagnosticosPaciente", this.diagnosticosTemp);
+						}
+					}
+				}else{
+					model.addAttribute("diagnosticosPaciente", agenda.getPaciente().getDiagnosticos());
+				}
 				break;
 			case Utilidad.AGENDA_EDITADA:
 				model.addAttribute("horas",this.citaServicio.obtenerHoras(agenda));
@@ -260,7 +278,8 @@ public class CitaControlador {
 		model.addAttribute("escolaridades", this.escolaridadServicio.buscarTodos());
 		model.addAttribute("eps", this.epsServicio.buscarTodos());
 		model.addAttribute("diagnosticos", this.diagnosticoServicio.buscarTodos());
-		if (origen != Utilidad.AGENDA_NUEVA) {
+		
+		if (origen != Utilidad.AGENDA_NUEVA && origen != Utilidad.AGENDA_PROCESADA) {
 			model.addAttribute("diagnosticosPaciente", agenda.getPaciente().getDiagnosticos());
 		}
 		
@@ -293,6 +312,5 @@ public class CitaControlador {
 	
 		return "redirect:/agenda";
 	}
-	
 	
 }

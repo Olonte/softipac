@@ -179,7 +179,7 @@
 								 								<form:label path="paciente.tutela">${tutelaEtiqueta}</form:label>
 																<div class="input-group">
 																	<form:select path="paciente.tutela" id="pacienteTutela" cssClass="form-control">
-																		<form:option value="${Seleccion}" label="${seleccionEtiqueta}"></form:option>
+																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:option value="S">${tutelaSi}</form:option>
 																		<form:option value="N">${tutelaNo}</form:option>
 																	</form:select>

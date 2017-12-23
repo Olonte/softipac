@@ -32,7 +32,6 @@
 										<div class="btn-group btn-actions">
 		                                	<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
 		                                    	${accionEtiqueta}
-		                                   		<i class="fa fa-angle-down"></i>
 		                                    </button>
 		                                    <div class="dropdown-menu">
 		                                    	<a href="<spring:url value="/editar/agenda?idUsuario=${cita.idUsuario}"/>" class="dropdown-item">
