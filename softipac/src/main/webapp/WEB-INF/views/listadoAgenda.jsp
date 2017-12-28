@@ -4,7 +4,8 @@
 		<div class="page-container">
 			<%@include file="/WEB-INF/views/template/menu.jsp"%> 
 			<%@include file="/WEB-INF/views/template/page-title.jsp"%> 
-			<%@include file="/WEB-INF/views/template/etiquetas_marcadores.jsp"%> 
+			<%@include file="/WEB-INF/views/template/etiquetas_marcadores.jsp"%>
+			
 			<div class="content-inner">
 				<div class="table-responsive">
 					<table id="citasUsuarios" class="table table-hover">
@@ -21,6 +22,7 @@
 						</thead><!-- .thead -->
 						<tbody>
 							<c:forEach items="${citas}" var ="cita">
+								<%@include file="/WEB-INF/views/modals/cancelar_cita.jsp"%> 
 						    	<tr>
 									<th>${cita.fechaCitaIni}</th>
 									<th>${cita.hora}</th>
@@ -34,11 +36,15 @@
 		                                    	${accionEtiqueta}
 		                                    </button>
 		                                    <div class="dropdown-menu">
-		                                    	<a href="<spring:url value="/editar/agenda?idUsuario=${cita.idUsuario}"/>" class="dropdown-item">
+		                                    	<a href="<spring:url value="/editar/agenda?idUsuario=${cita.idUsuario}"></spring:url>" class="dropdown-item">
 		                                    		<i class="fa fa-edit"></i>
 		                                        	${editarEtiqueta}
 		                                    	</a>
-		                                    	<a href="<spring:url value="/citaInformacion?idUsuario=${cita.idUsuario}"/>" class="dropdown-item">
+		                                    		<a data-target="#modalCancelarCita_${cita.idUsuario}" role="text" data-toggle="modal" class="dropdown-item">
+		                                    		<i class="fa fa-eraser"></i>
+		                                        	${cancelarEtiqueta}
+		                                    	</a>
+		                                    	<a href="<spring:url value="/citaInformacion?idUsuario=${cita.idUsuario}"></spring:url>" class="dropdown-item">
 		                                    		<i class="fa fa-file-text-o"></i>
 		                                        	${citaInformacionEtiqueta}
 		                                    	</a>

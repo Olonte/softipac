@@ -125,12 +125,10 @@ $(document).ready( function() {
 	});// Fin pacienteDocumento
   /***************************************************************************************************************************************************************/
 	
-	
-	/**
-	 * Función que valida la disponibilidad de turnos para una cita
-	 *
-	$('#paciente_IdTipoDocumento').change(function () { // pacienteDocumento
-	
+	$(".triggerRemove").click(function(e) {
+		e.preventDefault();
+		$('#modalCancelarCita .removeBtn').attr("href", $(this).attr("href"));
+		$('#modalCancelarCita').modal('show');
 	});
-	*/
+	
 });

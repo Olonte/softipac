@@ -255,6 +255,9 @@
 																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																	</form:select>
+																	<div class="has-error">
+																		<form:errors path="acudiente.documento.tipoDocumento.idTipoDocumento" cssClass="text-danger"></form:errors>
+																	</div><!-- .has-error -->
 																</div><!-- .input-group -->
 								   							</div><!-- .form-group -->
 		                                    			</div><!-- col-md-4 -->
@@ -262,7 +265,7 @@
 															<div class="form-group">
 																<form:label path="acudiente.documento.documento">${documentoEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:input type="text" cssClass="form-control" path="acudiente.documento.documento" id="acudienteDocumento" name="acudienteDocumento" placeholder="${documentoMarcador}" required="required"></form:input>
+																	<form:input type="number" cssClass="form-control" path="acudiente.documento.documento" id="acudienteDocumento" name="acudienteDocumento" placeholder="${documentoMarcador}" required="required"></form:input>
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->

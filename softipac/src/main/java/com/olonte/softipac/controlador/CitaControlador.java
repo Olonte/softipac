@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -190,6 +191,13 @@ public class CitaControlador {
 		return validarAgenda(nuevaAgenda, model, bindingResult, redirectAttributes, Utilidad.AGENDA_EDIT_PROC);
 	}
 	
+
+	@RequestMapping(value = "/cancelar/agenda")
+	public String cancelarCita(@RequestParam("idUsuario") Integer idUsuario) {
+		System.out.println("El idUsuario es " + idUsuario);
+		return "redirect:/listadoAgenda";
+	}
+	
 	/**
 	 * *****************************************************************************************************************************************
 	 * 
@@ -251,6 +259,8 @@ public class CitaControlador {
 	/**
 	 * 
 	 * @param model
+	 * @param agenda
+	 * @param origen
 	 */
 	private void iniciarListas(Model model, Agenda agenda, int origen) {
 		switch (origen) {

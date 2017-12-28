@@ -82,6 +82,7 @@
                             	<spring:message code="listadoAgenda.jsp.apellido.etiqueta" var="apellidoEtiqueta"></spring:message>
                             	<spring:message code="listadoAgenda.jsp.telefonofijo.etiqueta" var="telefonofijoEtiqueta"></spring:message>
                             	<spring:message code="listadoAgenda.jsp.celular.etiqueta" var="celularEtiqueta"></spring:message>
+                            	<spring:message code="listadoAgenda.jsp.cancelar.etiqueta" var="cancelarEtiqueta"></spring:message>
                             	<spring:message code="listadoAgenda.jsp.citaInformacion.etiqueta" var="citaInformacionEtiqueta"></spring:message>
 <!-- ****************************************************Etiquetas Cita Informacion ******************************************************************* -->                            	
                             	<spring:message code="citaInformacion.jsp.titulo.etiqueta" var="citaInfoTituloEtiqueta"></spring:message>
