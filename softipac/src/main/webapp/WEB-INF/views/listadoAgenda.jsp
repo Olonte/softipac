@@ -9,6 +9,10 @@
 			<div class="content-inner">
 				<div class="table-responsive">
 					<table id="citasUsuarios" class="table table-hover">
+						<c:choose>
+							<c:when test="${not empty msj_ext}"><%@include file="/WEB-INF/views/messages/mensaje_exito.jsp"%></c:when>
+							<c:when test="${not empty msj_err}"><%@include file="/WEB-INF/views/messages/mensaje_error.jsp"%></c:when>
+						</c:choose>
 						<thead>
 							<tr>
 					    		<th>${fechaEtiqueta}</th>
@@ -22,7 +26,7 @@
 						</thead><!-- .thead -->
 						<tbody>
 							<c:forEach items="${citas}" var ="cita">
-								<%@include file="/WEB-INF/views/modals/cancelar_cita.jsp"%> 
+								<%@include file="/WEB-INF/views/modals/modal_cancelarCita.jsp"%> 
 						    	<tr>
 									<th>${cita.fechaCitaIni}</th>
 									<th>${cita.hora}</th>
@@ -40,7 +44,7 @@
 		                                    		<i class="fa fa-edit"></i>
 		                                        	${editarEtiqueta}
 		                                    	</a>
-		                                    		<a data-target="#modalCancelarCita_${cita.idUsuario}" role="text" data-toggle="modal" class="dropdown-item">
+		                                    		<a href="" data-target="#modalCancelarCita_${cita.idUsuario}" data-toggle="modal" class="dropdown-item">
 		                                    		<i class="fa fa-eraser"></i>
 		                                        	${cancelarEtiqueta}
 		                                    	</a>

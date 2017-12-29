@@ -30,6 +30,7 @@ import com.olonte.softipac.servicio.ParentescoServicio;
 import com.olonte.softipac.servicio.TipoCitaServicio;
 import com.olonte.softipac.servicio.TipoUsuarioServicio;
 import com.olonte.softipac.servicio.UsuarioServicio;
+import com.olonte.softipac.utilidad.Utilidad;
 
 @Service
 @Scope(value = "session")
@@ -169,6 +170,14 @@ public class CitaImplServicio implements CitaServicio {
 		this.usuarioServicio.guardar(agenda.getPaciente());
 		this.usuarioServicio.guardar(agenda.getAcudiente());
 		this.citaRepositorio.save(agenda.getCita());
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void cancelarCita(Integer idUsuario) {
+		Cita cita = this.citaRepositorio.findOne(CitaPredicado.buscarPorIdPaciente(idUsuario));
+		cita.setEstado(this.estadoServicio.bucarporId(Utilidad.ESTADO_CANCELADO));
+		this.citaRepositorio.save(cita);
 	}
 	
 }

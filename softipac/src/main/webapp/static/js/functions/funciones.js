@@ -125,10 +125,4 @@ $(document).ready( function() {
 	});// Fin pacienteDocumento
   /***************************************************************************************************************************************************************/
 	
-	$(".triggerRemove").click(function(e) {
-		e.preventDefault();
-		$('#modalCancelarCita .removeBtn').attr("href", $(this).attr("href"));
-		$('#modalCancelarCita').modal('show');
-	});
-	
 });

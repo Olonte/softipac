@@ -22,6 +22,7 @@ public interface Utilidad {
 	static final int CITA_AGENDA           = 1;
 	static final int CITA_INFORMACION      = 2;
 	static final int ESTADO_INACTIVO       = 2;
+	static final int ESTADO_CANCELADO      = 4;
 	static final int USUARIO_ACUDIENTE     = 5;
 	static final int HORA_AGENDA           = 1;
 	static final int HORA_CITA_INFO        = 2;

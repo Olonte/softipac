@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -191,10 +190,19 @@ public class CitaControlador {
 		return validarAgenda(nuevaAgenda, model, bindingResult, redirectAttributes, Utilidad.AGENDA_EDIT_PROC);
 	}
 	
-
+	/**
+	 * 
+	 * @param idUsuario
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@RequestMapping(value = "/cancelar/agenda")
-	public String cancelarCita(@RequestParam("idUsuario") Integer idUsuario) {
-		System.out.println("El idUsuario es " + idUsuario);
+	public String cancelarCita(@RequestParam("idUsuario") Integer idUsuario, RedirectAttributes redirectAttributes) {
+		
+		this.citaServicio.cancelarCita(idUsuario);
+	
+		redirectAttributes.addFlashAttribute("msj_ext","Cita cancelada con éxito");
+		
 		return "redirect:/listadoAgenda";
 	}
 	

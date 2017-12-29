@@ -31,6 +31,7 @@
                             	<spring:message code="editar.etiqueta" var="editarEtiqueta"></spring:message>
                             	<spring:message code="accion.etiqueta" var="accionEtiqueta"></spring:message>
                             	<spring:message code="botonAdicionar.etiqueta" var="botonAdicionarEtiqueta"></spring:message>	
+                            	<spring:message code="cerrar.etiqueta" var="cerrarEtiqueta"></spring:message>
 <!-- ****************************************************Marcadores*************************************************************************** -->
 								<spring:message code="fechacita.marcador" var="fechaMarcador"></spring:message>
 								<spring:message code="documento.marcador" var="documentoMarcador"></spring:message>
@@ -104,6 +105,9 @@
                             	<spring:message code="citaInformacion.jsp.expectativas.marcador" var="expectativasMarcador"></spring:message> 	
                             	<spring:message code="citaInformacion.jsp.recomTenerCta.marcador" var="recomTenerCtaMarcador"></spring:message>
                             	<spring:message code="citaInformacion.jsp.inFoGral.marcador" var="inFoGralMarcador"></spring:message>
-                            		
+ <!-- ****************************************************Etiquetas Modal Cancelar Cita  ******************************************************************* -->                            	
+                            	<spring:message code="modal_cancelarCita.jsp.cancelarCita.etiqueta" var="cancelarCitaMsjEtiqueta"></spring:message>
+                                  
+                              
                             	 
 					            

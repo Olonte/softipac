@@ -37,7 +37,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 								referencedColumnName = "idusuario")	
 					})
 		})
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Cita {
 	
 	@Id

@@ -10,8 +10,8 @@
 						<div class="row">
 							<form:form id="citaInformacion" name="citaInformacion" modelAttribute="citaInformacion" method="post">
 								<c:choose>
-									<c:when test="${not empty msj_ext}"><%@include file="/WEB-INF/views/template/mensaje_exito.jsp"%></c:when>
-									<c:when test="${not empty msj_err}"><%@include file="/WEB-INF/views/template/mensaje_error.jsp"%></c:when>
+									<c:when test="${not empty msj_ext}"><%@include file="/WEB-INF/views/messages/mensaje_exito.jsp"%></c:when>
+									<c:when test="${not empty msj_err}"><%@include file="/WEB-INF/views/messages/mensaje_error.jsp"%></c:when>
 								</c:choose>
 								<%@include file="/WEB-INF/views/template/etiquetas_marcadores.jsp"%> 
 								<!-- **************************************************Cita Inicial de Informacion Datos**************************************************************** -->
