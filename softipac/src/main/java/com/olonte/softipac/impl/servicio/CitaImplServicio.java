@@ -1,6 +1,7 @@
 package com.olonte.softipac.impl.servicio;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -73,21 +74,16 @@ public class CitaImplServicio implements CitaServicio {
 	@Override
 	@Transactional(readOnly = false)
 	public void guardar(Agenda agenda) {
-		Integer idTipoCita = 1;
-		Integer idTipoUsuarioPaciente = 3;
-		Integer idTipoUsuarioAcudiente = 5;
-		Integer idEstado = 2;
-		Integer idParentesco = 1;
-		Estado estado = this.estadoServicio.bucarporId(idEstado);
+		Estado estado = this.estadoServicio.bucarporId(Utilidad.ESTADO_INACTIVO);
 		/**
 		 * Se procesa el Paciente y el Acudiente
 		 * 
 		 */
-		agenda.getPaciente().setTipoUsuario(this.tipoUsuarioServicio.buscarPorId(idTipoUsuarioPaciente));
-		agenda.getAcudiente().setTipoUsuario(this.tipoUsuarioServicio.buscarPorId(idTipoUsuarioAcudiente));
+		agenda.getPaciente().setTipoUsuario(this.tipoUsuarioServicio.buscarPorId(Utilidad.USUARIO_PACIENTE));
+		agenda.getAcudiente().setTipoUsuario(this.tipoUsuarioServicio.buscarPorId(Utilidad.USUARIO_ACUDIENTE));
 		agenda.getPaciente().setEstado(estado);
 		agenda.getAcudiente().setEstado(estado);
-		agenda.getPaciente().setParentesco(this.parentescoServicio.bucarPorId(idParentesco));
+		agenda.getPaciente().setParentesco(this.parentescoServicio.bucarPorId(Utilidad.HIJO));
 		this.usuarioServicio.guardar(agenda.getPaciente());
 		this.usuarioServicio.guardar(agenda.getAcudiente());
 		 /*
@@ -103,18 +99,12 @@ public class CitaImplServicio implements CitaServicio {
 		 * Se procesa la Cita
 		 */
 		CitaUsuarioId citaUsuarioId = new CitaUsuarioId();
-		agenda.getCita().setTipoCita(this.tipoCitaServicio.buscarPorId(idTipoCita));
+		agenda.getCita().setTipoCita(this.tipoCitaServicio.buscarPorId(Utilidad.CITA_AGENDA));
 		agenda.getCita().setEstado(estado);
 		citaUsuarioId.setUsuario_idusuapl(this.usuarioSession);
 		citaUsuarioId.setUsuario_idusuario(agenda.getPaciente());
 		agenda.getCita().setCitaUsuarioId(citaUsuarioId);
 		this.citaRepositorio.save(agenda.getCita());
-	}
-	
-	@Override
-	@Transactional(readOnly = true)
-	public Iterable<RegistroListaAgenda> buscarTodos() {
-		return CitaPredicado.buscarCitas(entityManager);
 	}
 	
 	@Override
@@ -179,5 +169,10 @@ public class CitaImplServicio implements CitaServicio {
 		cita.setEstado(this.estadoServicio.bucarporId(Utilidad.ESTADO_CANCELADO));
 		this.citaRepositorio.save(cita);
 	}
-	
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<RegistroListaAgenda> buscarTodos() {
+		return CitaPredicado.buscarCitas(entityManager);
+	}
 }

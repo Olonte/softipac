@@ -38,7 +38,7 @@
                                 </div><!-- .col-md-6 -->
 								<!-- *************************************Listado Agenda******************************************************************** -->
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                	<a href="<spring:url value="/listadoAgenda"></spring:url>">
+                                		<a href="<spring:url value="/paginaAgenda/${paginaInicial}"></spring:url>">
                                     	<div class="box">
                                             <h5> </h5>
                                             <h5>${listadoAgendaEtiqueta}<i class="fa fa-angle-right"></i></h5>

@@ -31,7 +31,8 @@ public class CitaPredicado {
 						.where(QDocumento.documento1.documento.eq(documento) ) ) ) );
 	}
 	
-	public static Iterable<RegistroListaAgenda> buscarCitas(EntityManager entityManager) {
+	//public static Iterable<RegistroListaAgenda> buscarCitas(EntityManager entityManager) {
+	public static List<RegistroListaAgenda> buscarCitas(EntityManager entityManager) {
 		QCita qCita = new QCita("cita");
 		QUsuario qPaciente = new QUsuario("paciente");
 		QUsuario qAcudiente = new QUsuario("acudiente");

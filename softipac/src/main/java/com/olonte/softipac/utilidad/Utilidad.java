@@ -23,14 +23,21 @@ public interface Utilidad {
 	static final int CITA_INFORMACION      = 2;
 	static final int ESTADO_INACTIVO       = 2;
 	static final int ESTADO_CANCELADO      = 4;
+	static final int USUARIO_PACIENTE      = 3;
 	static final int USUARIO_ACUDIENTE     = 5;
 	static final int HORA_AGENDA           = 1;
 	static final int HORA_CITA_INFO        = 2;
+	static final int HIJO                  = 1;
 	static final int PADRE                 = 2;
 	static final int MADRE                 = 3;
 	static final int HERMANO_A             = 4;
 	static final int ABUELO_A              = 5;
 	static final int OTRO                  = 6;
 	static final int SELECCION             = -1;
+	static final int NUMERO_REGISTROS      = 7;
+	static final int NUMERO_PAGINA_DEFECTO = 0;
+	static final int NUMERO_PAGINA_INICIO  = 1;
+	
+	
 	
 }

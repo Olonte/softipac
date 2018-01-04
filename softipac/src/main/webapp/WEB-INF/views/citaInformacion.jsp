@@ -63,7 +63,7 @@
 								 							<form:label path="paciente.documento.tipoDocumento.idTipoDocumento">${tipoDocumentoEtiqueta}</form:label>
 															<div class="input-group">
 																<form:select path="paciente.documento.tipoDocumento.idTipoDocumento" id="pacienteIdTipoDocumento" cssClass="form-control">
-																	<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																	<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																	<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																</form:select>
 															</div><!-- .input-group -->
@@ -135,7 +135,7 @@
 								 							<form:label path="paciente.genero.idGenero">${generoEtiqueta}</form:label>
 															<div class="input-group">
 																<form:select path="paciente.genero.idGenero" id="pacienteIdGenero" cssClass="form-control">
-																	<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																	<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																	<form:options items="${generos}" itemValue="idGenero" itemLabel="genero"></form:options>
 																</form:select>
 															</div><!-- .input-group -->
@@ -147,7 +147,7 @@
 								 							<form:label path="paciente.escolaridad.idEscolaridad">${escolaridadEtiqueta}</form:label>
 															<div class="input-group">
 																<form:select path="paciente.escolaridad.idEscolaridad" id="pacienteIdEscolaridad" cssClass="form-control">
-																	<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																	<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																	<form:options items="${escolaridades}" itemValue="idEscolaridad" itemLabel="escolaridad"></form:options>
 																</form:select>
 															</div><!-- .input-group -->
@@ -172,7 +172,7 @@
 								 							<form:label path="paciente.eps.idEps">${epsEtiqueta}</form:label>
 															<div class="input-group">
 																<form:select path="paciente.eps.idEps" id="pacienteIdEps" cssClass="form-control">
-																	<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																	<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																	<form:options items="${eps}" itemValue="idEps" itemLabel="razonSocial"></form:options>
 																</form:select>
 															</div><!-- .input-group -->
@@ -204,7 +204,7 @@
 								 								<form:label path="madre.documento.tipoDocumento.idTipoDocumento">${tipoDocumentoEtiqueta}</form:label>
 																<div class="input-group">
 																	<form:select path="madre.documento.tipoDocumento.idTipoDocumento" id="madreIdTipoDocumento" cssClass="form-control">
-																		<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																	</form:select>
 																</div><!-- .input-group -->
@@ -258,7 +258,7 @@
 									 							<form:label path="madre.escolaridad.idEscolaridad">${escolaridadEtiqueta}</form:label>
 																<div class="input-group">
 																	<form:select path="madre.escolaridad.idEscolaridad" id="madreIdEscolaridad" cssClass="form-control">
-																		<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${escolaridades}" itemValue="idEscolaridad" itemLabel="escolaridad"></form:options>
 																	</form:select>
 																</div><!-- .input-group -->
@@ -331,7 +331,7 @@
 								 									<form:label path="padre.documento.tipoDocumento.idTipoDocumento">${tipoDocumentoEtiqueta}</form:label>
 																	<div class="input-group">
 																		<form:select path="padre.documento.tipoDocumento.idTipoDocumento" id="padreIdTipoDocumento" cssClass="form-control">
-																			<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																			<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																			<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																		</form:select>
 																	</div><!-- .input-group -->
@@ -385,7 +385,7 @@
 									 								<form:label path="padre.escolaridad.idEscolaridad">${escolaridadEtiqueta}</form:label>
 																	<div class="input-group">
 																		<form:select path="padre.escolaridad.idEscolaridad" id="padreIdEscolaridad" cssClass="form-control">
-																			<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																			<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																			<form:options items="${escolaridades}" itemValue="idEscolaridad" itemLabel="escolaridad"></form:options>
 																		</form:select>
 																	</div><!-- .input-group -->
@@ -458,7 +458,7 @@
 								 									<form:label path="acudiente.documento.tipoDocumento.idTipoDocumento">${tipoDocumentoEtiqueta}</form:label>
 																	<div class="input-group">
 																		<form:select path="acudiente.documento.tipoDocumento.idTipoDocumento" id="acudienteIdTipoDocumento" cssClass="form-control">
-																			<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																			<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																			<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																		</form:select>
 																	</div><!-- .input-group -->
@@ -478,7 +478,7 @@
 									 								<form:label path="acudiente.parentesco.idParentesco">${parentescoEtiqueta}</form:label>
 																	<div class="input-group">
 																		<form:select path="acudiente.parentesco.idParentesco" id="acudienteIdParentesco" cssClass="form-control">
-																			<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																			<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																			<form:options items="${parentescos}" itemValue="idParentesco" itemLabel="parentesco"></form:options>
 																		</form:select>
 																	</div><!-- .input-group -->
@@ -524,7 +524,7 @@
 									 								<form:label path="acudiente.escolaridad.idEscolaridad">${escolaridadEtiqueta}</form:label>
 																	<div class="input-group">
 																		<form:select path="acudiente.escolaridad.idEscolaridad" id="acudienteIdEscolaridad" cssClass="form-control">
-																			<form:option value="-1" label="${seleccionEtiqueta}"></form:option>
+																			<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																			<form:options items="${escolaridades}" itemValue="idEscolaridad" itemLabel="escolaridad"></form:options>
 																		</form:select>
 																	</div><!-- .input-group -->

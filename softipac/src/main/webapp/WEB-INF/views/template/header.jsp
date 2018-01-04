@@ -23,3 +23,6 @@
         <link href="<c:url value="/static/css/chosen/chosen.min.css"></c:url>" rel="stylesheet">
         <link href="<c:url value="/static/css/chosen/formValidation.min.css"></c:url>" rel="stylesheet">   
 		<link href="<c:url value="/static/css/jquery/jquery-ui.css"></c:url>"rel="stylesheet"> 
+		
+		<c:set var="seleccion" value="${-1}"></c:set>
+		<c:set var="paginaInicial" value="${1}"></c:set>

@@ -15,7 +15,7 @@
 										<c:when test="${not empty msj_err}"><%@include file="/WEB-INF/views/messages/mensaje_error.jsp"%></c:when>
 									</c:choose>
 									<%@include file="/WEB-INF/views/template/etiquetas_marcadores.jsp"%> 
-									<c:set var="seleccion" value="${-1}"></c:set>
+									<!-- <c:set var="seleccion" value="${-1}"></c:set> -->
 									<!-- **************************************************Id - Tipo - Estado Cita**************************************************************** -->
 									<form:input type="hidden" cssClass="form-control" path="cita.idCita" id="idCita" name="idCita"></form:input>
 									<form:input type="hidden" cssClass="form-control" path="cita.tipoCita.idTipoCita" id="tipoCita" name="tipoCita"></form:input>

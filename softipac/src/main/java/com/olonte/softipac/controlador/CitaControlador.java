@@ -1,13 +1,16 @@
 package com.olonte.softipac.controlador;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.olonte.softipac.modelo.Agenda;
 import com.olonte.softipac.modelo.CitaInformacion;
 import com.olonte.softipac.modelo.Diagnostico;
+import com.olonte.softipac.modelo.RegistroListaAgenda;
 import com.olonte.softipac.modelo.Usuario;
 import com.olonte.softipac.modelo.UsuarioSession;
 import com.olonte.softipac.servicio.CitaServicio;
@@ -144,13 +148,29 @@ public class CitaControlador {
 	
 	/**
 	 * 
+	 * @param numeroPagina
 	 * @param model
 	 * @return
-	 */
-	@RequestMapping(value = "/listadoAgenda")
-	public String listarAgenda(Model model) {
-		model.addAttribute("citas", this.citaServicio.buscarTodos());
-		return "listadoAgenda";
+	*/
+	@RequestMapping(value ="/paginaAgenda/{numeroPagina}")
+	public String paginasAgenda(@PathVariable Integer numeroPagina, Model model) {
+		
+		List<RegistroListaAgenda> registroListaAgenda = this.citaServicio.buscarTodos();
+		PagedListHolder<RegistroListaAgenda> pagedListHolder = new PagedListHolder<>(registroListaAgenda);
+		pagedListHolder.setPageSize(Utilidad.NUMERO_REGISTROS);
+		
+		pagedListHolder.setPage(numeroPagina - Utilidad.NUMERO_PAGINA_INICIO);
+		
+		int paginaActual = pagedListHolder.getPage() + Utilidad.NUMERO_PAGINA_INICIO;
+		int paginaInicio = Math.max(Utilidad.NUMERO_PAGINA_INICIO, paginaActual - 5);
+		int paginaFinal  = Math.min(paginaInicio + 10, pagedListHolder.getPageCount());
+		
+		model.addAttribute("citas", pagedListHolder.getPageList());
+		model.addAttribute("indiceInicio",paginaInicio);
+		model.addAttribute("indiceFinal", paginaFinal);
+		model.addAttribute("indiceActual",paginaActual);
+		
+		return "paginaAgenda";
 	}
 	
 	/**

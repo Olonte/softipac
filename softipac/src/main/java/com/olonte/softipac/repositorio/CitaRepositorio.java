@@ -8,5 +8,4 @@ import com.olonte.softipac.modelo.Cita;
 
 @Repository
 public interface CitaRepositorio extends JpaRepository<Cita, Integer>, QueryDslPredicateExecutor<Cita> {
-
 }
