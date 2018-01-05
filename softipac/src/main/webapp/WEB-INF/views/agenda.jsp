@@ -51,10 +51,10 @@
 																		<form:option  value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${horas}" itemValue="idHora" itemLabel="hora"></form:options>
 																	</form:select>
-																	<div class="has-error">
-																		<form:errors path="cita.hora.idHora" cssClass="text-danger"></form:errors>
-																	</div>
-																</div><!-- .form-group -->
+																</div><!-- .input-group -->
+																<div class="has-error">
+																	<form:errors path="cita.hora.idHora" cssClass="text-danger"></form:errors>
+																</div><!-- .has-error -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
 													</div><!-- .row -->
@@ -86,10 +86,10 @@
 																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																	</form:select>
-																	<div class="has-error">
-																		<form:errors path="paciente.documento.tipoDocumento.idTipoDocumento" cssClass="text-danger"></form:errors>
-																	</div><!-- .has-error -->
 																</div><!-- .input-group -->
+																<div class="has-error">
+																	<form:errors path="paciente.documento.tipoDocumento.idTipoDocumento" cssClass="text-danger"></form:errors>
+																</div><!-- .has-error -->
 								   							</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
 														<div class="col-md-4">
@@ -152,10 +152,10 @@
 																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${generos}" itemValue="idGenero" itemLabel="genero"></form:options>
 																	</form:select>
-																	<div class="has-error">
-																		<form:errors path="paciente.genero.idGenero" cssClass="text-danger"></form:errors>
-																	</div><!-- .has-error -->
 																</div><!-- .input-group -->
+																<div class="has-error">
+																	<form:errors path="paciente.genero.idGenero" cssClass="text-danger"></form:errors>
+																</div><!-- .has-error -->
 								   							</div><!-- .form-group -->
 								   						</div><!-- .col-md-4 -->
 								   						<!-- **************************************************Datos  Escolaridad Paciente**************************************************************** -->
@@ -167,10 +167,10 @@
 																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${escolaridades}" itemValue="idEscolaridad" itemLabel="escolaridad"></form:options>
 																	</form:select>
-																	<div class="has-error">
-																		<form:errors path="paciente.escolaridad.idEscolaridad" cssClass="text-danger"></form:errors>
-																	</div><!-- .has-error -->
 																</div><!-- .input-group -->
+																<div class="has-error">
+																	<form:errors path="paciente.escolaridad.idEscolaridad" cssClass="text-danger"></form:errors>
+																</div><!-- .has-error -->
 								   							</div><!-- .form-group -->
 								   						</div><!-- .col-md-4 -->
 								   						<!-- **************************************************Datos  Tutela Paciente**************************************************************** -->
@@ -183,10 +183,10 @@
 																		<form:option value="S">${tutelaSi}</form:option>
 																		<form:option value="N">${tutelaNo}</form:option>
 																	</form:select>
-																	<div class="has-error">
-																		<form:errors path="paciente.tutela" cssClass="text-danger"></form:errors>
-																	</div><!-- .has-error -->
 																</div><!-- .input-group -->
+																<div class="has-error">
+																	<form:errors path="paciente.tutela" cssClass="text-danger"></form:errors>
+																</div><!-- .has-error -->
 								   							</div><!-- .form-group -->
 								   						</div><!-- .col-md-4 -->
 								   						<!-- **************************************************Datos  Eps Paciente**************************************************************** -->
@@ -198,10 +198,10 @@
 																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${eps}" itemValue="idEps" itemLabel="razonSocial"></form:options>
 																	</form:select>
-																	<div class="has-error">
-																		<form:errors path="paciente.eps.idEps" cssClass="text-danger"></form:errors>
-																	</div><!-- .has-error -->
 																</div><!-- .input-group -->
+																<div class="has-error">
+																	<form:errors path="paciente.eps.idEps" cssClass="text-danger"></form:errors>
+																</div><!-- .has-error -->
 								   							</div><!-- .form-group -->
 								   						</div><!-- .col-md-4 -->
 								   					</div><!-- .row -->
@@ -221,10 +221,10 @@
 								   								<div class="input-group">
 								   									<form:select path="diagnosticos" cssClass="form-control" items="${diagnosticosPaciente}" id="agendaDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico"></form:select>
 								   								</div><!-- .input-group -->
-								   								<div class="has-error">
-																	<form:errors path="paciente.diagnosticos" cssClass="text-danger"></form:errors>
-																</div><!-- .has-error -->
 								   							</div><!-- .form-group -->
+								   							<div class="has-error">
+																<form:errors path="paciente.diagnosticos" cssClass="text-danger"></form:errors>
+															</div><!-- .has-error -->
 								   						</div><!-- .col-md-4 -->
 													</div><!-- .row -->
 												</div><!-- .card-body -->
@@ -255,10 +255,10 @@
 																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																	</form:select>
-																	<div class="has-error">
-																		<form:errors path="acudiente.documento.tipoDocumento.idTipoDocumento" cssClass="text-danger"></form:errors>
-																	</div><!-- .has-error -->
 																</div><!-- .input-group -->
+																<div class="has-error">
+																	<form:errors path="acudiente.documento.tipoDocumento.idTipoDocumento" cssClass="text-danger"></form:errors>
+																</div><!-- .has-error -->
 								   							</div><!-- .form-group -->
 		                                    			</div><!-- col-md-4 -->
 		                                    			<div class="col-md-4">
@@ -278,10 +278,10 @@
 																		<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																		<form:options items="${parentescos}" itemValue="idParentesco" itemLabel="parentesco"></form:options>
 																	</form:select>
-																	<div class="has-error">
-																		<form:errors path="acudiente.parentesco.idParentesco" cssClass="text-danger"></form:errors>
-																	</div><!-- .has-error -->
 																</div><!-- .input-group -->
+																<div class="has-error">
+																	<form:errors path="acudiente.parentesco.idParentesco" cssClass="text-danger"></form:errors>
+																</div><!-- .has-error -->
 								   							</div><!-- .form-group -->
 		                                    			</div><!-- col-md-4 -->
 		                                    			<!-- ***********************************************Nombres y Apellidos Acudiente************************************************************************* -->

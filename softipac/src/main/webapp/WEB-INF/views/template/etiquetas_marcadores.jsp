@@ -32,6 +32,8 @@
                             	<spring:message code="accion.etiqueta" var="accionEtiqueta"></spring:message>
                             	<spring:message code="botonAdicionar.etiqueta" var="botonAdicionarEtiqueta"></spring:message>	
                             	<spring:message code="cerrar.etiqueta" var="cerrarEtiqueta"></spring:message>
+                            	<spring:message code="confirmaCancelarCita.etiqueta" var="confCanCitaEtiqueta"></spring:message>
+                            	
 <!-- ****************************************************Marcadores*************************************************************************** -->
 								<spring:message code="fechacita.marcador" var="fechaMarcador"></spring:message>
 								<spring:message code="documento.marcador" var="documentoMarcador"></spring:message>
