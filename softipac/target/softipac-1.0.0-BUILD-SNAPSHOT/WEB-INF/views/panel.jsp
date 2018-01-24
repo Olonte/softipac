@@ -4,6 +4,7 @@
 		<div class="page-container">
 			<%@include file="/WEB-INF/views/template/menu.jsp"%> 
 			<%@include file="/WEB-INF/views/template/page-title.jsp"%> 
+			<%@include file="/WEB-INF/views/template/etiquetas_marcadores.jsp"%> 
 			<div class="content-inner">
 				<div class="stat-boxes">
 					<div class="container-fluid">
@@ -13,7 +14,7 @@
 								<a href="<spring:url value="/panelUsuario"></spring:url>">
 									<div class="box">
 										<h5></h5>
-										<h5><spring:message code="panel.jsp.usuario"></spring:message><i class="fa fa-angle-right"></i></h5>
+										<h5>${usuariosEtiqueta}<i class="fa fa-angle-right"></i></h5>
 										<h4></h4>
 										<div class="icon">
 											<i class="fa fa-male"></i>
@@ -26,7 +27,7 @@
                             	<a href="<spring:url value="/panelCita"></spring:url>">
                                 	<div class="box">
                                     	<h5> </h5>
-                                        <h5><spring:message code="panel.jsp.cita"></spring:message><i class="fa fa-angle-right"></i></h5>
+                                        <h5>${citasEtiqueta}<i class="fa fa-angle-right"></i></h5>
                                         <h4></h4>
                                         <div class="icon">
                                         	<i class="fa fa-copy"></i>

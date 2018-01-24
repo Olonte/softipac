@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.olonte.softipac.modelo.Agenda;
+import com.olonte.softipac.modelo.Cita;
 import com.olonte.softipac.modelo.CitaInformacion;
 import com.olonte.softipac.modelo.Diagnostico;
+import com.olonte.softipac.modelo.DiagnosticosJS;
 import com.olonte.softipac.modelo.RegistroListaAgenda;
 import com.olonte.softipac.modelo.Usuario;
 import com.olonte.softipac.modelo.UsuarioSession;
@@ -32,7 +34,7 @@ import com.olonte.softipac.servicio.ParentescoServicio;
 import com.olonte.softipac.servicio.TipoDocumentoServicio;
 import com.olonte.softipac.servicio.UsuarioServicio;
 import com.olonte.softipac.utilidad.Utilidad;
-import com.olonte.softipac.validador.ValidadorUsuario;
+import com.olonte.softipac.validador.ValidadorUsuarioAgenda;
 
 @Controller
 @Scope(value = "session")
@@ -40,7 +42,7 @@ public class CitaControlador {
 	
 	private UsuarioSession usuarioSession;
 	
-	private ValidadorUsuario validadorUsuario;
+	private ValidadorUsuarioAgenda validadorUsuarioAgenda;
 	
 	private CitaServicio citaServicio;
 	
@@ -62,13 +64,16 @@ public class CitaControlador {
 	
 	private Set<Diagnostico> diagnosticosTemp;
 	
+	private DiagnosticosJS diagnosticosJS;
+	
 	@Autowired
-	public CitaControlador(UsuarioSession usuarioSession, ValidadorUsuario validadorUsuario, CitaServicio citaServicio,
-			UsuarioServicio usuarioServicio, HoraServicio horaServicio, TipoDocumentoServicio tipoDocumentoServicio,
-			GeneroServicio generoServicio, EscolaridadServicio escolaridadServicio, EpsServicio epsServicio,
-			DiagnosticoServcio diagnosticoServicio, ParentescoServicio parentescoServicio) {
+	public CitaControlador(UsuarioSession usuarioSession, ValidadorUsuarioAgenda validadorUsuarioAgenda,
+			CitaServicio citaServicio, UsuarioServicio usuarioServicio, HoraServicio horaServicio,
+			TipoDocumentoServicio tipoDocumentoServicio, GeneroServicio generoServicio,
+			EscolaridadServicio escolaridadServicio, EpsServicio epsServicio, DiagnosticoServcio diagnosticoServicio,
+			ParentescoServicio parentescoServicio, DiagnosticosJS diagnosticosJS) {
 		this.usuarioSession = usuarioSession;
-		this.validadorUsuario = validadorUsuario;
+		this.validadorUsuarioAgenda = validadorUsuarioAgenda;
 		this.citaServicio = citaServicio;
 		this.usuarioServicio = usuarioServicio;
 		this.horaServicio = horaServicio;
@@ -78,6 +83,7 @@ public class CitaControlador {
 		this.epsServicio = epsServicio;
 		this.diagnosticoServicio = diagnosticoServicio;
 		this.parentescoServicio = parentescoServicio;
+		this.diagnosticosJS = diagnosticosJS;
 	}
 
 	@ModelAttribute(value = "usuarioLogueado")
@@ -117,7 +123,9 @@ public class CitaControlador {
 	 */
 	@RequestMapping(value = "/agenda", method = RequestMethod.GET)
 	public String crearNuevaAgenda(Model model) {
-		model.addAttribute("nuevaAgenda", new Agenda());
+		Agenda agenda = new Agenda();
+		agenda.setCitaAgenda(Utilidad.ES_CITA_AGENDA);;
+		model.addAttribute("nuevaAgenda", agenda);
 		iniciarListas(model, null, Utilidad.AGENDA_NUEVA);
 		
 		return "agenda";
@@ -133,17 +141,31 @@ public class CitaControlador {
 	 */
 	@RequestMapping(value = "/agenda", method = RequestMethod.POST)
 	public String procesarNuevaAgenda(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-		if (nuevaAgenda.getPaciente().getDiagnosticos().isEmpty()) {
-			if (this.diagnosticosTemp != null) {
-				if (!this.diagnosticosTemp.isEmpty()) {
-					nuevaAgenda.getPaciente().setDiagnosticos(this.diagnosticosTemp);
-				}
-			}
-		}else{
-			this.diagnosticosTemp = nuevaAgenda.getPaciente().getDiagnosticos();
+		int transaccion = Utilidad.TRANS_GUARDAR;
+		
+		if (bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("msj_err","Error guardado con paciente");
 		}
 		
-		return validarAgenda(nuevaAgenda, model, bindingResult, redirectAttributes, Utilidad.AGENDA_PROCESADA);
+		if (nuevaAgenda.getPaciente().getDiagnosticos().isEmpty()) {
+			if (!nuevaAgenda.isJavaScript()) {
+				if (this.diagnosticosTemp != null) {
+					if (!this.diagnosticosTemp.isEmpty()) {
+						nuevaAgenda.getPaciente().setDiagnosticos(this.diagnosticosTemp);
+					}
+				}
+			}else{
+				nuevaAgenda.getPaciente().setDiagnosticos(diagnosticosJS.getDiagnosticos());
+				transaccion = Utilidad.TRANS_ACTUALIZAR;
+			}
+			
+		}else{
+			this.diagnosticosTemp = nuevaAgenda.getPaciente().getDiagnosticos();
+			if (nuevaAgenda.isJavaScript()) {
+				transaccion = Utilidad.TRANS_ACTUALIZAR;
+			}
+		}
+		return validarAgenda(Utilidad.AGENDA_PROCESADA, Utilidad.CITA_AGENDA, transaccion, Utilidad.ESTADO_INACTIVO, nuevaAgenda, Utilidad.INDICE_DEFECTO, model, bindingResult, redirectAttributes);
 	}
 	
 	/**
@@ -182,7 +204,7 @@ public class CitaControlador {
 	@RequestMapping(value = "/editar/agenda", method = RequestMethod.GET)
 	public String editarCita(Model model, @RequestParam("idUsuario") Integer idUsuario) {
 		Agenda agenda = new Agenda();
-		agenda = this.citaServicio.buscarUsuarioAgenda(idUsuario);
+		agenda = this.citaServicio.buscarUsuarioAgenda(idUsuario,Utilidad.USUARIO_ACUDIENTE,Utilidad.CITA_AGENDA);
 		
 		this.diagnosticosTemp = agenda.getPaciente().getDiagnosticos();
 		
@@ -207,7 +229,7 @@ public class CitaControlador {
 			nuevaAgenda.getPaciente().setDiagnosticos(this.diagnosticosTemp);
 		}
 		
-		return validarAgenda(nuevaAgenda, model, bindingResult, redirectAttributes, Utilidad.AGENDA_EDIT_PROC);
+		return validarAgenda(Utilidad.AGENDA_EDIT_PROC, Utilidad.CITA_AGENDA, Utilidad.TRANS_ACTUALIZAR, Utilidad.ESTADO_INACTIVO, nuevaAgenda, Utilidad.INDICE_DEFECTO, model, bindingResult, redirectAttributes);
 	}
 	
 	/**
@@ -217,13 +239,10 @@ public class CitaControlador {
 	 * @return
 	 */
 	@RequestMapping(value = "/cancelar/agenda")
-	public String cancelarCita(@RequestParam("idUsuario") Integer idUsuario, RedirectAttributes redirectAttributes) {
-		
-		this.citaServicio.cancelarCita(idUsuario);
-	
+	public String cancelarCita(@RequestParam("idUsuario") Integer idUsuario, @RequestParam("indiceActual") Integer indiceActual, RedirectAttributes redirectAttributes) {	
+		this.citaServicio.cambiarEstadoCita(idUsuario,Utilidad.CITA_AGENDA,Utilidad.ESTADO_CANCELADO);
 		redirectAttributes.addFlashAttribute("msj_ext","Cita cancelada con éxito");
-		
-		return "redirect:/listadoAgenda";
+		return "redirect:/paginaAgenda/" + indiceActual;
 	}
 	
 	/**
@@ -241,23 +260,27 @@ public class CitaControlador {
 	 * @return
 	 */
 	@RequestMapping(value = "/citaInformacion", method = RequestMethod.GET)
-	public String crearNuevaCitaInformacion(Model model, @RequestParam("idUsuario") Integer idUsuario) {
+	public String crearNuevaCitaInformacion(Model model, @RequestParam("idUsuario") Integer idUsuario, @RequestParam("indiceActual") int indiceActual) {
 		CitaInformacion citaInformacion = new CitaInformacion();
-		Usuario familiar = this.usuarioServicio.buscarAcudientePorId(idUsuario);
 		
-		citaInformacion.setCita(this.citaServicio.buscarPorIdPaciente(idUsuario));
+		Usuario familiar = this.usuarioServicio.buscarAcudientePorId(idUsuario,Utilidad.USUARIO_ACUDIENTE);
+		citaInformacion.setCita(new Cita());
+		citaInformacion.getCita().setFechaCitaIni(this.citaServicio.obtenerFechaCitaIni(idUsuario,Utilidad.CITA_AGENDA));
 		citaInformacion.setPaciente(this.usuarioServicio.buscarPacientePorId(idUsuario));
+		
 		
 		if (familiar.getParentesco().getIdParentesco() == Utilidad.MADRE) {
 			citaInformacion.setMadre(familiar);
 		}else if (familiar.getParentesco().getIdParentesco() == Utilidad.PADRE) {
 			citaInformacion.setPadre(familiar);
 		}
-		
+			
 		citaInformacion.setAcudiente(familiar);
 		citaInformacion.setUsuarioAplica(getUsuarioSession().obtenerNombresApellidos());
 		
+		this.diagnosticosTemp = citaInformacion.getPaciente().getDiagnosticos();
 		model.addAttribute("citaInformacion", citaInformacion);
+		model.addAttribute("indiceActual",indiceActual);
 		iniciarListas(model, citaInformacion, Utilidad.CITA_INFO_NUEVA);
 		
 		return "citaInformacion";
@@ -272,8 +295,20 @@ public class CitaControlador {
 	 * @return
 	 */
 	@RequestMapping(value = "/citaInformacion", method = RequestMethod.POST)
-	public String procesarNuevaCitaInformacion(@ModelAttribute("citaInformacion") CitaInformacion citaInformacion, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes){
-		return "redirect:/citaInformacion";
+    public String procesarNuevaCitaInformacion(@ModelAttribute("citaInformacion") CitaInformacion citaInformacion, @ModelAttribute("indiceActual") int indiceActual,
+    		Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+		if (citaInformacion.getPaciente().getDiagnosticos().isEmpty()) {
+			citaInformacion.getPaciente().setDiagnosticos(diagnosticosTemp);
+		}
+		return validarAgenda(Utilidad.CITA_INFO_PROC, Utilidad.CITA_INFORMACION, Utilidad.TRANS_GUARDAR,  Utilidad.ESTADO_PENDIENTE, citaInformacion, indiceActual, model, bindingResult, redirectAttributes);
+	}
+	
+	@RequestMapping(value = "/crear/citaInformacion", method = RequestMethod.GET)
+	public String crearCitaInformacion(Model model) {
+		CitaInformacion citaInformacion = new CitaInformacion();
+		model.addAttribute("citaInformacion", citaInformacion);
+		iniciarListas(model, citaInformacion, Utilidad.CITA_INFO_CREAR);
+		return "citaInformacion";
 	}
 	
 	/**
@@ -293,7 +328,7 @@ public class CitaControlador {
 	private void iniciarListas(Model model, Agenda agenda, int origen) {
 		switch (origen) {
 			case Utilidad.AGENDA_PROCESADA:
-				model.addAttribute("horas", this.horaServicio.buscarAgendaPorFecha(agenda.getCita().getFechaCitaIni()));
+				model.addAttribute("horas", this.horaServicio.buscarAgendaPorFecha(agenda.getCita().getFechaCitaIni(),Utilidad.CITA_AGENDA,Utilidad.HORA_AGENDA));
 				if (agenda.getPaciente().getDiagnosticos().isEmpty()) {
 					if (this.diagnosticosTemp != null) {
 						if (!this.diagnosticosTemp.isEmpty()) {
@@ -305,7 +340,10 @@ public class CitaControlador {
 				}
 				break;
 			case Utilidad.AGENDA_EDITADA:
-				model.addAttribute("horas",this.citaServicio.obtenerHoras(agenda));
+				model.addAttribute("horas",this.citaServicio.obtenerHoras(agenda,Utilidad.HORA_AGENDA));
+				break;
+			case Utilidad.CITA_INFO_CREAR:
+				((CitaInformacion)agenda).setUsuarioAplica(getUsuarioSession().obtenerNombresApellidos());
 				break;
 			default:
 				break;
@@ -316,12 +354,16 @@ public class CitaControlador {
 		model.addAttribute("escolaridades", this.escolaridadServicio.buscarTodos());
 		model.addAttribute("eps", this.epsServicio.buscarTodos());
 		model.addAttribute("diagnosticos", this.diagnosticoServicio.buscarTodos());
+		model.addAttribute("parentescos", this.parentescoServicio.buscarTodos());	
 		
-		if (origen != Utilidad.AGENDA_NUEVA && origen != Utilidad.AGENDA_PROCESADA) {
+		if (origen != Utilidad.AGENDA_NUEVA && origen != Utilidad.AGENDA_PROCESADA && origen != Utilidad.CITA_INFO_CREAR) {
 			model.addAttribute("diagnosticosPaciente", agenda.getPaciente().getDiagnosticos());
 		}
 		
-		model.addAttribute("parentescos", this.parentescoServicio.buscarTodos());	
+		if (origen == Utilidad.CITA_INFO_NUEVA || origen == Utilidad.CITA_INFO_PROC || origen == Utilidad.CITA_INFO_CREAR) {
+			model.addAttribute("meses", this.citaServicio.obtenerMeses());
+		}
+
 	}
 	
 	/**
@@ -332,23 +374,48 @@ public class CitaControlador {
 	 * @param redirectAttributes
 	 * @return
 	 */
-	private String validarAgenda(Agenda agenda, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes, int origen) {
-		this.validadorUsuario.validate(agenda, bindingResult);
+	private String validarAgenda(int origen, int tipoCita, int transaccion, Integer idEstado, Agenda agenda, int indiceActual, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		this.validadorUsuarioAgenda.validate(agenda, bindingResult);
 		
-		if (bindingResult.hasErrors()) {
-			iniciarListas(model, agenda, origen);
-			return "agenda";
-		}else{
-			if (origen == Utilidad.AGENDA_EDIT_PROC) {
-				this.citaServicio.actualizar(agenda);
-			}else {
-				this.citaServicio.guardar(agenda);
-			}
-			
+		if (!bindingResult.hasErrors()) {
+			this.citaServicio.guardarActualizar(tipoCita, transaccion, idEstado, agenda);
 			redirectAttributes.addFlashAttribute("msj_ext","Paciente guardado con éxito");
+			return obtenerJSP(tipoCita, indiceActual, false);
+		}else {
+			iniciarListas(model, agenda, origen);
+			return obtenerJSP(tipoCita, indiceActual, true);
 		}
+	}
 	
-		return "redirect:/agenda";
+	/**
+	 * 
+	 * @param tipoCita
+	 * @param error
+	 * @return
+	 */
+	private String obtenerJSP(int tipoCita,int indiceActual, boolean error) {
+		String ruta = null;
+		
+		switch (tipoCita) {
+		case Utilidad.CITA_AGENDA:
+			if (!error) {
+				ruta = "redirect:/agenda";
+			}else{
+				ruta = "agenda";
+			}
+			break;
+		case Utilidad.CITA_INFORMACION:
+			if (!error) {
+				ruta = "forward:/paginaAgenda/" + indiceActual;
+			}else {
+				ruta="citaInformacion";
+			}
+		default:
+			break;
+		}
+		
+		return ruta;
+		
 	}
 	
 }

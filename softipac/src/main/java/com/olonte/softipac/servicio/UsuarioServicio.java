@@ -8,5 +8,5 @@ public interface UsuarioServicio {
 	void guardar(Usuario usuario);
 	UsuarioJSON bucarPorDocumento(String documento);
 	Usuario buscarPacientePorId(Integer idUsuario);
-	Usuario buscarAcudientePorId(Integer idUsuario);
+	Usuario buscarAcudientePorId(Integer idUsuario, Integer idTipoUsuario);
 }

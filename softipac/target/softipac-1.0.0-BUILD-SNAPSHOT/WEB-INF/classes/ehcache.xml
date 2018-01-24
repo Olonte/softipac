@@ -9,18 +9,90 @@
 	 <defaultCache 
 	 	maxElementsInMemory="10000" 
 	 	eternal="true"
-        overflowToDisk="false" diskPersistent="false"
+        overflowToDisk="false" 
+        diskPersistent="false"
         diskExpiryThreadIntervalSeconds="1800" 
         memoryStoreEvictionPolicy="FIFO">
     </defaultCache>
+    
+     <cache name="com.olonte.softipac.modelo.TipoUsuario" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+    
+    <cache name="tiposUsuario" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+    
+    <cache name="tipoUsuarioPorId" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+	
+	<cache name="com.olonte.softipac.modelo.Cita" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+	
+	<cache name="com.olonte.softipac.modelo.TipoCita" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+	
+	<cache name="tipoCitaPorId" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+	
+	 <cache name="com.olonte.softipac.modelo.Estado" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
     
     <cache name="estados" 
 		maxEntriesLocalHeap="100"
 		maxEntriesLocalDisk="1000" 
 		eternal="false" 
 		timeToIdleSeconds="300" 
-		timeToLiveSeconds="600">
-		<persistence strategy="localTempSwap" />
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
 	</cache>
 	
 	<cache name="estadoPorId" 
@@ -28,8 +100,19 @@
 		maxEntriesLocalDisk="1000" 
 		eternal="false" 
 		timeToIdleSeconds="300" 
-		timeToLiveSeconds="600">
-		<persistence strategy="localTempSwap" />
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+    
+    <cache name="com.olonte.softipac.modelo.TipoDocumento" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
 	</cache>
     
     <cache name="tiposDocumento" 
@@ -37,8 +120,29 @@
 		maxEntriesLocalDisk="1000" 
 		eternal="false" 
 		timeToIdleSeconds="300" 
-		timeToLiveSeconds="600">
-		<persistence strategy="localTempSwap" />
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+	
+	 <cache name="com.olonte.softipac.modelo.Documento" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+	
+	 <cache name="com.olonte.softipac.modelo.Genero" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
 	</cache>
 	
 	<cache name="generos" 
@@ -46,8 +150,19 @@
 		maxEntriesLocalDisk="1000" 
 		eternal="false" 
 		timeToIdleSeconds="300" 
-		timeToLiveSeconds="600">
-		<persistence strategy="localTempSwap" />
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+	
+	 <cache name="com.olonte.softipac.modelo.Escolaridad" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
 	</cache>
 
 	<cache name="escolaridades" 
@@ -55,17 +170,39 @@
 		maxEntriesLocalDisk="1000" 
 		eternal="false" 
 		timeToIdleSeconds="300" 
-		timeToLiveSeconds="600">
-		<persistence strategy="localTempSwap" />
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
 	</cache>
 	
-	<cache name="eps" 
+	 <cache name="com.olonte.softipac.modelo.Eps" 
 		maxEntriesLocalHeap="100"
 		maxEntriesLocalDisk="1000" 
 		eternal="false" 
 		timeToIdleSeconds="300" 
-		timeToLiveSeconds="600">
-		<persistence strategy="localTempSwap" />
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+	
+	<cache name="epses" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+	
+	 <cache name="com.olonte.softipac.modelo.Parentesco" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
 	</cache>
 
 	<cache name="parentescos" 
@@ -73,8 +210,10 @@
 		maxEntriesLocalDisk="1000" 
 		eternal="false" 
 		timeToIdleSeconds="300" 
-		timeToLiveSeconds="600">
-		<persistence strategy="localTempSwap" />
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+		
 	</cache>
 	
 	<cache name="parentescoPorId" 
@@ -82,8 +221,19 @@
 		maxEntriesLocalDisk="1000" 
 		eternal="false" 
 		timeToIdleSeconds="300" 
-		timeToLiveSeconds="600">
-		<persistence strategy="localTempSwap" />
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+	
+	 <cache name="com.olonte.softipac.modelo.Diagnostico" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
 	</cache>
 	 
 	<cache name="diagnosticos" 
@@ -91,8 +241,9 @@
 		maxEntriesLocalDisk="1000" 
 		eternal="false" 
 		timeToIdleSeconds="300" 
-		timeToLiveSeconds="600">
-		<persistence strategy="localTempSwap" />
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
 	</cache>
 	
 	<cache name="diagnosticoPorId" 
@@ -100,8 +251,9 @@
 		maxEntriesLocalDisk="1000" 
 		eternal="false" 
 		timeToIdleSeconds="300" 
-		timeToLiveSeconds="600">
-		<persistence strategy="localTempSwap" />
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
 	</cache>
 	
 	<cache name="diagnosticoPorIds" 
@@ -109,8 +261,9 @@
 		maxEntriesLocalDisk="1000" 
 		eternal="false" 
 		timeToIdleSeconds="300" 
-		timeToLiveSeconds="600">
-		<persistence strategy="localTempSwap" />
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
 	</cache>
 	
 </ehcache>	

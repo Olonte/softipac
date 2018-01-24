@@ -74,8 +74,6 @@ public class QUsuario extends EntityPathBase<Usuario> {
 
     public final StringPath tutela = createString("tutela");
 
-    public final SetPath<Cita, QCita> usuario_idusuapl = this.<Cita, QCita>createSet("usuario_idusuapl", Cita.class, QCita.class, PathInits.DIRECT2);
-
     public final SetPath<Afinidad, QAfinidad> usuario_idusuario = this.<Afinidad, QAfinidad>createSet("usuario_idusuario", Afinidad.class, QAfinidad.class, PathInits.DIRECT2);
 
     public QUsuario(String variable) {

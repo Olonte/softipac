@@ -25,7 +25,7 @@
 								</div><!-- .col-md-6 -->	
 								<!-- *************************************Cita Informacion ******************************************************************** -->
 								 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <a href="<spring:url value="/cita"></spring:url>">
+                                    <a href="<spring:url value="/crear/citaInformacion"></spring:url>">
                                         <div class="box">
                                             <h5> </h5>
                                             <h5>${citaEtiqueta}<i class="fa fa-angle-right"></i></h5>

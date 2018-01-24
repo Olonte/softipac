@@ -117,9 +117,6 @@ public class Usuario {
 	)
 	private Set<Diagnostico> diagnosticos = new HashSet<Diagnostico>();
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "citaUsuarioId.usuario_idusuapl", cascade = CascadeType.ALL)
-	private Set<Cita> usuario_idusuapl = new HashSet<Cita>(0);
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "serviciosalud_idserviciosalud", referencedColumnName = "idserviciosalud", nullable = true)
 	private ServicioSalud servicioSalud;
@@ -350,15 +347,6 @@ public class Usuario {
 	public void setRoles(Set<Rol> roles) {
 		this.roles = roles;
 	}
-	
-	public Set<Cita> getUsuario_idusuapl() {
-		return usuario_idusuapl;
-	}
-
-	public void setUsuario_idusuapl(Set<Cita> usuario_idusuapl) {
-		this.usuario_idusuapl = usuario_idusuapl;
-	}
-	
 	
 	public ServicioSalud getServicioSalud() {
 		return servicioSalud;

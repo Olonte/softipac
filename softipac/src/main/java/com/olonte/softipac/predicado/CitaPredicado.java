@@ -14,7 +14,9 @@ import com.olonte.softipac.utilidad.Utilidad;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.JPQLQueryFactory;
 import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 public class CitaPredicado {
 	
@@ -22,16 +24,20 @@ public class CitaPredicado {
 	}
 	
 	public static Predicate buscarPorDocumento(String documento) {
-		return QCita.cita.citaUsuarioId.usuario_idusuario.idUsuario.eq(JPAExpressions
+		return QCita.cita.citaId.usuario_idusuario.idUsuario.eq(
+				JPAExpressions
 				.select(QUsuario.usuario.idUsuario)
 				.from(QUsuario.usuario)
-				.where(QUsuario.usuario.documento.idDocumento.eq(JPAExpressions
+				.where(QUsuario.usuario.documento.idDocumento.eq(
+						JPAExpressions
 						.select(QDocumento.documento1.idDocumento)
 						.from(QDocumento.documento1)
-						.where(QDocumento.documento1.documento.eq(documento) ) ) ) );
+						.where(QDocumento.documento1.documento.eq(documento)) 
+						) 
+					) 
+				);
 	}
 	
-	//public static Iterable<RegistroListaAgenda> buscarCitas(EntityManager entityManager) {
 	public static List<RegistroListaAgenda> buscarCitas(EntityManager entityManager) {
 		QCita qCita = new QCita("cita");
 		QUsuario qPaciente = new QUsuario("paciente");
@@ -54,12 +60,12 @@ public class CitaPredicado {
 												.join(qAcudiente)
 													.on(qAfinidad.afinidadUsuarioId.idfamiliar.idUsuario.eq(qAcudiente.idUsuario))
 												.join(qCita)
-													.on(qCita.citaUsuarioId.usuario_idusuario.idUsuario.eq(qPaciente.idUsuario))
-											.where(qCita.tipoCita.idTipoCita.eq(Utilidad.CITA_AGENDA)
-											.and(qCita.estado.idEstado.eq(Utilidad.ESTADO_INACTIVO))
+													.on(qCita.citaId.usuario_idusuario.idUsuario.eq(qPaciente.idUsuario))
+											.where(qCita.citaId.tipocita_idtipocita.idTipoCita.eq(Utilidad.CITA_AGENDA)
+											.and(qCita.citaId.estado_idestado.idEstado.eq(Utilidad.ESTADO_INACTIVO))
 											.and(qAcudiente.tipoUsuario.idTipoUsuario.eq(Utilidad.USUARIO_ACUDIENTE)))
-											.orderBy(qCita.fechaCitaIni.asc(),qCita.hora.idHora.asc()).fetch();
-	  
+											.orderBy(qCita.fechaCitaIni.asc(),qCita.hora.horaId.idhora.asc()).fetch();
+		
 		for (Tuple tuple : listaAgendas) {
 			RegistroListaAgenda registroListaAgenda = new RegistroListaAgenda(tuple.get(qCita.fechaCitaIni),
 					tuple.get(qCita.hora.hora),
@@ -73,12 +79,25 @@ public class CitaPredicado {
 		return registrosListadoAgenda;	
 	}
 	
-	public static Predicate buscarPorIdPaciente(Integer idUsuario) {
-		return QCita.cita.citaUsuarioId.usuario_idusuario.idUsuario.eq(JPAExpressions.
+	public static Predicate buscarPorIdPaciente(Integer idUsuario, Integer idTipoCita) {
+		return QCita.cita.citaId.usuario_idusuario.idUsuario.eq(
+				JPAExpressions.
 				select(QUsuario.usuario.idUsuario)
 				.from(QUsuario.usuario)
 				.where(QUsuario.usuario.idUsuario.eq(idUsuario)
-						.and(QCita.cita.tipoCita.idTipoCita.eq(Utilidad.CITA_AGENDA))));
+						.and(QCita.cita.citaId.tipocita_idtipocita.idTipoCita.eq(idTipoCita))
+					)
+				);
 	}
+	
+	public static void cambiarEstadoCita(EntityManager entityManager, Integer idUsuario, Integer idTipoCita, Integer idEstado) {
+		JPQLQueryFactory queryFactory = new JPAQueryFactory(entityManager);
+		queryFactory.update(QCita.cita)
+		.set(QCita.cita.citaId.estado_idestado.idEstado, idEstado)
+		.where(QCita.cita.citaId.usuario_idusuario.idUsuario.eq(idUsuario)
+				.and(QCita.cita.citaId.tipocita_idtipocita.idTipoCita.eq(idTipoCita)))
+		.execute();
+	}
+	
 	
 }

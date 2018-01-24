@@ -1,39 +1,38 @@
+<%@include file="/WEB-INF/views/template/etiquetas_marcadores.jsp"%> 
 <div class="page-container">
 	<div class="sidebar-container"> 
 		<div class="logo">
-			<h3><spring:message code="titulo.barra.apa"></spring:message></h3>
+			<h3>${barraApa}</h3>
 		</div><!-- .logo -->
 		<div class="user-meta">
 			<div class="dropdown">
 		    	<button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
-		        	<spring:message code="menu.jsp.bienvenido"></spring:message>
-		            <span>${usuarioLogueado}</span>
+		        	${bienvenido}
+		            <span>${usuarioLogueado.obtenerNombresApellidos()}</span>
 		            <i class="fa fa-angle-down"></i>
-		        </button>
-		                
+		        </button>   
 		        <div class="dropdown-menu">
 		        	<li>
 		            	<a href="<spring:url value="/logout"></spring:url>" class="dropdown-item">
 		                	<i class="fa fa-sign-out"></i>
-		                    <spring:message code="menu.jsp.salir"></spring:message>
+		                    ${menuSalir}
 		                </a>
 		            </li>
-		        </div><!-- .dropdown-menu -->
-		                
+		        </div><!-- .dropdown-menu -->        
 		  </div> <!-- .dropdown-menu -->
 		</div><!-- .user-meta -->
 		<ul class="sidebar-nav">
 			<li>
 		    	<a href="<spring:url value="/panel"></spring:url>">
 		    		<i class="fa fa-fw fa-dashboard"></i>
-		    		<spring:message code="menu.jsp.icono.menu.titulo"></spring:message>
+		    		${icono}
 		    	</a>
 		    </li>
 		    <li>
-		    	<a href="panel_usuario.php"><i class="fa fa-fw fa-male"></i> Usuarios</a>
+		    	<a href="#"><i class="fa fa-fw fa-male"></i> Usuarios</a>
 		    </li>
 		    <li>
-		        <a href="panel_citas.php"><i class="fa fa-fw fa-copy"></i> Citas</a>
+		        <a href="<spring:url value="/panelCita"></spring:url>"><i class="fa fa-fw fa-copy"></i> Citas</a>
 		    </li>
 		</ul>
 	</div><!-- .sidebar-container -->

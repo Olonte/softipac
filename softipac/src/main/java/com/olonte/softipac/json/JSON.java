@@ -26,6 +26,7 @@ public class JSON {
 			usuarioJSON.setEscolaridad(usuario.getEscolaridad());
 			usuarioJSON.setTutela(usuario.getTutela());
 			usuarioJSON.setEps(usuario.getEps());
+			
 			for (Diagnostico diagnostico : usuario.getDiagnosticos()) {
 				usuarioJSON.getDiagnosticos().add(diagnostico);
 			}
@@ -41,7 +42,7 @@ public class JSON {
 	public static CitaJSON obtenerCitaJSON(Cita cita){
 		CitaJSON citaJSON = new CitaJSON();
 		if (cita != null) {
-			citaJSON.setIdCita(cita.getIdCita());
+			citaJSON.setCitaId(cita.getCitaId());
 			citaJSON.setFechaCitaIni(cita.getFechaCitaIni());
 			citaJSON.setHora(cita.getHora());
 			citaJSON.setObservacion(cita.getObservacion());

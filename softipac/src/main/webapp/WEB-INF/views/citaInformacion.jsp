@@ -14,10 +14,14 @@
 									<c:when test="${not empty msj_err}"><%@include file="/WEB-INF/views/messages/mensaje_error.jsp"%></c:when>
 								</c:choose>
 								<%@include file="/WEB-INF/views/template/etiquetas_marcadores.jsp"%> 
-								<!-- **************************************************Cita Inicial de Informacion Datos**************************************************************** -->
+								<!-- **************************************************Id - Tipo - Estado  Cita**************************************************************** -->
+									<form:input type="hidden" cssClass="form-control" path="cita.citaId.idcita" id="citaIdCita" name="citaIdCita"></form:input>
+									<form:input type="hidden" cssClass="form-control" path="cita.citaId.tipocita_idtipocita.idTipoCita" id="citaIdTipoCita" name="citaIdTipoCita"></form:input>
+									<form:input type="hidden" cssClass="form-control" path="cita.citaId.estado_idestado.idEstado" id="citaIdEstado" name="citaIdEstado"></form:input>
+									<form:input type="hidden" cssClass="form-control" path="cita.citaId.usuario_idusuapl.idUsuario" id="citaIdUsuarioApl" name="citaIdUsuarioApl"></form:input>
+									<form:input type="hidden" cssClass="form-control" path="cita.citaId.usuario_idusuario.idUsuario" id="citaIdUsuario" name="citaIdUsuario"></form:input>
+									<c:set var="indiceActual" value="${indiceActual}"></c:set>
 								<div class="card ">
-									<!-- **************************************************Id Cita**************************************************************** -->
-									<form:input type="hidden" cssClass="form-control" path="cita.idCita" id="idCita" name="idCita"></form:input>
                                     <div class="card-header" role="tab" id="headingInformacion">
                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseInformacion" aria-expanded="true" aria-controls="collapseInformacion">
                                             <h5 class="mb-0">${citaInfoTituloEtiqueta}</h5>
@@ -30,7 +34,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                         	<form:label path="cita.fechaCitaIni">${fechaCitaEtiqueta}</form:label><br>
-                                                            <form:input  type="text" cssClass="form-control" path="cita.fechaCitaIni" readonly="true" id="fecha_CitaIni" name="fecha_CitaIni"></form:input> 
+                                                            <form:input  type="text" cssClass="form-control" path="cita.fechaCitaIni" readonly="true" id="fechaCitaIniInfo" name="fechaCitaIniInfo"></form:input> 
                                                         </div><!-- .form-group -->
                                                     </div><!-- .col-md-4 -->
                                                     <div class="col-md-4">
@@ -51,12 +55,14 @@
 											<h5 class="mb-0">${pacienteEtiqueta}</h5>
 										</a>
 									</div><!-- .card-header -->
-									<div id="collapseDatosPaciente" class="collapse show" rol="tabpanel" aria-labelledy="headingPaciente">
+									<div id="collapseDatosPaciente" class="collapse show" role="tabpanel" aria-labelledy="headingPaciente">
 										<div class="card-block">
 											<div class="card-body">
 												<div class="row">
-													<!-- **************************************************Id Paciente**************************************************************** -->
-													<form:input type="hidden" cssClass="form-control" path="paciente.idUsuario" id="idPaciente" name="idPaciente"></form:input>
+													<!-- **************************************************Id Tipo - Estado Paciente**************************************************************** -->
+													<form:input type="hidden" cssClass="form-control" path="paciente.idUsuario" id="pacienteIdUsuario" name="pacienteIdUsuario"></form:input>
+													<form:input type="hidden" cssClass="form-control" path="paciente.tipoUsuario.idTipoUsuario" id="pacienteIdTipoUsuario" name="pacienteIdTipoUsuario"></form:input>
+													<form:input type="hidden" cssClass="form-control" path="paciente.estado.idEstado" id="pacienteIdEstado" name="pacienteIdEstado"></form:input>
 													<!-- **************************************************Datos  Documento Paciente**************************************************************** -->
 													<div class="col-md-4">
 														<div class="form-group">
@@ -67,13 +73,16 @@
 																	<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																</form:select>
 															</div><!-- .input-group -->
+															<div class="has-error">
+																<form:errors path="paciente.documento.tipoDocumento.idTipoDocumento" cssClass="text-danger"></form:errors>
+															</div><!-- .has-error -->
 								   						</div><!-- .form-group -->
 													</div><!-- .col-md-4 -->
 													<div class="col-md-4">
 														<div class="form-group">
 															<form:label path="paciente.documento.documento">${documentoEtiqueta}</form:label>
 															<div class="input-group">
-																<form:input type="text" cssClass="form-control" path="paciente.documento.documento" id="pacienteDocumento" name="documento" placeholder="${documentoMarcador}" required="required"></form:input>
+																<form:input type="number" cssClass="form-control" path="paciente.documento.documento" id="pacienteDocumento" name="documento" placeholder="${documentoMarcador}" required="required"></form:input>
 															</div><!-- .input-group -->
 														</div><!-- .form-group -->
 													</div><!-- .col-md-4 -->
@@ -107,7 +116,7 @@
 														<div class="form-group">
 															<form:label path="paciente.fechaNacimiento">${fechaNacimientoEtiqueta}</form:label>
 															<div class="input-group">    
-																<form:input type="text" cssClass="form-control" path="paciente.fechaNacimiento" id="fechaNacimiento" name="fechaNacimiento" placeholder="${fechaNacimientoMarcador}"></form:input>
+																<form:input type="text" cssClass="form-control" path="paciente.fechaNacimiento" id="fechaNacimiento" name="fechaNacimiento" placeholder="${fechaNacimientoMarcador}" required="required"></form:input>
 															</div><!-- .input-group -->
 														</div><!-- .form-group -->
 													</div><!-- .col-md-4 -->
@@ -116,7 +125,7 @@
 														<div class="form-group">
 															<form:label path="paciente.edad">${edadEtiqueta}</form:label>
 															<div class="input-group">  
-																<form:input type="text" cssClass="form-control" path="paciente.edad" id="edadPaciente" name="edadPaciente" placeholder="${edadMarcador}"></form:input>
+																<form:input type="number" cssClass="form-control" path="paciente.edad" id="edadPaciente" name="edadPaciente" placeholder="${edadMarcador}" required="required"></form:input>
 															</div><!-- .input-group -->
 														</div><!-- .form-group -->
 													</div><!-- .col-md-4 -->
@@ -139,6 +148,9 @@
 																	<form:options items="${generos}" itemValue="idGenero" itemLabel="genero"></form:options>
 																</form:select>
 															</div><!-- .input-group -->
+															<div class="has-error">
+																<form:errors path="paciente.genero.idGenero" cssClass="text-danger"></form:errors>
+															</div><!-- .has-error -->
 								   						</div><!-- .form-group -->
 								   					</div><!-- .col-md-4 -->
 								   					<!-- **************************************************Datos  Escolaridad Paciente**************************************************************** -->
@@ -151,6 +163,9 @@
 																	<form:options items="${escolaridades}" itemValue="idEscolaridad" itemLabel="escolaridad"></form:options>
 																</form:select>
 															</div><!-- .input-group -->
+															<div class="has-error">
+																<form:errors path="paciente.escolaridad.idEscolaridad" cssClass="text-danger"></form:errors>
+															</div><!-- .has-error -->
 								   						</div><!-- .form-group -->
 								   					</div><!-- .col-md-4 -->
 								   					<!-- **************************************************Datos  Tutela Paciente**************************************************************** -->
@@ -159,11 +174,14 @@
 								 							<form:label path="paciente.tutela">${tutelaEtiqueta}</form:label>
 															<div class="input-group">
 																<form:select path="paciente.tutela" id="pacienteTutela" cssClass="form-control">
-																	<form:option value="N" label="${seleccionEtiqueta}"></form:option>
+																	<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																	<form:option value="S">${tutelaSi}</form:option>
 																	<form:option value="N">${tutelaNo}</form:option>
 																</form:select>
 															</div><!-- .input-group -->
+															<div class="has-error">
+																<form:errors path="paciente.tutela" cssClass="text-danger"></form:errors>
+															</div><!-- .has-error -->
 								   						</div><!-- .form-group -->
 								   					</div><!-- .col-md-4 -->
 								   					<!-- **************************************************Datos  Eps Paciente**************************************************************** -->
@@ -176,6 +194,9 @@
 																	<form:options items="${eps}" itemValue="idEps" itemLabel="razonSocial"></form:options>
 																</form:select>
 															</div><!-- .input-group -->
+															<div class="has-error">
+																<form:errors path="paciente.eps.idEps" cssClass="text-danger"></form:errors>
+															</div><!-- .has-error -->
 								   						</div><!-- .form-group -->
 								   					</div><!-- .col-md-4 -->
 								   				</div><!-- .row -->
@@ -188,16 +209,19 @@
 									<!-- *******************************************************Datos Madre**************************************************************************************** -->
 									<div class="card">
 										<div class="card-header" role="tab" id="headingDatosMadre">
-											<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="collapseDatosMadre" aria-expanded="false" aria-controls="collapseDatosMadre">
+											<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseDatosMadre" aria-expanded="false" aria-controls="collapseDatosMadre">
 												<h5 class="mb-0">${madreEtiqueta}</h5>
 											</a>
 										</div><!-- .card-header -->
-										<div id="collapseDatosMadre" class="collapse show" role="tabpanel" aria-labelledby="headingDatosMadre">
+										<div id="collapseDatosMadre" class="collapse" role="tabpanel" aria-labelledby="headingDatosMadre">
 											<div class="card-block">
 		                                    	<div class="card-body">
 		                                    		<div class="row">
-		                                    	    	<!-- **************************************************Id Madre**************************************************************** -->
-		                                    			<form:input type="hidden" cssClass="form-control" path="madre.idUsuario" id="idMadre" name="idMadre"></form:input>
+		                                    	    	<!-- **************************************************Id - Tipo - Estado Madre**************************************************************** -->
+		                                    			<form:input type="hidden" cssClass="form-control" path="madre.idUsuario" id="madreIdUsuario" name="madreIdUsuario"></form:input>
+		                                    			<form:input type="hidden" cssClass="form-control" path="madre.tipoUsuario.idTipoUsuario" id="madreIdTipoUsuario" name="madreIdTipoUsuario"></form:input>
+		                                    			<form:input type="hidden" cssClass="form-control" path="madre.estado.idEstado" id="madreIdEstado" name="madreIdEstado"></form:input>
+		                                    			
 		                                    			<!-- **************************************************Datos  Documento Acudiente**************************************************************** -->
 		                                    			<div class="col-md-4">
 		                                    				<div class="form-group">
@@ -208,13 +232,16 @@
 																		<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																	</form:select>
 																</div><!-- .input-group -->
+																<div class="has-error">
+																	<form:errors path="madre.documento.tipoDocumento.idTipoDocumento" cssClass="text-danger"></form:errors>
+																</div><!-- .has-error -->
 								   							</div><!-- .form-group -->
 		                                    			</div><!-- col-md-4 -->
 		                                    			<div class="col-md-4">
 															<div class="form-group">
 																<form:label path="madre.documento.documento">${documentoEtiqueta}</form:label>
 																<div class="input-group">
-																	<form:input type="text" cssClass="form-control" path="madre.documento.documento" id="madreDocumento" name="madreDocumento" placeholder="${documentoMarcador}" required="required"></form:input>
+																	<form:input type="number" cssClass="form-control" path="madre.documento.documento" id="madreDocumento" name="madreDocumento" placeholder="${documentoMarcador}" required="required"></form:input>
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
@@ -248,7 +275,7 @@
 															<div class="form-group">
 																<form:label path="madre.edad">${edadEtiqueta}</form:label>
 																<div class="input-group">  
-																	<form:input type="text" cssClass="form-control" path="madre.edad" id="madreEdad" name="madreEdad" placeholder="${edadMarcador}"></form:input>
+																	<form:input type="number" cssClass="form-control" path="madre.edad" id="madreEdad" name="madreEdad" placeholder="${edadMarcador}" required="required"></form:input>
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
@@ -262,13 +289,16 @@
 																		<form:options items="${escolaridades}" itemValue="idEscolaridad" itemLabel="escolaridad"></form:options>
 																	</form:select>
 																</div><!-- .input-group -->
+																<div class="has-error">
+																	<form:errors path="madre.escolaridad.idEscolaridad" cssClass="text-danger"></form:errors>
+																</div><!-- .has-error -->
 									   						</div><!-- .form-group -->
 									   					</div><!-- .col-md-4 -->
 									   					<div class="col-md-4">
 															<div class="form-group">
 																<form:label path="madre.ocupacion">${ocupacionEtiqueta}</form:label>
 																<div class="input-group">  
-																	<form:input type="text" cssClass="form-control" path="madre.ocupacion" id="madreOcupacion" name="madreOcupacion" placeholder="${ocupacionMarcador}"></form:input>
+																	<form:input type="text" cssClass="form-control" path="madre.ocupacion" id="madreOcupacion" name="madreOcupacion" placeholder="${ocupacionMarcador}" required="requiered"></form:input>
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
@@ -303,8 +333,11 @@
 															<div class="form-group">
 																<form:label path="madre.email">${emailEtiqueta}</form:label>
 																<div class="input-group">    
-																	<form:input type="text" cssClass="form-control" path="madre.email" id="madreEmail" name="madreEmail" placeholder="${emailMarcador}" required="required"></form:input>
+																	<form:input type="text" cssClass="form-control" path="madre.email" id="madreEmail" name="madreEmail" placeholder="${emailMarcador}"></form:input>
 																</div><!-- .input-group -->
+																<div class="has-error">
+																	<form:errors path="madre.email" cssClass="text-danger"></form:errors>
+																</div><!-- .has-error -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
 			                                   		</div><!-- .row -->
@@ -315,7 +348,7 @@
 										<!-- *******************************************************Datos Padre**************************************************************************************** -->
 										<div class="card">
 											<div class="card-header" role="tab" id="headingDatosPadre">
-												<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="collapseDatosPadre" aria-expanded="false" aria-controls="collapseDatosPadre">
+												<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseDatosPadre" aria-expanded="false" aria-controls="collapseDatosPadre">
 													<h5 class="mb-0">${padreEtiqueta}</h5>
 												</a>
 											</div><!-- .card-header -->
@@ -323,8 +356,10 @@
 												<div class="card-block">
 		                                    		<div class="card-body">
 		                                    			<div class="row">
-		                                    	    		<!-- **************************************************Id Padre**************************************************************** -->
-		                                    				<form:input type="hidden" cssClass="form-control" path="padre.idUsuario" id="idPadre" name="idPadre"></form:input>
+		                                    	    		<!-- **************************************************Id - Tipo - Estado Padre**************************************************************** -->
+		                                    				<form:input type="hidden" cssClass="form-control" path="padre.idUsuario" id="padreIdUsuario" name="padreIdUsuario"></form:input>
+		                                    				<form:input type="hidden" cssClass="form-control" path="padre.tipoUsuario.idTipoUsuario" id="padreIdTipoUsuario" name="padreIdTipoUsuario"></form:input>
+		                                    				<form:input type="hidden" cssClass="form-control" path="padre.estado.idEstado" id="padreIdEstado" name="padreIdEstado"></form:input>
 		                                    				<!-- **************************************************Datos  Documento Acudiente**************************************************************** -->
 		                                    				<div class="col-md-4">
 		                                    					<div class="form-group">
@@ -335,13 +370,16 @@
 																			<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																		</form:select>
 																	</div><!-- .input-group -->
+																	<div class="has-error">
+																		<form:errors path="padre.documento.tipoDocumento.idTipoDocumento" cssClass="text-danger"></form:errors>
+																	</div><!-- .has-error -->
 								   								</div><!-- .form-group -->
 		                                    				</div><!-- col-md-4 -->
 		                                    				<div class="col-md-4">
 																<div class="form-group">
 																	<form:label path="padre.documento.documento">${documentoEtiqueta}</form:label>
 																	<div class="input-group">
-																		<form:input type="text" cssClass="form-control" path="padre.documento.documento" id="padreDocumento" name="padreDocumento" placeholder="${documentoMarcador}" required="required"></form:input>
+																		<form:input type="number" cssClass="form-control" path="padre.documento.documento" id="padreDocumento" name="padreDocumento" placeholder="${documentoMarcador}" required="required"></form:input>
 																	</div><!-- .input-group -->
 																</div><!-- .form-group -->
 															</div><!-- .col-md-4 -->
@@ -375,7 +413,7 @@
 																<div class="form-group">
 																	<form:label path="padre.edad">${edadEtiqueta}</form:label>
 																	<div class="input-group">  
-																		<form:input type="text" cssClass="form-control" path="padre.edad" id="padreEdad" name="padreEdad" placeholder="${edadMarcador}"></form:input>
+																		<form:input type="number" cssClass="form-control" path="padre.edad" id="padreEdad" name="padreEdad" placeholder="${edadMarcador}" required="required"></form:input>
 																	</div><!-- .input-group -->
 																</div><!-- .form-group -->
 															</div><!-- .col-md-4 -->
@@ -389,6 +427,9 @@
 																			<form:options items="${escolaridades}" itemValue="idEscolaridad" itemLabel="escolaridad"></form:options>
 																		</form:select>
 																	</div><!-- .input-group -->
+																	<div class="has-error">
+																		<form:errors path="padre.escolaridad.idEscolaridad" cssClass="text-danger"></form:errors>
+																	</div><!-- .has-error -->
 									   							</div><!-- .form-group -->
 									   						</div><!-- .col-md-4 -->
 									   						<div class="col-md-4">
@@ -430,8 +471,11 @@
 																<div class="form-group">
 																	<form:label path="padre.email">${emailEtiqueta}</form:label>
 																	<div class="input-group">    
-																		<form:input type="text" cssClass="form-control" path="padre.email" id="padreEmail" name="padreEmail" placeholder="${emailMarcador}" required="required"></form:input>
+																		<form:input type="text" cssClass="form-control" path="padre.email" id="padreEmail" name="padreEmail" placeholder="${emailMarcador}"></form:input>
 																	</div><!-- .input-group -->
+																	<div class="has-error">
+																		<form:errors path="padre.email" cssClass="text-danger"></form:errors>
+																	</div><!-- .has-error -->
 																</div><!-- .form-group -->
 															</div><!-- .col-md-4 -->
 			                                   			</div><!-- .row -->
@@ -442,7 +486,7 @@
 										<!-- *******************************************************Datos Acudiente**************************************************************************************** -->
 										<div class="card">
 											<div class="card-header" role="tab" id="headingDatosAcudiente">
-												<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="collapseDatosAcudiente" aria-expanded="false" aria-controls="collapseDatosAcudiente">
+												<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseDatosAcudiente" aria-expanded="false" aria-controls="collapseDatosAcudiente">
 													<h5 class="mb-0">${acudienteEtiqueta}</h5>
 												</a>
 											</div><!-- .card-header -->
@@ -450,8 +494,10 @@
 												<div class="card-block">
 		                                    		<div class="card-body">
 		                                    			<div class="row">
-		                                    	    		<!-- **************************************************Id Acudiente**************************************************************** -->
-		                                    				<form:input type="hidden" cssClass="form-control" path="acudiente.idUsuario" id="idAcudiente" name="idAcudiente"></form:input>
+		                                    	    		<!-- **************************************************Id Tipo Estado Acudiente**************************************************************** -->
+		                                    				<form:input type="hidden" cssClass="form-control" path="acudiente.idUsuario" id="acudienteIdUsuario" name="acudienteIdUsuario"></form:input>
+		                                    				<form:input type="hidden" cssClass="form-control" path="acudiente.tipoUsuario.idTipoUsuario" id="acudienteIdTipoUsuario" name="acudienteIdTipoUsuario"></form:input>
+		                                    				<form:input type="hidden" cssClass="form-control" path="acudiente.estado.idEstado" id="acudienteIdEstado" name="acudienteIdEstado"></form:input>
 		                                    				<!-- **************************************************Datos  Documento Acudiente**************************************************************** -->
 		                                    				<div class="col-md-4">
 		                                    					<div class="form-group">
@@ -462,13 +508,16 @@
 																			<form:options items="${tiposDocumento}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																		</form:select>
 																	</div><!-- .input-group -->
+																	<div class="has-error">
+																		<form:errors path="acudiente.documento.tipoDocumento.idTipoDocumento" cssClass="text-danger"></form:errors>
+																	</div><!-- .has-error -->
 								   								</div><!-- .form-group -->
 		                                    				</div><!-- col-md-4 -->
 		                                    				<div class="col-md-4">
 																<div class="form-group">
 																	<form:label path="acudiente.documento.documento">${documentoEtiqueta}</form:label>
 																	<div class="input-group">
-																		<form:input type="text" cssClass="form-control" path="acudiente.documento.documento" id="acudienteDocumento" name="acudienteDocumento" placeholder="${documentoMarcador}" required="required"></form:input>
+																		<form:input type="number" cssClass="form-control" path="acudiente.documento.documento" id="acudienteDocumento" name="acudienteDocumento" placeholder="${documentoMarcador}" required="required"></form:input>
 																	</div><!-- .input-group -->
 																</div><!-- .form-group -->
 															</div><!-- .col-md-4 -->
@@ -482,6 +531,9 @@
 																			<form:options items="${parentescos}" itemValue="idParentesco" itemLabel="parentesco"></form:options>
 																		</form:select>
 																	</div><!-- .input-group -->
+																	<div class="has-error">
+																		<form:errors path="acudiente.parentesco.idParentesco" cssClass="text-danger"></form:errors>
+																	</div><!-- .has-error -->
 									   							</div><!-- .form-group -->
 			                                    			</div><!-- col-md-4 -->
 			                                    			<!-- ***********************************************Nombres y Apellidos Acudiente************************************************************************* -->
@@ -514,7 +566,7 @@
 																<div class="form-group">
 																	<form:label path="acudiente.edad">${edadEtiqueta}</form:label>
 																	<div class="input-group">  
-																		<form:input type="text" cssClass="form-control" path="acudiente.edad" id="acudienteEdad" name="acudienteEdad" placeholder="${edadMarcador}"></form:input>
+																		<form:input type="number" cssClass="form-control" path="acudiente.edad" id="acudienteEdad" name="acudienteEdad" placeholder="${edadMarcador}" requiered="required"></form:input>
 																	</div><!-- .input-group -->
 																</div><!-- .form-group -->
 															</div><!-- .col-md-4 -->
@@ -528,6 +580,9 @@
 																			<form:options items="${escolaridades}" itemValue="idEscolaridad" itemLabel="escolaridad"></form:options>
 																		</form:select>
 																	</div><!-- .input-group -->
+																	<div class="has-error">
+																		<form:errors path="acudiente.escolaridad.idEscolaridad" cssClass="text-danger"></form:errors>
+																	</div><!-- .has-error -->
 									   							</div><!-- .form-group -->
 									   						</div><!-- .col-md-4 -->
 									   						<div class="col-md-4">
@@ -569,8 +624,11 @@
 																<div class="form-group">
 																	<form:label path="acudiente.email">${emailEtiqueta}</form:label>
 																	<div class="input-group">    
-																		<form:input type="text" cssClass="form-control" path="acudiente.email" id="acudienteEmail" name="acudienteEmail" placeholder="${emailMarcador}" required="required"></form:input>
+																		<form:input type="text" cssClass="form-control" path="acudiente.email" id="acudienteEmail" name="acudienteEmail" placeholder="${emailMarcador}"></form:input>
 																	</div><!-- .input-group -->
+																	<div class="has-error">
+																		<form:errors path="acudiente.email" cssClass="text-danger"></form:errors>
+																	</div><!-- .has-error -->
 																</div><!-- .form-group -->
 															</div><!-- .col-md-4 -->
 			                                   			</div><!-- .row -->
@@ -631,6 +689,9 @@
 										   						<div class="input-group">
 										   							<form:select path="diagnosticos" cssClass="form-control" items="${diagnosticosPaciente}" id="citaInformacionDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico"></form:select>
 										   						</div><!-- .input-group -->
+										   						<div class="has-error">
+																	<form:errors path="paciente.diagnosticos" cssClass="text-danger"></form:errors>
+																</div><!-- .has-error -->
 										   					</div><!-- .form-group col-md-4 -->
 														</div><!-- .row -->
 													</div><!-- .card-body -->
@@ -640,7 +701,7 @@
                                     	<!-- ***********************************************Datos  Expectativas************************************************************************* -->
 										<div class="card ">
 		                                	<div class="card-header" role="tab" id="headingExpectativas">
-		                                    	<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="collapseExpectativas" aria-expanded="false" aria-controls="collapseExpectativas">
+		                                    	<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseExpectativas" aria-expanded="false" aria-controls="collapseExpectativas">
 		                                        	<h5 class="mb-0">${expectativasEtiqueta}</h5>
 		                                        </a>
 		                                    </div><!-- .card-header -->
@@ -663,7 +724,7 @@
                                 		<!-- ***********************************************Datos  Recomendaciones****************************************************************************************************************************** -->
 										<div class="card ">
 		                                	<div class="card-header" role="tab" id="headingRecomendaciones">
-		                                    	<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="collapseRecomendaciones" aria-expanded="false" aria-controls="collapseRecomendaciones">
+		                                    	<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseRecomendaciones" aria-expanded="false" aria-controls="collapseRecomendaciones">
 		                                        	<h5 class="mb-0">${recomTenerCtaEtiqueta}</h5>
 		                                        </a>
 		                                    </div><!-- .card-header -->
@@ -686,7 +747,7 @@
                                 		<!-- ***********************************************Datos  Informacion****************************************************************************************************************************** -->
 										<div class="card ">
 		                                	<div class="card-header" role="tab" id="headingInfGeneral">
-		                                    	<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="collapseInfGeneral" aria-expanded="false" aria-controls="collapseInfGeneral">
+		                                    	<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseInfGeneral" aria-expanded="false" aria-controls="collapseInfGeneral">
 		                                        	<h5 class="mb-0">${inFoGralEtiqueta}</h5>
 		                                        </a>
 		                                    </div><!-- .card-header -->
@@ -708,7 +769,7 @@
                                 		</div><!-- .card -->
                    						<div class="col-md-12">
 											<center>
-												<input id="btnLogin" type="submit" class="btn btn-blue" value="${botonGuardarEtiqueta}" style="float:center;">
+												<input id="btnCitaInfo" type="submit" class="btn btn-blue" value="${botonGuardarEtiqueta}" style="float:center;">
 											</center>
 										</div><!-- .col-md-12 -->
 									</div><!-- .accordion -->

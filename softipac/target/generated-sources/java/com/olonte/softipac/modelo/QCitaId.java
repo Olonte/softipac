@@ -11,39 +11,47 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QCitaUsuarioId is a Querydsl query type for CitaUsuarioId
+ * QCitaId is a Querydsl query type for CitaId
  */
 @Generated("com.querydsl.codegen.EmbeddableSerializer")
-public class QCitaUsuarioId extends BeanPath<CitaUsuarioId> {
+public class QCitaId extends BeanPath<CitaId> {
 
-    private static final long serialVersionUID = 1076790677L;
+    private static final long serialVersionUID = -1547036177L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QCitaUsuarioId citaUsuarioId = new QCitaUsuarioId("citaUsuarioId");
+    public static final QCitaId citaId = new QCitaId("citaId");
+
+    public final QEstado estado_idestado;
+
+    public final NumberPath<Integer> idcita = createNumber("idcita", Integer.class);
+
+    public final QTipoCita tipocita_idtipocita;
 
     public final QUsuario usuario_idusuapl;
 
     public final QUsuario usuario_idusuario;
 
-    public QCitaUsuarioId(String variable) {
-        this(CitaUsuarioId.class, forVariable(variable), INITS);
+    public QCitaId(String variable) {
+        this(CitaId.class, forVariable(variable), INITS);
     }
 
-    public QCitaUsuarioId(Path<? extends CitaUsuarioId> path) {
+    public QCitaId(Path<? extends CitaId> path) {
         this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
     }
 
-    public QCitaUsuarioId(PathMetadata metadata) {
+    public QCitaId(PathMetadata metadata) {
         this(metadata, metadata.isRoot() ? INITS : PathInits.DEFAULT);
     }
 
-    public QCitaUsuarioId(PathMetadata metadata, PathInits inits) {
-        this(CitaUsuarioId.class, metadata, inits);
+    public QCitaId(PathMetadata metadata, PathInits inits) {
+        this(CitaId.class, metadata, inits);
     }
 
-    public QCitaUsuarioId(Class<? extends CitaUsuarioId> type, PathMetadata metadata, PathInits inits) {
+    public QCitaId(Class<? extends CitaId> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.estado_idestado = inits.isInitialized("estado_idestado") ? new QEstado(forProperty("estado_idestado")) : null;
+        this.tipocita_idtipocita = inits.isInitialized("tipocita_idtipocita") ? new QTipoCita(forProperty("tipocita_idtipocita")) : null;
         this.usuario_idusuapl = inits.isInitialized("usuario_idusuapl") ? new QUsuario(forProperty("usuario_idusuapl"), inits.get("usuario_idusuapl")) : null;
         this.usuario_idusuario = inits.isInitialized("usuario_idusuario") ? new QUsuario(forProperty("usuario_idusuario"), inits.get("usuario_idusuario")) : null;
     }

@@ -1,0 +1,9 @@
+select * from cita;
+
+select * from usuario where idusuario=38;
+
+select * from usuario;
+
+select * from estado;
+
+select estado_idestado from cita where usuario_idusuario=38;

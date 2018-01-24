@@ -42,11 +42,11 @@
 			                                    		<i class="fa fa-edit"></i>
 			                                        	${editarEtiqueta}
 			                                    	</a>
-			                                    		<a href="" data-target="#modalCancelarCita_${cita.idUsuario}" data-toggle="modal" class="dropdown-item">
+			                                    		<a href="" data-target="#modalCancelarCita_${cita.idUsuario}_${indiceActual}" data-toggle="modal" class="dropdown-item">
 			                                    		<i class="fa fa-eraser"></i>
 			                                        	${cancelarEtiqueta}
 			                                    	</a>
-			                                    	<a href="<spring:url value="/citaInformacion?idUsuario=${cita.idUsuario}"></spring:url>" class="dropdown-item">
+			                                    	<a href="<spring:url value="/citaInformacion?idUsuario=${cita.idUsuario}&indiceActual=${indiceActual}"></spring:url>" class="dropdown-item">
 			                                    		<i class="fa fa-file-text-o"></i>
 			                                        	${citaInformacionEtiqueta}
 			                                    	</a>

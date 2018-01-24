@@ -52,8 +52,8 @@ public class UsuarioImplServicio implements UsuarioServicio {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Usuario buscarAcudientePorId(Integer idUsuario) {
-		return this.usuarioRepositorio.findOne(UsuarioPredicado.buscarPorIdUsuario(idUsuario));
+	public Usuario buscarAcudientePorId(Integer idUsuario, Integer idTipoUsuario) {
+		return this.usuarioRepositorio.findOne(UsuarioPredicado.buscarPorIdUsuario(idUsuario,idTipoUsuario));
 	}
 
 }

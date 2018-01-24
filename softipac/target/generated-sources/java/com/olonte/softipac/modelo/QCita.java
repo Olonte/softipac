@@ -22,17 +22,13 @@ public class QCita extends EntityPathBase<Cita> {
 
     public static final QCita cita = new QCita("cita");
 
-    public final QCitaUsuarioId citaUsuarioId;
-
-    public final QEstado estado;
+    public final QCitaId citaId;
 
     public final StringPath expectativas = createString("expectativas");
 
     public final DatePath<java.time.LocalDate> fechaCitaIni = createDate("fechaCitaIni", java.time.LocalDate.class);
 
     public final QHora hora;
-
-    public final NumberPath<Integer> idCita = createNumber("idCita", Integer.class);
 
     public final StringPath inFoGral = createString("inFoGral");
 
@@ -41,8 +37,6 @@ public class QCita extends EntityPathBase<Cita> {
     public final StringPath observacion = createString("observacion");
 
     public final StringPath recomTenerCta = createString("recomTenerCta");
-
-    public final QTipoCita tipoCita;
 
     public QCita(String variable) {
         this(Cita.class, forVariable(variable), INITS);
@@ -62,10 +56,8 @@ public class QCita extends EntityPathBase<Cita> {
 
     public QCita(Class<? extends Cita> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.citaUsuarioId = inits.isInitialized("citaUsuarioId") ? new QCitaUsuarioId(forProperty("citaUsuarioId"), inits.get("citaUsuarioId")) : null;
-        this.estado = inits.isInitialized("estado") ? new QEstado(forProperty("estado")) : null;
+        this.citaId = inits.isInitialized("citaId") ? new QCitaId(forProperty("citaId"), inits.get("citaId")) : null;
         this.hora = inits.isInitialized("hora") ? new QHora(forProperty("hora"), inits.get("hora")) : null;
-        this.tipoCita = inits.isInitialized("tipoCita") ? new QTipoCita(forProperty("tipoCita")) : null;
     }
 
 }

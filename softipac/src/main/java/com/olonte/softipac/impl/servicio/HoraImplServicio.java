@@ -1,6 +1,7 @@
 package com.olonte.softipac.impl.servicio;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,13 +24,20 @@ public class HoraImplServicio implements HoraServicio {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Iterable<Hora> buscarAgendaPorFecha(LocalDate fecha) {
-		return this.horaRepositorio.findAll(HoraPredicado.buscarAgendaPorFecha(fecha));
+	public Iterable<Hora> buscarAgendaPorFecha(LocalDate fecha, Integer idTipoCita, Integer idTipoHora) {
+		return this.horaRepositorio.findAll(HoraPredicado.buscarAgendaPorFecha(fecha,idTipoCita,idTipoHora));
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Iterable<Hora> buscarEvaluacionPorFecha(LocalDate fecha) {
 		return null;
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Hora> buscarHoraPorDocumento(String documento) {
+		return (List<Hora>) this.horaRepositorio.findAll(HoraPredicado.buscarHorasPorDocumento(documento));
 	}
 
 }

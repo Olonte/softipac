@@ -26,9 +26,7 @@ public class QHora extends EntityPathBase<Hora> {
 
     public final StringPath hora = createString("hora");
 
-    public final NumberPath<Integer> idHora = createNumber("idHora", Integer.class);
-
-    public final QTipoHora tipoHora;
+    public final QHoraId horaId;
 
     public QHora(String variable) {
         this(Hora.class, forVariable(variable), INITS);
@@ -48,7 +46,7 @@ public class QHora extends EntityPathBase<Hora> {
 
     public QHora(Class<? extends Hora> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.tipoHora = inits.isInitialized("tipoHora") ? new QTipoHora(forProperty("tipoHora")) : null;
+        this.horaId = inits.isInitialized("horaId") ? new QHoraId(forProperty("horaId"), inits.get("horaId")) : null;
     }
 
 }

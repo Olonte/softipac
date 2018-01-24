@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.olonte.softipac.json.CitaJSON;
 import com.olonte.softipac.json.UsuarioJSON;
+import com.olonte.softipac.modelo.DiagnosticosJS;
 import com.olonte.softipac.modelo.Hora;
 import com.olonte.softipac.servicio.CitaServicio;
 import com.olonte.softipac.servicio.DiagnosticoServcio;
 import com.olonte.softipac.servicio.HoraServicio;
 import com.olonte.softipac.servicio.UsuarioServicio;
+import com.olonte.softipac.utilidad.Utilidad;
 
 @RestController
 @Scope(value = "session")
@@ -30,15 +32,19 @@ public class CitaRestControlador {
 	
 	private DiagnosticoServcio diagnosticoServcio;
 	
+	private DiagnosticosJS diagnosticosJS;
+	
 	@Autowired
 	public CitaRestControlador(UsuarioServicio usuarioServicio, HoraServicio horaServicio, CitaServicio citaServicio,
-			DiagnosticoServcio diagnosticoServcio) {
+			DiagnosticoServcio diagnosticoServcio, DiagnosticosJS diagnosticosJS) {
 		this.usuarioServicio = usuarioServicio;
 		this.horaServicio = horaServicio;
 		this.citaServicio = citaServicio;
 		this.diagnosticoServcio = diagnosticoServcio;
+		this.diagnosticosJS = diagnosticosJS;
 	}
-	
+
+
 	/**
 	 * 
 	 * @param fecha
@@ -46,8 +52,8 @@ public class CitaRestControlador {
 	 */
 
 	@RequestMapping(value ="/obtenerHora/{fechaCitaIni}", method = RequestMethod.GET)
-	public Iterable<Hora> buscarHorasDisponibles(@PathVariable("fechaCitaIni") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate fecha){
-		return this.horaServicio.buscarAgendaPorFecha(fecha);
+	public Iterable<Hora> buscarHorasDisponibles(@PathVariable("fechaCitaIni") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate fecha) {
+		return this.horaServicio.buscarAgendaPorFecha(fecha,Utilidad.CITA_AGENDA,Utilidad.HORA_AGENDA);
 	}
 	
 	/**
@@ -57,7 +63,9 @@ public class CitaRestControlador {
 	 */
 	@RequestMapping(value = "/obtenerPaciente/{pacienteDocumento}", method = RequestMethod.GET)
 	public UsuarioJSON obtenerUsuarioPorDocumento(@PathVariable("pacienteDocumento") String documento){
-		return this.usuarioServicio.bucarPorDocumento(documento);
+		UsuarioJSON usuarioJSON = this.usuarioServicio.bucarPorDocumento(documento);
+		this.diagnosticosJS.setDiagnosticos(usuarioJSON.getDiagnosticos());
+		return usuarioJSON;
 	}
 	
 	/**
@@ -69,4 +77,5 @@ public class CitaRestControlador {
 	public CitaJSON obtenerCitaPorDocumento(@PathVariable("pacienteDocumento") String documento){
 		return this.citaServicio.buscarPorDocumento(documento);
 	}
+
 }

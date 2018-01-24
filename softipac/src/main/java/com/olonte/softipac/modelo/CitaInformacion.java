@@ -8,11 +8,12 @@ public class CitaInformacion extends Agenda {
 	private Usuario madre;
 	private String usuarioAplica;
 	
-	public CitaInformacion(Cita cita, Usuario paciente, Usuario acudiente, Set<Diagnostico> diagnosticos) {
-		super(cita, paciente, acudiente, diagnosticos);
-	}
-	
 	public CitaInformacion() {
+	}
+
+	public CitaInformacion(Cita cita, Usuario paciente, Usuario acudiente, Set<Diagnostico> diagnosticos,
+			boolean citaAgenda, boolean javaScript) {
+		super(cita, paciente, acudiente, diagnosticos, citaAgenda, javaScript);
 	}
 
 	public CitaInformacion(Usuario padre, Usuario madre, String usuarioAplica) {

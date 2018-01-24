@@ -31,7 +31,7 @@ public class ParentescoImplServicio implements ParentescoServicio {
 	@Override
 	@Transactional(readOnly = true)
 	@Cacheable(value = "parentescoPorId")
-	public Parentesco bucarPorId(Integer idParentesco) {
+	public Parentesco buscarPorId(Integer idParentesco) {
 		return this.parentescoRepositorio.findOne(idParentesco);
 	}
 

@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -19,8 +18,6 @@ public class QTipoCita extends EntityPathBase<TipoCita> {
     private static final long serialVersionUID = -1181834616L;
 
     public static final QTipoCita tipoCita = new QTipoCita("tipoCita");
-
-    public final SetPath<Cita, QCita> citas = this.<Cita, QCita>createSet("citas", Cita.class, QCita.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> idTipoCita = createNumber("idTipoCita", Integer.class);
 
