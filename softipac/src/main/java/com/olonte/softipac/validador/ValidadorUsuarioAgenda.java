@@ -45,10 +45,12 @@ public class ValidadorUsuarioAgenda implements Validator {
 		if (agenda.getPaciente().getEps().getIdEps() == Utilidad.SELECCION) {
 			errors.rejectValue(Utilidad.EPS, "eps.validar.mensaje");
 		}
-		
-		if (agenda.getPaciente().getDiagnosticos().isEmpty()) {
-			errors.rejectValue(Utilidad.DIAGNOSTICOS, "diagnosticos.validar.mensaje");
+		if (!agenda.isJavaScript()) {
+			if (agenda.getPaciente().getDiagnosticos().isEmpty()) {
+				errors.rejectValue(Utilidad.DIAGNOSTICOS, "diagnosticos.validar.mensaje");
+			}
 		}
+		
 		/**
 		 * Validacion Campos CitaInformacion
 		 */

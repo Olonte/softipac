@@ -36,8 +36,8 @@ public class UsuarioImplServicio implements UsuarioServicio {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public UsuarioJSON bucarPorDocumento(String documento) {
-		return JSON.obtenerUsuarioJSON(this.usuarioRepositorio.findOne(UsuarioPredicado.buscarPorDocumento(documento)));
+	public UsuarioJSON bucarPorDocumento(String parametros) {	
+		return JSON.obtenerUsuarioJSON(this.usuarioRepositorio.findOne(UsuarioPredicado.buscarPorDocumento(parametros)));
 	}
 
 	@Override

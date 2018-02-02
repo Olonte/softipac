@@ -13,14 +13,14 @@ public class Agenda {
 	
 	private Set<Diagnostico> diagnosticos = new HashSet<Diagnostico>(0);
 	
-	private boolean citaAgenda;
+	private int citaAgenda;
 	
 	private boolean javaScript;
 
 	public Agenda() {
 	}
- 
-	public Agenda(Cita cita, Usuario paciente, Usuario acudiente, Set<Diagnostico> diagnosticos, boolean citaAgenda,
+	
+	public Agenda(Cita cita, Usuario paciente, Usuario acudiente, Set<Diagnostico> diagnosticos, int citaAgenda,
 			boolean javaScript) {
 		this.cita = cita;
 		this.paciente = paciente;
@@ -29,7 +29,7 @@ public class Agenda {
 		this.citaAgenda = citaAgenda;
 		this.javaScript = javaScript;
 	}
-
+	
 	public Cita getCita() {
 		return cita;
 	}
@@ -61,21 +61,21 @@ public class Agenda {
 	public void setDiagnosticos(Set<Diagnostico> diagnosticos) {
 		this.diagnosticos = diagnosticos;
 	}
-	
-	public boolean isCitaAgenda() {
-		return citaAgenda;
-	}
 
-	public void setCitaAgenda(boolean citaAgenda) {
+	public void setCitaAgenda(int citaAgenda) {
 		this.citaAgenda = citaAgenda;
-	}
-
-	public boolean isJavaScript() {
-		return javaScript;
 	}
 
 	public void setJavaScript(boolean javaScript) {
 		this.javaScript = javaScript;
+	}
+	
+	public boolean isJavaScript() {
+		return javaScript;
+	}
+
+	public int getCitaAgenda() {
+		return citaAgenda;
 	}
 
 }

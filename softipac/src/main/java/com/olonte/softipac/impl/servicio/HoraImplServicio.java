@@ -36,8 +36,8 @@ public class HoraImplServicio implements HoraServicio {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Hora> buscarHoraPorDocumento(String documento) {
-		return (List<Hora>) this.horaRepositorio.findAll(HoraPredicado.buscarHorasPorDocumento(documento));
+	public List<Hora> buscarHoraPorDocumento(String parametros) {
+		return (List<Hora>) this.horaRepositorio.findAll(HoraPredicado.buscarHorasPorDocumento(parametros));
 	}
 
 }

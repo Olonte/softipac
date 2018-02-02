@@ -3,7 +3,9 @@ package com.olonte.softipac.impl.servicio;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,9 +23,11 @@ import com.olonte.softipac.modelo.Agenda;
 import com.olonte.softipac.modelo.Cita;
 import com.olonte.softipac.modelo.CitaId;
 import com.olonte.softipac.modelo.CitaInformacion;
+import com.olonte.softipac.modelo.Diagnostico;
 import com.olonte.softipac.modelo.Estado;
 import com.olonte.softipac.modelo.Hora;
 import com.olonte.softipac.modelo.RegistroListaAgenda;
+import com.olonte.softipac.modelo.RegistroListaCitaInformacion;
 import com.olonte.softipac.modelo.TipoCita;
 import com.olonte.softipac.modelo.Usuario;
 import com.olonte.softipac.modelo.UsuarioSession;
@@ -31,6 +35,7 @@ import com.olonte.softipac.predicado.CitaPredicado;
 import com.olonte.softipac.repositorio.CitaRepositorio;
 import com.olonte.softipac.servicio.AfinidadServicio;
 import com.olonte.softipac.servicio.CitaServicio;
+import com.olonte.softipac.servicio.DiagnosticoServcio;
 import com.olonte.softipac.servicio.EstadoServicio;
 import com.olonte.softipac.servicio.HoraServicio;
 import com.olonte.softipac.servicio.ParentescoServicio;
@@ -67,11 +72,14 @@ public class CitaImplServicio implements CitaServicio {
 	
 	private UsuarioSession usuarioSession;
 	
+	private DiagnosticoServcio diagnosticoServicio;
+	
 	@Autowired
 	public CitaImplServicio(CitaRepositorio citaRepositorio, TipoCitaServicio tipoCitaServicio,
 			TipoUsuarioServicio tipoUsuarioServicio, ParentescoServicio parentescoServicio,
 			EstadoServicio estadoServicio, UsuarioServicio usuarioServicio, AfinidadServicio afinidadServicio,
-			TipoHoraServicio tipoHoraServicio, HoraServicio horaServicio, UsuarioSession usuarioSession) {
+			TipoHoraServicio tipoHoraServicio, HoraServicio horaServicio, UsuarioSession usuarioSession,
+			DiagnosticoServcio diagnosticoServicio) {
 		this.citaRepositorio = citaRepositorio;
 		this.tipoCitaServicio = tipoCitaServicio;
 		this.tipoUsuarioServicio = tipoUsuarioServicio;
@@ -82,8 +90,9 @@ public class CitaImplServicio implements CitaServicio {
 		this.tipoHoraServicio = tipoHoraServicio;
 		this.horaServicio = horaServicio;
 		this.usuarioSession = usuarioSession;
+		this.diagnosticoServicio = diagnosticoServicio;
 	}
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public void guardarActualizar(int tipoCita, int transaccion, Integer idEstado, Agenda agenda) {
@@ -128,6 +137,9 @@ public class CitaImplServicio implements CitaServicio {
 						 this.citaRepositorio.save(agenda.getCita());
 						break;
 					case Utilidad.TRANS_ACTUALIZAR:
+						if (agenda.isJavaScript()) {
+							agenda.getPaciente().setDiagnosticos(this.diagnosticoServicio.buscarPorIdUsuario(agenda.getPaciente().getIdUsuario()));
+						}
 						this.usuarioServicio.guardar(agenda.getPaciente());
 						this.usuarioServicio.guardar(agenda.getAcudiente());
 						this.citaRepositorio.save(agenda.getCita());
@@ -147,9 +159,14 @@ public class CitaImplServicio implements CitaServicio {
 							/**
 							 * Se procesa los datos del paciente
 							 */
-							agenda.getPaciente().setTipoUsuario(this.tipoUsuarioServicio.buscarPorId(Utilidad.USUARIO_PACIENTE));
-							agenda.getPaciente().setParentesco(this.parentescoServicio.buscarPorId(Utilidad.HIJO));
-							this.usuarioServicio.guardar(agenda.getPaciente());
+							((CitaInformacion)agenda).getPaciente().setTipoUsuario(this.tipoUsuarioServicio.buscarPorId(Utilidad.USUARIO_PACIENTE));
+							((CitaInformacion)agenda).getPaciente().setParentesco(this.parentescoServicio.buscarPorId(Utilidad.HIJO));
+							/**
+							 * Se valida si el usuario no ha seleccionado ningun mes;
+							 */
+							validarMeses(((CitaInformacion)agenda));
+							
+							this.usuarioServicio.guardar(((CitaInformacion)agenda).getPaciente());
 							/**
 							 * Se procesa los datos de la Madre
 							 */
@@ -168,6 +185,13 @@ public class CitaImplServicio implements CitaServicio {
 								guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getAcudiente(), Utilidad.USUARIO_PARIENTE, ((CitaInformacion)agenda).getAcudiente().getParentesco().getIdParentesco(), estado_idestado); 		
 							}
 						}else { /** El usuario ya ha sido creado por medio de la Agenda **/
+							/**
+							 * Se valida si el usuario no ha seleccionado ningun mes;
+							 */
+							validarMeses(((CitaInformacion)agenda));
+							/**
+							 * Se procesa los datos del paciente
+							 */
 							this.usuarioServicio.guardar(((CitaInformacion)agenda).getPaciente());
 							/**
 							 * Se procesa los datos de la Madre y el Padre si el Acudiente no es ninguno de los dos
@@ -210,6 +234,44 @@ public class CitaImplServicio implements CitaServicio {
 						
 						break;
 					case Utilidad.TRANS_ACTUALIZAR:
+						if (((CitaInformacion)agenda).isJavaScript()) {
+							Set<Diagnostico> diagnosticos = new HashSet<Diagnostico>(0);
+							diagnosticos = this.diagnosticoServicio.buscarPorIdUsuario(((CitaInformacion)agenda).getPaciente().getIdUsuario());
+							
+							if (((CitaInformacion)agenda).getPaciente().getDiagnosticos().isEmpty()) {
+								((CitaInformacion)agenda).getPaciente().setDiagnosticos(diagnosticos);
+							}else {
+								((CitaInformacion)agenda).getPaciente().getDiagnosticos().addAll(diagnosticos);
+							}
+						}
+						/**
+						 * Se valida si el usuario no ha seleccionado ningun mes;
+						 */
+						validarMeses(((CitaInformacion)agenda));
+						/**
+						 * Se actualizan los datos del paciente
+						 */
+						this.usuarioServicio.guardar(((CitaInformacion)agenda).getPaciente());
+						/**
+						 * Se actualizan los datos de la Madre y el Padre si el Acudiente no es ninguno de los dos
+						 */
+						if (((CitaInformacion)agenda).getAcudiente().getParentesco().getIdParentesco() != Utilidad.MADRE && 
+								((CitaInformacion)agenda).getAcudiente().getParentesco().getIdParentesco() != Utilidad.PADRE) {
+							this.usuarioServicio.guardar(((CitaInformacion)agenda).getMadre());
+							this.usuarioServicio.guardar(((CitaInformacion)agenda).getPadre());
+							this.usuarioServicio.guardar(((CitaInformacion)agenda).getAcudiente());
+							/**
+							 * Se actualizan los datos de la Madre y el Padre si el Acudiente es la Madre
+							 */	
+						}else if (((CitaInformacion)agenda).getAcudiente().getParentesco().getIdParentesco() == Utilidad.MADRE || 
+								((CitaInformacion)agenda).getAcudiente().getParentesco().getIdParentesco() == Utilidad.PADRE) {
+							this.usuarioServicio.guardar(((CitaInformacion)agenda).getMadre());
+							this.usuarioServicio.guardar(((CitaInformacion)agenda).getPadre());
+						}
+						/**
+						 * Se actualizan los datos de la cita
+						 */
+						this.citaRepositorio.save(((CitaInformacion)agenda).getCita());
 						break;
 					default:
 						break;
@@ -243,10 +305,12 @@ public class CitaImplServicio implements CitaServicio {
 
 	@Override
 	@Transactional(readOnly = true)
-	public CitaJSON buscarPorDocumento(String documento) {
-		CitaJSON citaJSON =  JSON.obtenerCitaJSON(this.citaRepositorio.findOne(CitaPredicado.buscarPorDocumento(documento)));
-		citaJSON.getHoras().add(citaJSON.getHora());
-		citaJSON.getHoras().addAll(this.horaServicio.buscarHoraPorDocumento(documento));
+	public CitaJSON buscarPorDocumento(String parametros) {
+		CitaJSON citaJSON =  JSON.obtenerCitaJSON(this.citaRepositorio.findOne(CitaPredicado.buscarPorDocumento(parametros)));
+		if (Integer.parseInt(parametros.substring(parametros.indexOf(Utilidad.SEPARADOR) + 1, parametros.length())) == Utilidad.CITA_AGENDA) {
+			citaJSON.getHoras().add(citaJSON.getHora());
+			citaJSON.getHoras().addAll(this.horaServicio.buscarHoraPorDocumento(parametros));
+		}
 		return citaJSON;
 	}
 	
@@ -292,6 +356,12 @@ public class CitaImplServicio implements CitaServicio {
 		meses.add("11 Meses");
 		return meses;
 	}
+	
+	private void validarMeses(CitaInformacion citaInformacion) {
+		if (citaInformacion.getPaciente().getMeses().equals(Utilidad.SELECCION_OPCION)) {
+			citaInformacion.getPaciente().setMeses(null);
+		}
+	}
 
 	@Override
 	@Transactional(readOnly = false)
@@ -301,14 +371,20 @@ public class CitaImplServicio implements CitaServicio {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<RegistroListaAgenda> buscarTodos() {
-		return CitaPredicado.buscarCitas(entityManager);
+	public List<RegistroListaAgenda> buscarCitasAgenda() {
+		return CitaPredicado.buscarCitasAgenda(entityManager);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public LocalDate obtenerFechaCitaIni(Integer idUsuario, Integer idTipoCita) {
 		return this.citaRepositorio.findOne(CitaPredicado.buscarPorIdPaciente(idUsuario,idTipoCita)).getFechaCitaIni();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<RegistroListaCitaInformacion> buscarCitasInformacion() {
+		return CitaPredicado.buscarCitasInformacion(entityManager);
 	}
 
 }

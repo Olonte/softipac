@@ -20,6 +20,8 @@
 									<form:input type="hidden" cssClass="form-control" path="cita.citaId.estado_idestado.idEstado" id="citaIdEstado" name="citaIdEstado"></form:input>
 									<form:input type="hidden" cssClass="form-control" path="cita.citaId.usuario_idusuapl.idUsuario" id="citaIdUsuarioApl" name="citaIdUsuarioApl"></form:input>
 									<form:input type="hidden" cssClass="form-control" path="cita.citaId.usuario_idusuario.idUsuario" id="citaIdUsuario" name="citaIdUsuario"></form:input>
+									<form:input type="hidden" cssClass="form-control" path="citaAgenda" id="citaAgenda" name="citaAgenda" value="${citaInformacion}"></form:input>
+									<form:input type="hidden" cssClass="form-control" path="javaScript" id="javaScript" name="javaScript"></form:input>
 									<c:set var="indiceActual" value="${indiceActual}"></c:set>
 								<div class="card ">
                                     <div class="card-header" role="tab" id="headingInformacion">
@@ -34,7 +36,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                         	<form:label path="cita.fechaCitaIni">${fechaCitaEtiqueta}</form:label><br>
-                                                            <form:input  type="text" cssClass="form-control" path="cita.fechaCitaIni" readonly="true" id="fechaCitaIniInfo" name="fechaCitaIniInfo"></form:input> 
+                                                            <form:input  type="text" cssClass="form-control" path="cita.fechaCitaIni" readonly="true" id="fechaCitaIni" name="fechaCitaIni"></form:input> 
                                                         </div><!-- .form-group -->
                                                     </div><!-- .col-md-4 -->
                                                     <div class="col-md-4">
@@ -82,7 +84,7 @@
 														<div class="form-group">
 															<form:label path="paciente.documento.documento">${documentoEtiqueta}</form:label>
 															<div class="input-group">
-																<form:input type="number" cssClass="form-control" path="paciente.documento.documento" id="pacienteDocumento" name="documento" placeholder="${documentoMarcador}" required="required"></form:input>
+																<form:input type="number" min="${numMin}" cssClass="form-control" path="paciente.documento.documento" id="pacienteDocumento" name="documento" placeholder="${documentoMarcador}" required="required"></form:input>
 															</div><!-- .input-group -->
 														</div><!-- .form-group -->
 													</div><!-- .col-md-4 -->
@@ -125,7 +127,7 @@
 														<div class="form-group">
 															<form:label path="paciente.edad">${edadEtiqueta}</form:label>
 															<div class="input-group">  
-																<form:input type="number" cssClass="form-control" path="paciente.edad" id="edadPaciente" name="edadPaciente" placeholder="${edadMarcador}" required="required"></form:input>
+																<form:input type="number" min="${numMin}" cssClass="form-control" path="paciente.edad" id="pacienteEdad" name="pacienteEdad" placeholder="${edadMarcador}" required="required"></form:input>
 															</div><!-- .input-group -->
 														</div><!-- .form-group -->
 													</div><!-- .col-md-4 -->
@@ -221,8 +223,8 @@
 		                                    			<form:input type="hidden" cssClass="form-control" path="madre.idUsuario" id="madreIdUsuario" name="madreIdUsuario"></form:input>
 		                                    			<form:input type="hidden" cssClass="form-control" path="madre.tipoUsuario.idTipoUsuario" id="madreIdTipoUsuario" name="madreIdTipoUsuario"></form:input>
 		                                    			<form:input type="hidden" cssClass="form-control" path="madre.estado.idEstado" id="madreIdEstado" name="madreIdEstado"></form:input>
-		                                    			
-		                                    			<!-- **************************************************Datos  Documento Acudiente**************************************************************** -->
+		                                    			<form:input type="hidden" cssClass="form-control" path="madre.parentesco.idParentesco" id="madreIdParentesco" name="madreIdParentesco"></form:input>
+		                                    			<!-- **************************************************Datos  Documento Madre**************************************************************** -->
 		                                    			<div class="col-md-4">
 		                                    				<div class="form-group">
 								 								<form:label path="madre.documento.tipoDocumento.idTipoDocumento">${tipoDocumentoEtiqueta}</form:label>
@@ -275,7 +277,7 @@
 															<div class="form-group">
 																<form:label path="madre.edad">${edadEtiqueta}</form:label>
 																<div class="input-group">  
-																	<form:input type="number" cssClass="form-control" path="madre.edad" id="madreEdad" name="madreEdad" placeholder="${edadMarcador}" required="required"></form:input>
+																	<form:input type="number" min="${numMin}" cssClass="form-control" path="madre.edad" id="madreEdad" name="madreEdad" placeholder="${edadMarcador}" required="required"></form:input>
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
@@ -316,7 +318,7 @@
 															<div class="form-group">
 																<form:label path="madre.telefonoFijo">${telefonoFijoEtiqueta}</form:label>
 																<div class="input-group">    
-																	<form:input type="text" cssClass="form-control" path="madre.telefonoFijo" id="madreTelefonoFijo" name="madreTelefonoFijo" placeholder="${telefonoFijoMarcador}" required="required"></form:input>
+																	<form:input type="text" cssClass="form-control" path="madre.telefonoFijo" id="madreTelefonoFijo" name="madreTelefonoFijo" placeholder="${telefonoFijoMarcador}"></form:input>
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
@@ -360,6 +362,7 @@
 		                                    				<form:input type="hidden" cssClass="form-control" path="padre.idUsuario" id="padreIdUsuario" name="padreIdUsuario"></form:input>
 		                                    				<form:input type="hidden" cssClass="form-control" path="padre.tipoUsuario.idTipoUsuario" id="padreIdTipoUsuario" name="padreIdTipoUsuario"></form:input>
 		                                    				<form:input type="hidden" cssClass="form-control" path="padre.estado.idEstado" id="padreIdEstado" name="padreIdEstado"></form:input>
+		                                    				<form:input type="hidden" cssClass="form-control" path="padre.parentesco.idParentesco" id="padreIdParentesco" name="padreIdParentesco"></form:input>
 		                                    				<!-- **************************************************Datos  Documento Acudiente**************************************************************** -->
 		                                    				<div class="col-md-4">
 		                                    					<div class="form-group">
@@ -379,7 +382,7 @@
 																<div class="form-group">
 																	<form:label path="padre.documento.documento">${documentoEtiqueta}</form:label>
 																	<div class="input-group">
-																		<form:input type="number" cssClass="form-control" path="padre.documento.documento" id="padreDocumento" name="padreDocumento" placeholder="${documentoMarcador}" required="required"></form:input>
+																		<form:input type="number" min="${numMin}" cssClass="form-control" path="padre.documento.documento" id="padreDocumento" name="padreDocumento" placeholder="${documentoMarcador}" required="required"></form:input>
 																	</div><!-- .input-group -->
 																</div><!-- .form-group -->
 															</div><!-- .col-md-4 -->
@@ -413,7 +416,7 @@
 																<div class="form-group">
 																	<form:label path="padre.edad">${edadEtiqueta}</form:label>
 																	<div class="input-group">  
-																		<form:input type="number" cssClass="form-control" path="padre.edad" id="padreEdad" name="padreEdad" placeholder="${edadMarcador}" required="required"></form:input>
+																		<form:input type="number" min="${numMin}" cssClass="form-control" path="padre.edad" id="padreEdad" name="padreEdad" placeholder="${edadMarcador}" required="required"></form:input>
 																	</div><!-- .input-group -->
 																</div><!-- .form-group -->
 															</div><!-- .col-md-4 -->
@@ -454,7 +457,7 @@
 																<div class="form-group">
 																	<form:label path="padre.telefonoFijo">${telefonoFijoEtiqueta}</form:label>
 																	<div class="input-group">    
-																		<form:input type="text" cssClass="form-control" path="padre.telefonoFijo" id="padreTelefonoFijo" name="padreTelefonoFijo" placeholder="${telefonoFijoMarcador}" required="required"></form:input>
+																		<form:input type="text" cssClass="form-control" path="padre.telefonoFijo" id="padreTelefonoFijo" name="padreTelefonoFijo" placeholder="${telefonoFijoMarcador}"></form:input>
 																	</div><!-- .input-group -->
 																</div><!-- .form-group -->
 															</div><!-- .col-md-4 -->
@@ -517,7 +520,7 @@
 																<div class="form-group">
 																	<form:label path="acudiente.documento.documento">${documentoEtiqueta}</form:label>
 																	<div class="input-group">
-																		<form:input type="number" cssClass="form-control" path="acudiente.documento.documento" id="acudienteDocumento" name="acudienteDocumento" placeholder="${documentoMarcador}" required="required"></form:input>
+																		<form:input type="number" min="${numMin}" cssClass="form-control" path="acudiente.documento.documento" id="acudienteDocumento" name="acudienteDocumento" placeholder="${documentoMarcador}" required="required"></form:input>
 																	</div><!-- .input-group -->
 																</div><!-- .form-group -->
 															</div><!-- .col-md-4 -->
@@ -525,7 +528,7 @@
 			                                    			<div class="col-md-4">
 			                                    				<div class="form-group">
 									 								<form:label path="acudiente.parentesco.idParentesco">${parentescoEtiqueta}</form:label>
-																	<div class="input-group">
+																	<div class="input-group">									 
 																		<form:select path="acudiente.parentesco.idParentesco" id="acudienteIdParentesco" cssClass="form-control">
 																			<form:option value="${seleccion}" label="${seleccionEtiqueta}"></form:option>
 																			<form:options items="${parentescos}" itemValue="idParentesco" itemLabel="parentesco"></form:options>
@@ -541,7 +544,7 @@
 																<div class="form-group">
 																	<form:label path="acudiente.nombres">${nombresEtiqueta}</form:label>
 																	<div class="input-group">    
-																		<form:input type="text" cssClass="form-control" path="acudiente.nombres" id="padreNombres" name="acudienteNombres" placeholder="${nombresMarcador}" required="required"></form:input>
+																		<form:input type="text" cssClass="form-control" path="acudiente.nombres" id="acudienteNombres" name="acudienteNombres" placeholder="${nombresMarcador}" required="required"></form:input>
 																	</div><!-- .input-group -->
 																</div><!-- .form-group -->
 															</div><!-- .col-md-4 -->
@@ -566,7 +569,7 @@
 																<div class="form-group">
 																	<form:label path="acudiente.edad">${edadEtiqueta}</form:label>
 																	<div class="input-group">  
-																		<form:input type="number" cssClass="form-control" path="acudiente.edad" id="acudienteEdad" name="acudienteEdad" placeholder="${edadMarcador}" requiered="required"></form:input>
+																		<form:input type="number" min="${numMin}" cssClass="form-control" path="acudiente.edad" id="acudienteEdad" name="acudienteEdad" placeholder="${edadMarcador}" requiered="required"></form:input>
 																	</div><!-- .input-group -->
 																</div><!-- .form-group -->
 															</div><!-- .col-md-4 -->
@@ -607,7 +610,7 @@
 																<div class="form-group">
 																	<form:label path="acudiente.telefonoFijo">${telefonoFijoEtiqueta}</form:label>
 																	<div class="input-group">    
-																		<form:input type="text" cssClass="form-control" path="acudiente.telefonoFijo" id="acudienteTelefonoFijo" name="acudienteTelefonoFijo" placeholder="${telefonoFijoMarcador}" required="required"></form:input>
+																		<form:input type="text" cssClass="form-control" path="acudiente.telefonoFijo" id="acudienteTelefonoFijo" name="acudienteTelefonoFijo" placeholder="${telefonoFijoMarcador}"></form:input>
 																	</div><!-- .input-group -->
 																</div><!-- .form-group -->
 															</div><!-- .col-md-4 -->
@@ -672,8 +675,8 @@
 		                                    			<div class="row">
 															<div class="form-group col-md-4">
 										   						<form:label path="diagnosticos">${diagnosticosEtiqueta}</form:label>
-										   						<div class="input-group">
-										   							<form:select path="paciente.diagnosticos" cssClass="form-control" items="${diagnosticos}" id="pacienteDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico"></form:select>
+										   						<div class="input-group">																
+										   							<form:select path="diagnosticos" cssClass="form-control" items="${diagnosticos}" id="agendaCitaInfoDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico"></form:select>
 										   						</div><!-- .input-group -->
 										   					</div><!-- .form-group col-md-4 -->
 										   					<div class="form-group col-md-2">
@@ -681,13 +684,17 @@
 										   						<br>
 										   						<br>
 										   						<center>
-										   							<input id="btnagregar" type="submit" class="btn btn-blue" value="${botonAdicionarEtiqueta}">
+										   							 <input id="btnAgregar" type="button" class="btn btn-blue" value="${botonAdicionarEtiqueta}">
 										   						</center>
-										   					</div><!-- .col-md-4 -->
+										   						<br>
+										   						<center>
+										   							<input id="btnEliminar" type="button" class="btn btn-blue" value="${botonEliminarEtiqueta}">
+										   						</center>
+										   					</div><!-- .col-md-2 -->
 										   					<div class="form-group col-md-4">
 										   						<form:label path="paciente.diagnosticos">${diagnosticosPacienteEtiqueta}</form:label>
 										   						<div class="input-group">
-										   							<form:select path="diagnosticos" cssClass="form-control" items="${diagnosticosPaciente}" id="citaInformacionDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico"></form:select>
+										   							<form:select path="paciente.diagnosticos" cssClass="form-control" items="${diagnosticosPaciente}" id="pacienteDiagnosticos" multiple="true" itemValue="idDiagnostico" itemLabel="diagnostico"></form:select>
 										   						</div><!-- .input-group -->
 										   						<div class="has-error">
 																	<form:errors path="paciente.diagnosticos" cssClass="text-danger"></form:errors>

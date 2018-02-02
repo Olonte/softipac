@@ -10,9 +10,9 @@ public class CitaInformacion extends Agenda {
 	
 	public CitaInformacion() {
 	}
-
+	
 	public CitaInformacion(Cita cita, Usuario paciente, Usuario acudiente, Set<Diagnostico> diagnosticos,
-			boolean citaAgenda, boolean javaScript) {
+			int citaAgenda, boolean javaScript) {
 		super(cita, paciente, acudiente, diagnosticos, citaAgenda, javaScript);
 	}
 
@@ -21,7 +21,7 @@ public class CitaInformacion extends Agenda {
 		this.madre = madre;
 		this.usuarioAplica = usuarioAplica;
 	}
-
+	
 	public Usuario getPadre() {
 		return padre;
 	}

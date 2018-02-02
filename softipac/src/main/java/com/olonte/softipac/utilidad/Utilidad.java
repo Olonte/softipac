@@ -20,11 +20,12 @@ public interface Utilidad {
 	static final String TIPO_DOC_PADRE        = "padre.documento.tipoDocumento.idTipoDocumento";
 	static final String ESCOLARIDAD_PADRE     = "padre.escolaridad.idEscolaridad";
 	static final String ESCOLARIDAD_ACUDIENTE = "acudiente.escolaridad.idEscolaridad";
+	static final String SELECCION_OPCION      = "Seleccione";
+	static final char SEPARADOR            = '-';
 	static final int AGENDA_NUEVA      	   = 1;
 	static final int AGENDA_PROCESADA  	   = 2;
 	static final int AGENDA_EDITADA    	   = 3;
 	static final int AGENDA_EDIT_PROC      = 4;
-	static final boolean ES_CITA_AGENDA    = true;
 	static final int CITA_INFO_NUEVA       = 5;
 	static final int CITA_INFO_PROC        = 6;
 	static final int CITA_INFO_EDIT_PROC   = 7;
@@ -54,7 +55,8 @@ public interface Utilidad {
 	static final int TRANS_GUARDAR         = 1;
 	static final int TRANS_ACTUALIZAR      = 2;
 	static final int INDICE_DEFECTO        = 0;
-	
-	
+	static final int INDICE_INICIAL		   = 0;
+	static final int MAXIMO_PAGINA         = 5;
+	static final int MINIMO_PAGINA         = 10;
 	
 }

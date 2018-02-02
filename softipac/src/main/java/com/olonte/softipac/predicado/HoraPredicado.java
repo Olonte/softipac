@@ -6,6 +6,7 @@ import com.olonte.softipac.modelo.QCita;
 import com.olonte.softipac.modelo.QDocumento;
 import com.olonte.softipac.modelo.QHora;
 import com.olonte.softipac.modelo.QUsuario;
+import com.olonte.softipac.utilidad.Parametro;
 import com.olonte.softipac.utilidad.Utilidad;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.JPAExpressions;
@@ -29,7 +30,10 @@ public class HoraPredicado {
 		
 	}
 	
-	public static Predicate buscarHorasPorDocumento(String documento) {
+	public static Predicate buscarHorasPorDocumento(String parametros) {
+		
+		Parametro parametro = new Parametro(parametros);
+		
 		return QHora.hora1.horaId.idhora.notIn(
 				JPAExpressions
 				.select(QCita.cita.hora.horaId.idhora)
@@ -42,18 +46,17 @@ public class HoraPredicado {
 								JPAExpressions
 								.select(QUsuario.usuario.idUsuario)
 								.from(QUsuario.usuario)
-								.where(QUsuario.usuario.documento.idDocumento.eq(
+								.where(QUsuario.usuario.documento.idDocumento.in(
 										JPAExpressions
 										.select(QDocumento.documento1.idDocumento)
 										.from(QDocumento.documento1)
-										.where(QDocumento.documento1.documento.eq(documento))
-										)
+										.where(QDocumento.documento1.documento.eq(parametro.getDocumento()))
+										).and(QUsuario.usuario.tipoUsuario.idTipoUsuario.eq(Utilidad.USUARIO_PACIENTE))
 									)
-								)
+								).and(QCita.cita.citaId.tipocita_idtipocita.idTipoCita.eq(parametro.getId()))
 							)
-						)
-						.and(QHora.hora1.horaId.tipohora_idtipohora.idTipoHora.eq(Utilidad.HORA_AGENDA) ) ) )
-				.and(QHora.hora1.horaId.tipohora_idtipohora.idTipoHora.eq(Utilidad.HORA_AGENDA));
+						).and(QHora.hora1.horaId.tipohora_idtipohora.idTipoHora.eq(Utilidad.HORA_AGENDA) ) ) 
+				).and(QHora.hora1.horaId.tipohora_idtipohora.idTipoHora.eq(Utilidad.HORA_AGENDA));
 	}
 	
 	public static Predicate bucarEvaluacionPorFecha(LocalDate fecha){

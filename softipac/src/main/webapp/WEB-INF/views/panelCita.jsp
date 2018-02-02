@@ -36,12 +36,12 @@
                                         </div> <!-- .box -->   
                                     </a>
                                 </div><!-- .col-md-6 -->
-								<!-- *************************************Listado Agenda******************************************************************** -->
+								<!-- *************************************Pagina Agenda******************************************************************** -->
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                 		<a href="<spring:url value="/paginaAgenda/${paginaInicial}"></spring:url>">
                                     	<div class="box">
                                             <h5> </h5>
-                                            <h5>${listadoAgendaEtiqueta}<i class="fa fa-angle-right"></i></h5>
+                                            <h5>${paginaAgendaEtiqueta}<i class="fa fa-angle-right"></i></h5>
                                             <h4></h4>
                                             <div class="icon">
                                                 <i class="fa fa-reorder"></i>
@@ -49,12 +49,12 @@
                                         </div> <!-- .box -->   
                                     </a>
                                 </div><!-- .col-md-3 -->
-                                <!-- *************************************Listado Cita Informacion******************************************************************** -->
+                                <!-- *************************************Pagina Cita Informacion******************************************************************** -->
 								 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <a href="<spring:url value="/listadoCita"></spring:url>">
+                                    <a href="<spring:url value="/paginaCitaInformacion/${paginaInicial}"></spring:url>">
                                         <div class="box">
                                             <h5> </h5>
-                                            <h5>${listadoCitaEtiqueta}<i class="fa fa-angle-right"></i></h5>
+                                            <h5>${paginaCitaInformacionEtiqueta}<i class="fa fa-angle-right"></i></h5>
                                             <h4></h4>
                                             <div class="icon">
                                                 <i class="fa fa-reorder"></i>

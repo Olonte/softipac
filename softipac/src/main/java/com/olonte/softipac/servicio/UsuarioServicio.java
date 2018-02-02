@@ -6,7 +6,7 @@ import com.olonte.softipac.modelo.Usuario;
 public interface UsuarioServicio {
 	Usuario bucarPorNombreUsuario(String nombreUsuario);
 	void guardar(Usuario usuario);
-	UsuarioJSON bucarPorDocumento(String documento);
+	UsuarioJSON bucarPorDocumento(String parametros);
 	Usuario buscarPacientePorId(Integer idUsuario);
 	Usuario buscarAcudientePorId(Integer idUsuario, Integer idTipoUsuario);
 }

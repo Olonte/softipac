@@ -1,98 +1,112 @@
 package com.olonte.softipac.modelo;
 
-import java.time.LocalDate;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-public class RegistroListaAgenda {
+public class RegistroListaCitaInformacion {
 	
 	private Integer idTipoCita;
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
-	private LocalDate fechaCitaIni;
-	private String hora;
+	private String documento;
 	private Integer idUsuario;
 	private String nombres;
 	private String primerApellido;
-	private String telefonoFijo;
-	private String telefonoCelular;	
+	private String eps;
+	private String escolaridad;
+	private String telefonoCelular;
 	
-	public RegistroListaAgenda() {
+	
+	public RegistroListaCitaInformacion() {
 	}
 
-	public RegistroListaAgenda(Integer idTipoCita, LocalDate fechaCitaIni, String hora, Integer idUsuario,
-			String nombres, String primerApellido, String telefonoFijo, String telefonoCelular) {
+
+	public RegistroListaCitaInformacion(Integer idTipoCita, String documento, Integer idUsuario, String nombres,
+			String primerApellido, String eps, String escolaridad, String telefonoCelular) {
 		this.idTipoCita = idTipoCita;
-		this.fechaCitaIni = fechaCitaIni;
-		this.hora = hora;
+		this.documento = documento;
 		this.idUsuario = idUsuario;
 		this.nombres = nombres;
 		this.primerApellido = primerApellido;
-		this.telefonoFijo = telefonoFijo;
+		this.eps = eps;
+		this.escolaridad = escolaridad;
 		this.telefonoCelular = telefonoCelular;
 	}
+
 
 	public Integer getIdTipoCita() {
 		return idTipoCita;
 	}
 
+
 	public void setIdTipoCita(Integer idTipoCita) {
 		this.idTipoCita = idTipoCita;
 	}
 
-	public LocalDate getFechaCitaIni() {
-		return fechaCitaIni;
+
+	public String getDocumento() {
+		return documento;
 	}
 
-	public void setFechaCitaIni(LocalDate fechaCitaIni) {
-		this.fechaCitaIni = fechaCitaIni;
+
+	public void setDocumento(String documento) {
+		this.documento = documento;
 	}
 
-	public String getHora() {
-		return hora;
-	}
-
-	public void setHora(String hora) {
-		this.hora = hora;
-	}
 
 	public Integer getIdUsuario() {
 		return idUsuario;
 	}
 
+
 	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
 	}
+
 
 	public String getNombres() {
 		return nombres;
 	}
 
+
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
+
 
 	public String getPrimerApellido() {
 		return primerApellido;
 	}
 
+
 	public void setPrimerApellido(String primerApellido) {
 		this.primerApellido = primerApellido;
 	}
 
-	public String getTelefonoFijo() {
-		return telefonoFijo;
+
+	public String getEps() {
+		return eps;
 	}
 
-	public void setTelefonoFijo(String telefonoFijo) {
-		this.telefonoFijo = telefonoFijo;
+
+	public void setEps(String eps) {
+		this.eps = eps;
 	}
+
+
+	public String getEscolaridad() {
+		return escolaridad;
+	}
+
+
+	public void setEscolaridad(String escolaridad) {
+		this.escolaridad = escolaridad;
+	}
+
 
 	public String getTelefonoCelular() {
 		return telefonoCelular;
 	}
 
+
 	public void setTelefonoCelular(String telefonoCelular) {
 		this.telefonoCelular = telefonoCelular;
 	}
+
 
 }

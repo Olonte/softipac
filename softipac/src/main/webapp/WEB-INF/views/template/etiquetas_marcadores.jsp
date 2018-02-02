@@ -31,6 +31,7 @@
                             	<spring:message code="editar.etiqueta" var="editarEtiqueta"></spring:message>
                             	<spring:message code="accion.etiqueta" var="accionEtiqueta"></spring:message>
                             	<spring:message code="botonAdicionar.etiqueta" var="botonAdicionarEtiqueta"></spring:message>	
+                            	<spring:message code="botonEliminar.etiqueta" var="botonEliminarEtiqueta"></spring:message>	
                             	<spring:message code="cerrar.etiqueta" var="cerrarEtiqueta"></spring:message>
                             	<spring:message code="confirmaCancelarCita.etiqueta" var="confCanCitaEtiqueta"></spring:message>
                             	
@@ -72,21 +73,21 @@
 <!-- ****************************************************Etiquetas PanelCita ******************************************************************* -->							
 								 <spring:message code="panelCita.jsp.agenda.etiqueta" var="agendaEtiqueta"></spring:message>
 								<spring:message code="panelCita.jsp.cita.etiqueta" var="citaEtiqueta"></spring:message>
-								<spring:message code="panelCita.jsp.listado-agenda.etiqueta" var="listadoAgendaEtiqueta"></spring:message>
-								<spring:message code="panelCita.jsp.listado-cita.etiqueta" var="listadoCitaEtiqueta"></spring:message>
+								<spring:message code="panelCita.jsp.paginaAgenda.etiqueta" var="paginaAgendaEtiqueta"></spring:message>
+								<spring:message code="panelCita.jsp.paginaCitaInformacion.etiqueta" var="paginaCitaInformacionEtiqueta"></spring:message>
 <!-- ****************************************************Etiquetas Agenda ******************************************************************* -->								
 								<spring:message code="agenda.jsp.conf.hora.etiqueta" var="confHoraEtiqueta"></spring:message>
 								<spring:message code="agenda.jsp.hora.etiqueta" var="horaEtiqueta"></spring:message>
 								
 <!-- ****************************************************Etiquetas Listado Agenda ******************************************************************* -->							
-								<spring:message code="listadoAgenda.jsp.fecha.etiqueta" var="fechaEtiqueta"></spring:message>
-                            	<spring:message code="listadoAgenda.jsp.hora.etiqueta" var="horaEtiqueta"></spring:message>
-                            	<spring:message code="listadoAgenda.jsp.nombres.etiqueta" var="listAgendaNombresEtiqueta"></spring:message>
-                            	<spring:message code="listadoAgenda.jsp.apellido.etiqueta" var="apellidoEtiqueta"></spring:message>
-                            	<spring:message code="listadoAgenda.jsp.telefonofijo.etiqueta" var="telefonofijoEtiqueta"></spring:message>
-                            	<spring:message code="listadoAgenda.jsp.celular.etiqueta" var="celularEtiqueta"></spring:message>
-                            	<spring:message code="listadoAgenda.jsp.cancelar.etiqueta" var="cancelarEtiqueta"></spring:message>
-                            	<spring:message code="listadoAgenda.jsp.citaInformacion.etiqueta" var="citaInformacionEtiqueta"></spring:message>
+								<spring:message code="paginaAgenda.jsp.fecha.etiqueta" var="fechaEtiqueta"></spring:message>
+                            	<spring:message code="paginaAgenda.jsp.hora.etiqueta" var="horaEtiqueta"></spring:message>
+                            	<spring:message code="paginaAgenda.jsp.nombres.etiqueta" var="listAgendaNombresEtiqueta"></spring:message>
+                            	<spring:message code="paginaAgenda.jsp.apellido.etiqueta" var="apellidoEtiqueta"></spring:message>
+                            	<spring:message code="paginaAgenda.jsp.telefonofijo.etiqueta" var="telefonofijoEtiqueta"></spring:message>
+                            	<spring:message code="paginaAgenda.jsp.celular.etiqueta" var="celularEtiqueta"></spring:message>
+                            	<spring:message code="paginaAgenda.jsp.cancelar.etiqueta" var="cancelarEtiqueta"></spring:message>
+                            	<spring:message code="paginaAgenda.jsp.citaInformacion.etiqueta" var="citaInformacionEtiqueta"></spring:message>
 <!-- ****************************************************Etiquetas Cita Informacion ******************************************************************* -->                            	
                             	<spring:message code="citaInformacion.jsp.titulo.etiqueta" var="citaInfoTituloEtiqueta"></spring:message>
                             	<spring:message code="citaInformacion.jsp.aplica.etiqueta" var="aplicaEtiqueta"></spring:message>
@@ -100,7 +101,6 @@
                             	<spring:message code="citaInformacion.jsp.recomTenerCta.etiqueta" var="recomTenerCtaEtiqueta"></spring:message>
                             	<spring:message code="citaInformacion.jsp.inFoGral.etiqueta" var="inFoGralEtiqueta"></spring:message>
                             	<spring:message code="citaInformacion.jsp.fechaIniEvaluacion.etiqueta" var="fechaIniEvalEtiqueta"></spring:message>
-                            	
  <!-- ****************************************************Marcadores Cita Informacion*************************************************************************** -->            		
                             	<spring:message code="citaInformacion.jsp.ocupacion.marcardor" var="marcadorEtiqueta"></spring:message> 
                             	<spring:message code="citaInformacion.jsp.motivoconsulta.marcardor" var="motivoConsultaMarcador"></spring:message>
@@ -109,7 +109,13 @@
                             	<spring:message code="citaInformacion.jsp.inFoGral.marcador" var="inFoGralMarcador"></spring:message>
  <!-- ****************************************************Etiquetas Modal Cancelar Cita  ******************************************************************* -->                            	
                             	<spring:message code="modal_cancelarCita.jsp.cancelarCita.etiqueta" var="cancelarCitaMsjEtiqueta"></spring:message>
-                                  
-                              
+ <!-- ****************************************************Etiquetas Pagina Cita Informacion  ******************************************************************* -->                              
+                              	<spring:message code="paginaCitaInformacion.jsp.documento.etiqueta" var="documentoPagCitaInfoEtiqueta"></spring:message>     
+                              	<spring:message code="paginaCitaInformacion.jsp.nombres.etiqueta" var="nombresPagCitaInfoEtiqueta"></spring:message>
+                                <spring:message code="paginaCitaInformacion.jsp.apellido.etiqueta" var="apellidoPagCitaInfoEtiqueta"></spring:message>
+                                <spring:message code="paginaCitaInformacion.jsp.eps.etiqueta" var="epsPagCitaInfoEtiqueta"></spring:message>
+								<spring:message code="paginaCitaInformacion.jsp.escolaridad.etiqueta" var="escolaridadPagCitaInfoEtiqueta"></spring:message>
+								<spring:message code="paginaCitaInformacion.jsp.celular.etiqueta" var="celularPagCitaInfoEtiqueta"></spring:message>
+								<spring:message code="paginaCitaInformacion.jsp.evaluacion.etiqueta" var="evaluacionEtiqueta"></spring:message>
                             	 
 					            

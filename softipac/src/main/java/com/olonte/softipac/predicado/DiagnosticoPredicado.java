@@ -13,4 +13,5 @@ public class DiagnosticoPredicado {
 		return QDiagnostico.diagnostico1.idDiagnostico.in(idsDiagnostico);
 	}
 
+
 }

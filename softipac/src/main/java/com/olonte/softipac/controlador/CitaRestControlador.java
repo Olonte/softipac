@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.olonte.softipac.json.CitaJSON;
 import com.olonte.softipac.json.UsuarioJSON;
-import com.olonte.softipac.modelo.DiagnosticosJS;
 import com.olonte.softipac.modelo.Hora;
 import com.olonte.softipac.servicio.CitaServicio;
 import com.olonte.softipac.servicio.DiagnosticoServcio;
@@ -32,16 +31,13 @@ public class CitaRestControlador {
 	
 	private DiagnosticoServcio diagnosticoServcio;
 	
-	private DiagnosticosJS diagnosticosJS;
-	
 	@Autowired
 	public CitaRestControlador(UsuarioServicio usuarioServicio, HoraServicio horaServicio, CitaServicio citaServicio,
-			DiagnosticoServcio diagnosticoServcio, DiagnosticosJS diagnosticosJS) {
+			DiagnosticoServcio diagnosticoServcio) {
 		this.usuarioServicio = usuarioServicio;
 		this.horaServicio = horaServicio;
 		this.citaServicio = citaServicio;
 		this.diagnosticoServcio = diagnosticoServcio;
-		this.diagnosticosJS = diagnosticosJS;
 	}
 
 
@@ -61,21 +57,20 @@ public class CitaRestControlador {
 	 * @param documento
 	 * @return
 	 */
-	@RequestMapping(value = "/obtenerPaciente/{pacienteDocumento}", method = RequestMethod.GET)
-	public UsuarioJSON obtenerUsuarioPorDocumento(@PathVariable("pacienteDocumento") String documento){
-		UsuarioJSON usuarioJSON = this.usuarioServicio.bucarPorDocumento(documento);
-		this.diagnosticosJS.setDiagnosticos(usuarioJSON.getDiagnosticos());
-		return usuarioJSON;
+	@RequestMapping(value = "/obtenerPaciente/{parametros}", method = RequestMethod.GET)
+	public UsuarioJSON obtenerUsuarioPorDocumento(@PathVariable("parametros") String documento){
+		return this.usuarioServicio.bucarPorDocumento(documento);
 	}
-	
+
 	/**
 	 * 
 	 * @param documento
 	 * @return
 	 */
-	@RequestMapping(value = "/obtenerCita/{pacienteDocumento}", method = RequestMethod.GET)
-	public CitaJSON obtenerCitaPorDocumento(@PathVariable("pacienteDocumento") String documento){
-		return this.citaServicio.buscarPorDocumento(documento);
+	@RequestMapping(value = "/obtenerCita/{parametros}", method = RequestMethod.GET)
+	public CitaJSON obtenerCitaPorDocumento(@PathVariable("parametros") String parametros){
+		return this.citaServicio.buscarPorDocumento(parametros);
 	}
+	
 
 }

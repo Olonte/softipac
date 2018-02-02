@@ -8,5 +8,5 @@ import com.olonte.softipac.modelo.Hora;
 public interface HoraServicio {
 	Iterable<Hora> buscarAgendaPorFecha(LocalDate fecha, Integer idTipoCita, Integer idTipoHora);
 	Iterable<Hora> buscarEvaluacionPorFecha(LocalDate fecha);
-	List<Hora> buscarHoraPorDocumento(String documento);
+	List<Hora> buscarHoraPorDocumento(String parametros);
 }

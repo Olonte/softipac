@@ -22,6 +22,7 @@ public class JSON {
 			usuarioJSON.setSegundoApellido(usuario.getSegundoApellido());
 			usuarioJSON.setFechaNacimiento(usuario.getFechaNacimiento());
 			usuarioJSON.setEdad(usuario.getEdad());
+			usuarioJSON.setMeses(usuario.getMeses());
 			usuarioJSON.setGenero(usuario.getGenero());
 			usuarioJSON.setEscolaridad(usuario.getEscolaridad());
 			usuarioJSON.setTutela(usuario.getTutela());
@@ -46,6 +47,10 @@ public class JSON {
 			citaJSON.setFechaCitaIni(cita.getFechaCitaIni());
 			citaJSON.setHora(cita.getHora());
 			citaJSON.setObservacion(cita.getObservacion());
+			citaJSON.setMotivoConsulta(cita.getMotivoConsulta());
+			citaJSON.setExpectativas(cita.getExpectativas());
+			citaJSON.setRecomTenerCta(cita.getRecomTenerCta());
+			citaJSON.setInFoGral(cita.getInFoGral());
 		}
 		return citaJSON;
 	}

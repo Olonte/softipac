@@ -20,8 +20,8 @@ import com.olonte.softipac.modelo.Agenda;
 import com.olonte.softipac.modelo.Cita;
 import com.olonte.softipac.modelo.CitaInformacion;
 import com.olonte.softipac.modelo.Diagnostico;
-import com.olonte.softipac.modelo.DiagnosticosJS;
 import com.olonte.softipac.modelo.RegistroListaAgenda;
+import com.olonte.softipac.modelo.RegistroListaCitaInformacion;
 import com.olonte.softipac.modelo.Usuario;
 import com.olonte.softipac.modelo.UsuarioSession;
 import com.olonte.softipac.servicio.CitaServicio;
@@ -64,14 +64,13 @@ public class CitaControlador {
 	
 	private Set<Diagnostico> diagnosticosTemp;
 	
-	private DiagnosticosJS diagnosticosJS;
 	
 	@Autowired
 	public CitaControlador(UsuarioSession usuarioSession, ValidadorUsuarioAgenda validadorUsuarioAgenda,
 			CitaServicio citaServicio, UsuarioServicio usuarioServicio, HoraServicio horaServicio,
 			TipoDocumentoServicio tipoDocumentoServicio, GeneroServicio generoServicio,
 			EscolaridadServicio escolaridadServicio, EpsServicio epsServicio, DiagnosticoServcio diagnosticoServicio,
-			ParentescoServicio parentescoServicio, DiagnosticosJS diagnosticosJS) {
+			ParentescoServicio parentescoServicio) {
 		this.usuarioSession = usuarioSession;
 		this.validadorUsuarioAgenda = validadorUsuarioAgenda;
 		this.citaServicio = citaServicio;
@@ -83,7 +82,6 @@ public class CitaControlador {
 		this.epsServicio = epsServicio;
 		this.diagnosticoServicio = diagnosticoServicio;
 		this.parentescoServicio = parentescoServicio;
-		this.diagnosticosJS = diagnosticosJS;
 	}
 
 	@ModelAttribute(value = "usuarioLogueado")
@@ -123,11 +121,8 @@ public class CitaControlador {
 	 */
 	@RequestMapping(value = "/agenda", method = RequestMethod.GET)
 	public String crearNuevaAgenda(Model model) {
-		Agenda agenda = new Agenda();
-		agenda.setCitaAgenda(Utilidad.ES_CITA_AGENDA);;
-		model.addAttribute("nuevaAgenda", agenda);
+		model.addAttribute("nuevaAgenda", new Agenda());
 		iniciarListas(model, null, Utilidad.AGENDA_NUEVA);
-		
 		return "agenda";
 	}
 	
@@ -142,11 +137,9 @@ public class CitaControlador {
 	@RequestMapping(value = "/agenda", method = RequestMethod.POST)
 	public String procesarNuevaAgenda(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		int transaccion = Utilidad.TRANS_GUARDAR;
-		
 		if (bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("msj_err","Error guardado con paciente");
 		}
-		
 		if (nuevaAgenda.getPaciente().getDiagnosticos().isEmpty()) {
 			if (!nuevaAgenda.isJavaScript()) {
 				if (this.diagnosticosTemp != null) {
@@ -155,10 +148,8 @@ public class CitaControlador {
 					}
 				}
 			}else{
-				nuevaAgenda.getPaciente().setDiagnosticos(diagnosticosJS.getDiagnosticos());
 				transaccion = Utilidad.TRANS_ACTUALIZAR;
 			}
-			
 		}else{
 			this.diagnosticosTemp = nuevaAgenda.getPaciente().getDiagnosticos();
 			if (nuevaAgenda.isJavaScript()) {
@@ -176,22 +167,17 @@ public class CitaControlador {
 	*/
 	@RequestMapping(value ="/paginaAgenda/{numeroPagina}")
 	public String paginasAgenda(@PathVariable Integer numeroPagina, Model model) {
-		
-		List<RegistroListaAgenda> registroListaAgenda = this.citaServicio.buscarTodos();
+		List<RegistroListaAgenda> registroListaAgenda = this.citaServicio.buscarCitasAgenda();
 		PagedListHolder<RegistroListaAgenda> pagedListHolder = new PagedListHolder<>(registroListaAgenda);
 		pagedListHolder.setPageSize(Utilidad.NUMERO_REGISTROS);
-		
 		pagedListHolder.setPage(numeroPagina - Utilidad.NUMERO_PAGINA_INICIO);
-		
 		int paginaActual = pagedListHolder.getPage() + Utilidad.NUMERO_PAGINA_INICIO;
-		int paginaInicio = Math.max(Utilidad.NUMERO_PAGINA_INICIO, paginaActual - 5);
-		int paginaFinal  = Math.min(paginaInicio + 10, pagedListHolder.getPageCount());
-		
-		model.addAttribute("citas", pagedListHolder.getPageList());
+		int paginaInicio = Math.max(Utilidad.NUMERO_PAGINA_INICIO, paginaActual - Utilidad.MAXIMO_PAGINA);
+		int paginaFinal  = Math.min(paginaInicio + Utilidad.MINIMO_PAGINA, pagedListHolder.getPageCount());
+		model.addAttribute("citasAgenda", pagedListHolder.getPageList());
 		model.addAttribute("indiceInicio",paginaInicio);
 		model.addAttribute("indiceFinal", paginaFinal);
 		model.addAttribute("indiceActual",paginaActual);
-		
 		return "paginaAgenda";
 	}
 	
@@ -202,16 +188,13 @@ public class CitaControlador {
 	 * @return
 	 */
 	@RequestMapping(value = "/editar/agenda", method = RequestMethod.GET)
-	public String editarCita(Model model, @RequestParam("idUsuario") Integer idUsuario) {
+	public String editarCita(@RequestParam("idUsuario") Integer idUsuario, @RequestParam("indiceActual") Integer indiceActual, Model model) {
 		Agenda agenda = new Agenda();
 		agenda = this.citaServicio.buscarUsuarioAgenda(idUsuario,Utilidad.USUARIO_ACUDIENTE,Utilidad.CITA_AGENDA);
-		
 		this.diagnosticosTemp = agenda.getPaciente().getDiagnosticos();
-		
 		model.addAttribute("nuevaAgenda", agenda);
-		
+		model.addAttribute("indiceActual", indiceActual);
 		iniciarListas(model, agenda, Utilidad.AGENDA_EDITADA);
-
 		return "agenda";
 	}
 	
@@ -224,12 +207,11 @@ public class CitaControlador {
 	 * @return
 	 */
 	@RequestMapping(value = "/editar/agenda", method = RequestMethod.POST)
-	public String procesarEdicionCita(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String procesarEdicionCita(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, @ModelAttribute("indiceActual") int indiceActual, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		if (nuevaAgenda.getPaciente().getDiagnosticos().isEmpty()) {
 			nuevaAgenda.getPaciente().setDiagnosticos(this.diagnosticosTemp);
 		}
-		
-		return validarAgenda(Utilidad.AGENDA_EDIT_PROC, Utilidad.CITA_AGENDA, Utilidad.TRANS_ACTUALIZAR, Utilidad.ESTADO_INACTIVO, nuevaAgenda, Utilidad.INDICE_DEFECTO, model, bindingResult, redirectAttributes);
+		return validarAgenda(Utilidad.AGENDA_EDIT_PROC, Utilidad.CITA_AGENDA, Utilidad.TRANS_ACTUALIZAR, Utilidad.ESTADO_INACTIVO, nuevaAgenda, indiceActual, model, bindingResult, redirectAttributes);
 	}
 	
 	/**
@@ -239,10 +221,16 @@ public class CitaControlador {
 	 * @return
 	 */
 	@RequestMapping(value = "/cancelar/agenda")
-	public String cancelarCita(@RequestParam("idUsuario") Integer idUsuario, @RequestParam("indiceActual") Integer indiceActual, RedirectAttributes redirectAttributes) {	
-		this.citaServicio.cambiarEstadoCita(idUsuario,Utilidad.CITA_AGENDA,Utilidad.ESTADO_CANCELADO);
+	public String cancelarCita(@RequestParam("idUsuario") Integer idUsuario, @RequestParam("idTipoCita") Integer idTipoCita, @RequestParam("indiceActual") Integer indiceActual, RedirectAttributes redirectAttributes) {	
+		this.citaServicio.cambiarEstadoCita(idUsuario,idTipoCita,Utilidad.ESTADO_CANCELADO);
 		redirectAttributes.addFlashAttribute("msj_ext","Cita cancelada con éxito");
-		return "redirect:/paginaAgenda/" + indiceActual;
+		
+		if (idTipoCita == Utilidad.CITA_AGENDA) {
+			return "redirect:/paginaAgenda/" + indiceActual;
+		}else{
+			return "redirect:/paginaCitaInformacion/" + indiceActual;
+		}
+		
 	}
 	
 	/**
@@ -260,25 +248,25 @@ public class CitaControlador {
 	 * @return
 	 */
 	@RequestMapping(value = "/citaInformacion", method = RequestMethod.GET)
-	public String crearNuevaCitaInformacion(Model model, @RequestParam("idUsuario") Integer idUsuario, @RequestParam("indiceActual") int indiceActual) {
+	public String crearNuevaCitaInformacion(@RequestParam("idUsuario") Integer idUsuario, @RequestParam("indiceActual") int indiceActual, Model model) {
 		CitaInformacion citaInformacion = new CitaInformacion();
 		
 		Usuario familiar = this.usuarioServicio.buscarAcudientePorId(idUsuario,Utilidad.USUARIO_ACUDIENTE);
 		citaInformacion.setCita(new Cita());
 		citaInformacion.getCita().setFechaCitaIni(this.citaServicio.obtenerFechaCitaIni(idUsuario,Utilidad.CITA_AGENDA));
 		citaInformacion.setPaciente(this.usuarioServicio.buscarPacientePorId(idUsuario));
-		
-		
+			
 		if (familiar.getParentesco().getIdParentesco() == Utilidad.MADRE) {
 			citaInformacion.setMadre(familiar);
 		}else if (familiar.getParentesco().getIdParentesco() == Utilidad.PADRE) {
 			citaInformacion.setPadre(familiar);
 		}
-			
+				
 		citaInformacion.setAcudiente(familiar);
 		citaInformacion.setUsuarioAplica(getUsuarioSession().obtenerNombresApellidos());
-		
+			
 		this.diagnosticosTemp = citaInformacion.getPaciente().getDiagnosticos();
+		
 		model.addAttribute("citaInformacion", citaInformacion);
 		model.addAttribute("indiceActual",indiceActual);
 		iniciarListas(model, citaInformacion, Utilidad.CITA_INFO_NUEVA);
@@ -297,20 +285,69 @@ public class CitaControlador {
 	@RequestMapping(value = "/citaInformacion", method = RequestMethod.POST)
     public String procesarNuevaCitaInformacion(@ModelAttribute("citaInformacion") CitaInformacion citaInformacion, @ModelAttribute("indiceActual") int indiceActual,
     		Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+
 		if (citaInformacion.getPaciente().getDiagnosticos().isEmpty()) {
 			citaInformacion.getPaciente().setDiagnosticos(diagnosticosTemp);
 		}
 		return validarAgenda(Utilidad.CITA_INFO_PROC, Utilidad.CITA_INFORMACION, Utilidad.TRANS_GUARDAR,  Utilidad.ESTADO_PENDIENTE, citaInformacion, indiceActual, model, bindingResult, redirectAttributes);
 	}
 	
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/crear/citaInformacion", method = RequestMethod.GET)
 	public String crearCitaInformacion(Model model) {
 		CitaInformacion citaInformacion = new CitaInformacion();
+		citaInformacion.setUsuarioAplica(getUsuarioSession().obtenerNombresApellidos());
 		model.addAttribute("citaInformacion", citaInformacion);
 		iniciarListas(model, citaInformacion, Utilidad.CITA_INFO_CREAR);
 		return "citaInformacion";
 	}
+
+	/**
+	 * 
+	 * @param citaInformacion
+	 * @param model
+	 * @param bindingResult
+	 * @param redirectAttributes
+	 * @return
+	 */
+
+	@RequestMapping(value = "/crear/citaInformacion", method = RequestMethod.POST)
+	public String procesarCrearCitaInformacion(@ModelAttribute("citaInformacion") CitaInformacion citaInformacion, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		int transaccion = Utilidad.TRANS_GUARDAR;
+		if (bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("msj_err","Error guardado con paciente");
+		}
+		if (citaInformacion.isJavaScript()) {
+			transaccion = Utilidad.TRANS_ACTUALIZAR;
+		}
+		return validarAgenda(Utilidad.CITA_INFO_PROC, Utilidad.CITA_INFORMACION, transaccion,  Utilidad.ESTADO_PENDIENTE, citaInformacion, Utilidad.INDICE_DEFECTO, model, bindingResult, redirectAttributes);
+	}
 	
+	/**
+	 * 
+	 * @param numeroPagina
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value ="/paginaCitaInformacion/{numeroPagina}")
+	public String paginasCitaInformacion(@PathVariable Integer numeroPagina, Model model){
+		List<RegistroListaCitaInformacion> registroListaCitaInformacion = this.citaServicio.buscarCitasInformacion();
+		PagedListHolder<RegistroListaCitaInformacion> pagedListHolder = new PagedListHolder<>(registroListaCitaInformacion);
+		pagedListHolder.setPageSize(Utilidad.NUMERO_REGISTROS);
+		pagedListHolder.setPage(numeroPagina - Utilidad.NUMERO_PAGINA_INICIO);
+		int paginaActual = pagedListHolder.getPage() + Utilidad.NUMERO_PAGINA_INICIO;
+		int paginaInicio = Math.max(Utilidad.NUMERO_PAGINA_INICIO, paginaActual - Utilidad.MAXIMO_PAGINA);
+		int paginaFinal  = Math.min(paginaInicio + Utilidad.MINIMO_PAGINA, pagedListHolder.getPageCount());
+		model.addAttribute("citasInformacion", pagedListHolder.getPageList());
+		model.addAttribute("indiceInicio",paginaInicio);
+		model.addAttribute("indiceFinal", paginaFinal);
+		model.addAttribute("indiceActual",paginaActual);
+		return "paginaCitaInformacion";
+	}
 	/**
 	 * *****************************************************************************************************************************************
 	 * 
@@ -374,16 +411,18 @@ public class CitaControlador {
 	 * @param redirectAttributes
 	 * @return
 	 */
-	private String validarAgenda(int origen, int tipoCita, int transaccion, Integer idEstado, Agenda agenda, int indiceActual, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	private String validarAgenda(int origen, int tipoCita, int transaccion, Integer idEstado, Agenda agenda,
+			int indiceActual, Model model, BindingResult bindingResult, 
+			RedirectAttributes redirectAttributes) {
 		this.validadorUsuarioAgenda.validate(agenda, bindingResult);
 		
 		if (!bindingResult.hasErrors()) {
 			this.citaServicio.guardarActualizar(tipoCita, transaccion, idEstado, agenda);
 			redirectAttributes.addFlashAttribute("msj_ext","Paciente guardado con éxito");
-			return obtenerJSP(tipoCita, indiceActual, false);
+			return obtenerJSP(tipoCita, indiceActual, agenda, false);
 		}else {
 			iniciarListas(model, agenda, origen);
-			return obtenerJSP(tipoCita, indiceActual, true);
+			return obtenerJSP(tipoCita, indiceActual, agenda, true);
 		}
 	}
 	
@@ -393,29 +432,36 @@ public class CitaControlador {
 	 * @param error
 	 * @return
 	 */
-	private String obtenerJSP(int tipoCita,int indiceActual, boolean error) {
+	private String obtenerJSP(int tipoCita,int indiceActual, Agenda agenda, boolean error) {
 		String ruta = null;
 		
 		switch (tipoCita) {
 		case Utilidad.CITA_AGENDA:
 			if (!error) {
-				ruta = "redirect:/agenda";
+				if (indiceActual == Utilidad.INDICE_DEFECTO) {
+					ruta = "redirect:/agenda";
+				}else {
+					ruta = "forward:/paginaAgenda/" + indiceActual;
+				}
+				
 			}else{
 				ruta = "agenda";
 			}
 			break;
 		case Utilidad.CITA_INFORMACION:
 			if (!error) {
-				ruta = "forward:/paginaAgenda/" + indiceActual;
+				if (indiceActual == Utilidad.INDICE_DEFECTO) {
+					ruta = "redirect:/crear/citaInformacion";
+				}else{
+					ruta = "forward:/paginaAgenda/" + indiceActual;
+				}
 			}else {
-				ruta="citaInformacion";
+				ruta = "citaInformacion";
 			}
 		default:
 			break;
 		}
-		
 		return ruta;
-		
 	}
 	
 }
