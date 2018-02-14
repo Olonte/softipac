@@ -35,6 +35,7 @@ public class JSON {
 				}
 			}else {
 				usuarioJSON.setNombreUsuario(usuario.getNombreUsuario());
+				usuarioJSON.setPassword(usuario.getPassword());
 				usuarioJSON.setLugarNacimiento(usuario.getLugarNacimiento());
 				usuarioJSON.setOcupacion(usuario.getOcupacion());
 				usuarioJSON.setDireccion(usuario.getDireccion());

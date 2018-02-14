@@ -10,14 +10,17 @@ public class UsuarioForma {
 	private Set<Rol> roles = new HashSet<Rol>(0);
 	
 	private boolean javaScript;
+	
+	private String passwordTemp;
 
 	public UsuarioForma() {
 	}
 
-	public UsuarioForma(Usuario usuario, Set<Rol> roles, boolean javaScript) {
+	public UsuarioForma(Usuario usuario, Set<Rol> roles, boolean javaScript, String passwordTemp) {
 		this.usuario = usuario;
 		this.roles = roles;
 		this.javaScript = javaScript;
+		this.passwordTemp = passwordTemp;
 	}
 
 	public Usuario getUsuario() {
@@ -43,6 +46,13 @@ public class UsuarioForma {
 	public void setJavaScript(boolean javaScript) {
 		this.javaScript = javaScript;
 	}
-	
+
+	public String getPasswordTemp() {
+		return passwordTemp;
+	}
+
+	public void setPasswordTemp(String passwordTemp) {
+		this.passwordTemp = passwordTemp;
+	}
 
 }

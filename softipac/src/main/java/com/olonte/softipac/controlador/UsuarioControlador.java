@@ -51,6 +51,8 @@ public class UsuarioControlador {
 	
 	private RolServicio  rolServicio;
 	
+	private String passwordTemp;
+	
 	@Autowired
 	public UsuarioControlador(UsuarioSession usuarioSession, ValidadorUsuario validadorUsuario,
 			UsuarioServicio usuarioServicio, TipoDocumentoServicio tipoDocumentoServicio, GeneroServicio generoServicio,
@@ -147,6 +149,8 @@ public class UsuarioControlador {
 	public String editarUsuario(@RequestParam("idUsuario") Integer idUsuario, @RequestParam("indiceActual") Integer indiceActual, Model model) {
 		UsuarioForma usuarioForma = new UsuarioForma();
 		usuarioForma.setUsuario(this.usuarioServicio.buscarPorId(idUsuario));
+		this.passwordTemp = usuarioForma.getUsuario().getPassword();
+		usuarioForma.getUsuario().setPassword(Utilidad.CADENA_DEFAULT);
 		model.addAttribute("nuevoUsuario", usuarioForma);
 		model.addAttribute("indiceActual", indiceActual);
 		iniciarListas(model, Utilidad.USUARIO_EDITAR, usuarioForma);
@@ -204,13 +208,30 @@ public class UsuarioControlador {
 	private String validarUsuario(Integer origen, Integer idEstado, UsuarioForma usuarioForma, int indiceActual, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		this.validadorUsuario.validate(usuarioForma, bindingResult);
 		if (!bindingResult.hasErrors()) {
-			usuarioForma.getUsuario().setPassword(QuickPasswordEncodingGenerator.passwordEncoder(usuarioForma.getUsuario().getPassword()));
+			if (origen == Utilidad.USUARIO_EDITAR_PROC) {
+				if (usuarioForma.getUsuario().getPassword().equals(Utilidad.CADENA_DEFAULT)) {
+					usuarioForma.getUsuario().setPassword(this.passwordTemp);
+				}else {
+					usuarioForma.getUsuario().setPassword(QuickPasswordEncodingGenerator.passwordEncoder(usuarioForma.getUsuario().getPassword()));
+				}
+			}else {
+				if (usuarioForma.isJavaScript()) {
+					if (usuarioForma.getUsuario().getPassword().equals(Utilidad.CADENA_DEFAULT)) { /** Si el password no se modifico se asigna el password anterior*/
+						usuarioForma.getUsuario().setPassword(usuarioForma.getPasswordTemp());
+					}else {
+						usuarioForma.getUsuario().setPassword(QuickPasswordEncodingGenerator.passwordEncoder(usuarioForma.getUsuario().getPassword()));
+					}
+				}else {
+					usuarioForma.getUsuario().setPassword(QuickPasswordEncodingGenerator.passwordEncoder(usuarioForma.getUsuario().getPassword()));
+				}
+			}
+			
 			this.usuarioServicio.guardar(usuarioForma, idEstado);
 			redirectAttributes.addFlashAttribute("msj_ext", "Usuario guardado con éxito");
-			return obtenerJSP(origen, indiceActual, false);
+			return obtenerJSP(origen, indiceActual, false, redirectAttributes);
 		}else {
 			iniciarListas(model, origen, usuarioForma);
-			return obtenerJSP(origen, indiceActual, true);
+			return obtenerJSP(origen, indiceActual, true, redirectAttributes);
 		}
 	}
 	
@@ -221,7 +242,7 @@ public class UsuarioControlador {
 	 * @param error
 	 * @return
 	 */
-	private String obtenerJSP(Integer origen, int indiceActual, boolean error) {
+	private String obtenerJSP(Integer origen, int indiceActual, boolean error, RedirectAttributes redirectAttributes) {
 		String ruta = null;
 		switch (origen) {
 		case Utilidad.USUARIO_NUEVO_PROC:
@@ -229,15 +250,15 @@ public class UsuarioControlador {
 				if (indiceActual == Utilidad.INDICE_DEFECTO) {
 					ruta = "redirect:/usuario";
 				}else {
-					ruta = "forward:/paginaUsuario/" + indiceActual;
+					ruta = "redirect:/paginaUsuario/" + indiceActual;
 				}
 			}else {
 				ruta = "usuario";
 			}
 			break;
 		case Utilidad.USUARIO_EDITAR_PROC:
-			if (!error) {
-				ruta = "forward:/paginaUsuario/" + indiceActual;
+			if (!error) {								
+				ruta = "redirect:/paginaUsuario/" + indiceActual;
 			}else{
 				ruta = "usuario";
 			}
@@ -268,13 +289,15 @@ public class UsuarioControlador {
 	/**
 	 * 
 	 * @param model
+	 * @param origen
+	 * @param usuarioForma
 	 */
 	private void iniciarListas(Model model, int origen, UsuarioForma usuarioForma) {
 		model.addAttribute("tiposDocumentoUsuario", this.tipoDocumentoServicio.buscarTiposDocumentoUsuario());
 		model.addAttribute("generos", this.generoServicio.buscarTodos());
 		model.addAttribute("escolaridadesUsuario", this.escolaridadServicio.buscarEscolaridadesUsuario());
 		model.addAttribute("roles", this.rolServicio.buscarTodos());
-		if (origen == Utilidad.USUARIO_EDITAR) {
+		if (origen == Utilidad.USUARIO_EDITAR || origen == Utilidad.USUARIO_NUEVO_PROC) {
 			model.addAttribute("rolesUsuario", usuarioForma.getUsuario().getRoles());
 		}
 		model.addAttribute("tiposUsuario", this.tipoUsuarioServicio.buscarTodos());

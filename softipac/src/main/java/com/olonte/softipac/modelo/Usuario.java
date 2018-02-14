@@ -132,7 +132,6 @@ public class Usuario {
 	)
 	private Set<Rol> roles = new HashSet<Rol>(0);
 	
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "afinidadUsuarioId.usuario_idusuario", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private Set<Afinidad> usuario_idusuario = new HashSet<Afinidad>(0);

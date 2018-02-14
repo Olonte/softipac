@@ -31,6 +31,7 @@ $(document).ready( function() {
 					$('#usuarioPrimerApellido').val(usuario.primerApellido);
 					$('#usuarioSegundoApellido').val(usuario.segundoApellido);
 					$('#nombreUsuario').val(usuario.nombreUsuario);
+					$('#passwordTemp').val(usuario.password);
 					$('#usuarioFechaNacimiento').val(formatoFecha(usuario.fechaNacimiento));
 					$('#usuarioLugarNacimiento').val(usuario.lugarNacimiento);
 					$('#usuarioEdad').val(usuario.edad);

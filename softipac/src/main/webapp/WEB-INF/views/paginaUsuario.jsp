@@ -27,10 +27,20 @@
 									<%@include file="/WEB-INF/views/modals/modal_activarUsuario.jsp"%> 
 									<%@include file="/WEB-INF/views/modals/modal_desactivarUsuario.jsp"%> 
 							    	<tr>
-										<th>${usuario.documento_iddocumento.documento}</th>
-										<th>${usuario.nombres}</th>
-										<th>${usuario.primerApellido}</th>
-										<th>${usuario.telefonoCelular}</th>
+							    		<c:choose>
+							    			<c:when test="${usuario.estado_idestado.idEstado == idEstadoActivo}">
+							    				<th>${usuario.documento_iddocumento.documento}</th>
+												<th>${usuario.nombres}</th>
+												<th>${usuario.primerApellido}</th>
+												<th>${usuario.telefonoCelular}</th>
+							    			</c:when>
+							    			<c:when test="${usuario.estado_idestado.idEstado == idEstadoInactivo}">
+							    				<th><font color="gray">${usuario.documento_iddocumento.documento}</font></th>
+												<th><font color="gray">${usuario.nombres}</font></th>
+												<th><font color="gray">${usuario.primerApellido}</font></th>
+												<th><font color="gray">${usuario.telefonoCelular}</font></th>
+							    			</c:when>
+							    		</c:choose>
 										<td>
 											<div class="btn-group btn-actions">
 			                                	<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">${accionEtiqueta}</button>

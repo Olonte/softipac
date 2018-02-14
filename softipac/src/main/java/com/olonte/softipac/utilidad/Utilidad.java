@@ -27,6 +27,7 @@ public interface Utilidad {
 	static final String ROLES	              = "usuario.roles";
 	static final String SELECCION_OPCION      = "Seleccione";
 	static final String SEPARADOR             = "-";
+	static final String CADENA_DEFAULT        = "";
 	static final int AGENDA_NUEVA      	   = 1;
 	static final int AGENDA_PROCESADA  	   = 2;
 	static final int AGENDA_EDITADA    	   = 3;

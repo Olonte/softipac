@@ -28,6 +28,7 @@
 	                                                	<form:input type="hidden" cssClass="form-control" path="usuario.idUsuario" id="usuarioIdUsuario" name="usuarioIdUsuario"></form:input>
 														<form:input type="hidden" cssClass="form-control" path="usuario.estado_idestado.idEstado" id="usuarioIdEstado" name="usuarioIdEstado"></form:input>
 														<form:input type="hidden" cssClass="form-control" path="javaScript" id="usuariojavaScript" name="usuariojavaScript"></form:input>
+														<form:input type="hidden" cssClass="form-control" path="passwordTemp" id="passwordTemp" name="passwordTemp"></form:input>
 														<c:set var="indiceActual" value="${indiceActual}"></c:set>
 	                                                    <!-- **************************************************Datos  Documento Usuario**************************************************************** -->
 	                                                    <div class="col-md-4">
