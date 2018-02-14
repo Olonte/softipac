@@ -42,7 +42,7 @@ public class Usuario {
 	private String segundoApellido;
 	
 	@Column(name = "nombreusuario", nullable = true)
-	private String nomnbreUsuario;
+	private String nombreUsuario;
 	
 	@Column(name = "password", nullable = true)
 	private String password;
@@ -51,7 +51,7 @@ public class Usuario {
 	private Integer edad;
 					
 	@Column(name = "meses", nullable = true)
-	private String meses;
+	private Integer meses;
 				   
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	@Column(name = "fechanacimiento", nullable = true)
@@ -80,31 +80,31 @@ public class Usuario {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tipousuario_idtipousuario", referencedColumnName = "idtipousuario", nullable = false)
-	private TipoUsuario tipoUsuario;
+	private TipoUsuario tipousuario_idtipousuario;
 	
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "documento_iddocumento", referencedColumnName = "iddocumento")
-	private Documento documento;
+	private Documento documento_iddocumento;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "genero_idgenero", referencedColumnName = "idgenero", nullable = true)
-	private Genero genero;
+	private Genero genero_idgenero;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "escolaridad_idescolaridad", referencedColumnName = "idescolaridad", nullable = true)
-	private Escolaridad escolaridad;
+	private Escolaridad escolaridad_idescolaridad;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "eps_ideps", referencedColumnName = "ideps", nullable = true)
-	private Eps eps;
+	private Eps eps_ideps;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "estado_idestado", referencedColumnName = "idestado", nullable = true)
-	private Estado estado;
+	private Estado estado_idestado;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "parentesco_idparentesco", referencedColumnName = "idparentesco", nullable = true)
-	private Parentesco parentesco;
+	private Parentesco parentesco_idparentesco;
 	
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "registrodiagnostico",
@@ -119,7 +119,7 @@ public class Usuario {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "serviciosalud_idserviciosalud", referencedColumnName = "idserviciosalud", nullable = true)
-	private ServicioSalud servicioSalud;
+	private ServicioSalud serviciosalud_idserviciosalud;
 	
 	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "perfil",
@@ -172,14 +172,14 @@ public class Usuario {
 		this.segundoApellido = segundoApellido;
 	}
 	
-	public String getNomnbreUsuario() {
-		return nomnbreUsuario;
+	public String getNombreUsuario() {
+		return nombreUsuario;
 	}
 
-	public void setNomnbreUsuario(String nomnbreUsuario) {
-		this.nomnbreUsuario = nomnbreUsuario;
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -195,12 +195,12 @@ public class Usuario {
 	public void setEdad(Integer edad) {
 		this.edad = edad;
 	}
-	
-	public String getMeses() {
+
+	public Integer getMeses() {
 		return meses;
 	}
 
-	public void setMeses(String meses) {
+	public void setMeses(Integer meses) {
 		this.meses = meses;
 	}
 
@@ -228,62 +228,72 @@ public class Usuario {
 		this.tutela = tutela;
 	}
 	
-	public TipoUsuario getTipoUsuario() {
-		return tipoUsuario;
+	
+	
+	public TipoUsuario getTipousuario_idtipousuario() {
+		return tipousuario_idtipousuario;
 	}
 
-	public void setTipoUsuario(TipoUsuario tipoUsuario) {
-		this.tipoUsuario = tipoUsuario;
-	}
-	
-	public Documento getDocumento() {
-		return documento;
+	public void setTipousuario_idtipousuario(TipoUsuario tipousuario_idtipousuario) {
+		this.tipousuario_idtipousuario = tipousuario_idtipousuario;
 	}
 
-	public void setDocumento(Documento documento) {
-		this.documento = documento;
-	}
-	
-	public Genero getGenero() {
-		return genero;
+	public Documento getDocumento_iddocumento() {
+		return documento_iddocumento;
 	}
 
-	public void setGenero(Genero genero) {
-		this.genero = genero;
-	}
-	
-	public Escolaridad getEscolaridad() {
-		return escolaridad;
+	public void setDocumento_iddocumento(Documento documento_iddocumento) {
+		this.documento_iddocumento = documento_iddocumento;
 	}
 
-	public void setEscolaridad(Escolaridad escolaridad) {
-		this.escolaridad = escolaridad;
-	}
-	
-	public Eps getEps() {
-		return eps;
+	public Genero getGenero_idgenero() {
+		return genero_idgenero;
 	}
 
-	public void setEps(Eps eps) {
-		this.eps = eps;
-	}
-	
-	public Estado getEstado() {
-		return estado;
+	public void setGenero_idgenero(Genero genero_idgenero) {
+		this.genero_idgenero = genero_idgenero;
 	}
 
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
-	
-	public Parentesco getParentesco() {
-		return parentesco;
+	public Escolaridad getEscolaridad_idescolaridad() {
+		return escolaridad_idescolaridad;
 	}
 
-	public void setParentesco(Parentesco parentesco) {
-		this.parentesco = parentesco;
+	public void setEscolaridad_idescolaridad(Escolaridad escolaridad_idescolaridad) {
+		this.escolaridad_idescolaridad = escolaridad_idescolaridad;
 	}
-	
+
+	public Eps getEps_ideps() {
+		return eps_ideps;
+	}
+
+	public void setEps_ideps(Eps eps_ideps) {
+		this.eps_ideps = eps_ideps;
+	}
+
+	public Estado getEstado_idestado() {
+		return estado_idestado;
+	}
+
+	public void setEstado_idestado(Estado estado_idestado) {
+		this.estado_idestado = estado_idestado;
+	}
+
+	public Parentesco getParentesco_idparentesco() {
+		return parentesco_idparentesco;
+	}
+
+	public void setParentesco_idparentesco(Parentesco parentesco_idparentesco) {
+		this.parentesco_idparentesco = parentesco_idparentesco;
+	}
+
+	public ServicioSalud getServiciosalud_idserviciosalud() {
+		return serviciosalud_idserviciosalud;
+	}
+
+	public void setServiciosalud_idserviciosalud(ServicioSalud serviciosalud_idserviciosalud) {
+		this.serviciosalud_idserviciosalud = serviciosalud_idserviciosalud;
+	}
+
 	public Set<Diagnostico> getDiagnosticos() {
 		return diagnosticos;
 	}
@@ -346,14 +356,6 @@ public class Usuario {
 													
 	public void setRoles(Set<Rol> roles) {
 		this.roles = roles;
-	}
-	
-	public ServicioSalud getServicioSalud() {
-		return servicioSalud;
-	}
-
-	public void setServicioSalud(ServicioSalud servicioSalud) {
-		this.servicioSalud = servicioSalud;
 	}
 	
 }

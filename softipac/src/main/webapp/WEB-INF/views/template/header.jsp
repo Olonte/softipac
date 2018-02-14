@@ -29,3 +29,5 @@
 		<c:set var="citaAgenda" value="${1}"></c:set>
 		<c:set var="citaInformacion" value="${2}"></c:set>
 		<c:set var="numMin" value="${0}"></c:set>
+		<c:set var="idEstadoActivo" value="${1}"></c:set>
+		<c:set var="idEstadoInactivo" value="${2}"></c:set>

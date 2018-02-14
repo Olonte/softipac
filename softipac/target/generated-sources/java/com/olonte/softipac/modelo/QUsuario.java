@@ -26,35 +26,35 @@ public class QUsuario extends EntityPathBase<Usuario> {
 
     public final StringPath direccion = createString("direccion");
 
-    public final QDocumento documento;
+    public final QDocumento documento_iddocumento;
 
     public final NumberPath<Integer> edad = createNumber("edad", Integer.class);
 
     public final StringPath email = createString("email");
 
-    public final QEps eps;
+    public final QEps eps_ideps;
 
-    public final QEscolaridad escolaridad;
+    public final QEscolaridad escolaridad_idescolaridad;
 
-    public final QEstado estado;
+    public final QEstado estado_idestado;
 
     public final DatePath<java.time.LocalDate> fechaNacimiento = createDate("fechaNacimiento", java.time.LocalDate.class);
 
-    public final QGenero genero;
+    public final QGenero genero_idgenero;
 
     public final NumberPath<Integer> idUsuario = createNumber("idUsuario", Integer.class);
 
     public final StringPath lugarNacimiento = createString("lugarNacimiento");
 
-    public final StringPath meses = createString("meses");
+    public final NumberPath<Integer> meses = createNumber("meses", Integer.class);
 
     public final StringPath nombres = createString("nombres");
 
-    public final StringPath nomnbreUsuario = createString("nomnbreUsuario");
+    public final StringPath nombreUsuario = createString("nombreUsuario");
 
     public final StringPath ocupacion = createString("ocupacion");
 
-    public final QParentesco parentesco;
+    public final QParentesco parentesco_idparentesco;
 
     public final StringPath password = createString("password");
 
@@ -64,13 +64,13 @@ public class QUsuario extends EntityPathBase<Usuario> {
 
     public final StringPath segundoApellido = createString("segundoApellido");
 
-    public final QServicioSalud servicioSalud;
+    public final QServicioSalud serviciosalud_idserviciosalud;
 
     public final StringPath telefonoCelular = createString("telefonoCelular");
 
     public final StringPath telefonoFijo = createString("telefonoFijo");
 
-    public final QTipoUsuario tipoUsuario;
+    public final QTipoUsuario tipousuario_idtipousuario;
 
     public final StringPath tutela = createString("tutela");
 
@@ -94,14 +94,14 @@ public class QUsuario extends EntityPathBase<Usuario> {
 
     public QUsuario(Class<? extends Usuario> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.documento = inits.isInitialized("documento") ? new QDocumento(forProperty("documento"), inits.get("documento")) : null;
-        this.eps = inits.isInitialized("eps") ? new QEps(forProperty("eps")) : null;
-        this.escolaridad = inits.isInitialized("escolaridad") ? new QEscolaridad(forProperty("escolaridad")) : null;
-        this.estado = inits.isInitialized("estado") ? new QEstado(forProperty("estado")) : null;
-        this.genero = inits.isInitialized("genero") ? new QGenero(forProperty("genero")) : null;
-        this.parentesco = inits.isInitialized("parentesco") ? new QParentesco(forProperty("parentesco")) : null;
-        this.servicioSalud = inits.isInitialized("servicioSalud") ? new QServicioSalud(forProperty("servicioSalud")) : null;
-        this.tipoUsuario = inits.isInitialized("tipoUsuario") ? new QTipoUsuario(forProperty("tipoUsuario")) : null;
+        this.documento_iddocumento = inits.isInitialized("documento_iddocumento") ? new QDocumento(forProperty("documento_iddocumento"), inits.get("documento_iddocumento")) : null;
+        this.eps_ideps = inits.isInitialized("eps_ideps") ? new QEps(forProperty("eps_ideps")) : null;
+        this.escolaridad_idescolaridad = inits.isInitialized("escolaridad_idescolaridad") ? new QEscolaridad(forProperty("escolaridad_idescolaridad")) : null;
+        this.estado_idestado = inits.isInitialized("estado_idestado") ? new QEstado(forProperty("estado_idestado")) : null;
+        this.genero_idgenero = inits.isInitialized("genero_idgenero") ? new QGenero(forProperty("genero_idgenero")) : null;
+        this.parentesco_idparentesco = inits.isInitialized("parentesco_idparentesco") ? new QParentesco(forProperty("parentesco_idparentesco")) : null;
+        this.serviciosalud_idserviciosalud = inits.isInitialized("serviciosalud_idserviciosalud") ? new QServicioSalud(forProperty("serviciosalud_idserviciosalud")) : null;
+        this.tipousuario_idtipousuario = inits.isInitialized("tipousuario_idtipousuario") ? new QTipoUsuario(forProperty("tipousuario_idtipousuario")) : null;
     }
 
 }

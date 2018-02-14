@@ -9,7 +9,7 @@
 	        <p><h4>${cancelarCitaMsjEtiqueta}</h4></p>
 	      </div>
 	      <div class="modal-footer">
-	      		<a href="<spring:url value="/cancelar/agenda/?idUsuario=${cita.idUsuario}&idTipoCita=${cita.idTipoCita}&indiceActual=${indiceActual}"></spring:url>" class="btn btn-blue">${confCanCitaEtiqueta}</a>
+	      		<a href="<spring:url value="/cancelar/agenda/?idUsuario=${cita.idUsuario}&idTipoCita=${cita.idTipoCita}&indiceActual=${indiceActual}"></spring:url>" class="btn btn-blue">${botonConfirmarEtiqueta}</a>
 	        	<button type="button" class="btn btn-blue" data-dismiss="modal">${cerrarEtiqueta}</button>
 	    	</div>
 		</div><!-- /.modal-content -->

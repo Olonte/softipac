@@ -1,6 +1,5 @@
 package com.olonte.softipac.servicio;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +16,7 @@ public interface CitaServicio {
 	Agenda buscarUsuarioAgenda(Integer idUsuario, Integer idTipoUsuario, Integer idTipoCita);
 	Cita buscarPorIdPaciente(Integer idUsuario, Integer idTipoCita);
 	ArrayList<Hora> obtenerHoras(Agenda agenda, Integer idTipoHora);
-	ArrayList<String> obtenerMeses();
 	void cambiarEstadoCita(Integer idUsuario, Integer idTipoCita, Integer idEstado);
-	LocalDate obtenerFechaCitaIni(Integer idUsuario, Integer idTipoCita);
 	List<RegistroListaAgenda> buscarCitasAgenda();
 	List<RegistroListaCitaInformacion> buscarCitasInformacion();
 }

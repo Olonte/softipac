@@ -3,7 +3,9 @@ package com.olonte.softipac.json;
 import com.olonte.softipac.modelo.Afinidad;
 import com.olonte.softipac.modelo.Cita;
 import com.olonte.softipac.modelo.Diagnostico;
+import com.olonte.softipac.modelo.Rol;
 import com.olonte.softipac.modelo.Usuario;
+import com.olonte.softipac.utilidad.Utilidad;
 
 public class JSON {
 	
@@ -13,29 +15,39 @@ public class JSON {
 	public static UsuarioJSON obtenerUsuarioJSON(Usuario usuario) {
 		UsuarioJSON usuarioJSON = new UsuarioJSON();
 		if (usuario != null) {
-			usuarioJSON.setTipoUsuario(usuario.getTipoUsuario());
-			usuarioJSON.setEstado(usuario.getEstado());
+			usuarioJSON.setTipousuario_idtipousuario(usuario.getTipousuario_idtipousuario());
+			usuarioJSON.setEstado_idestado(usuario.getEstado_idestado());
 			usuarioJSON.setIdUsuario(usuario.getIdUsuario());
-			usuarioJSON.setDocumento(usuario.getDocumento());
+			usuarioJSON.setDocumento_iddocumento(usuario.getDocumento_iddocumento());
 			usuarioJSON.setNombres(usuario.getNombres());
 			usuarioJSON.setPrimerApellido(usuario.getPrimerApellido());
 			usuarioJSON.setSegundoApellido(usuario.getSegundoApellido());
 			usuarioJSON.setFechaNacimiento(usuario.getFechaNacimiento());
+	        if (usuario.getTipousuario_idtipousuario().getIdTipoUsuario() == Utilidad.USUARIO_PACIENTE) {
+	        	usuarioJSON.setMeses(usuario.getMeses());
+	        	usuarioJSON.setTutela(usuario.getTutela());
+	   			usuarioJSON.setEps_ideps(usuario.getEps_ideps());
+	   			for (Diagnostico diagnostico : usuario.getDiagnosticos()) {
+	   				usuarioJSON.getDiagnosticos().add(diagnostico);
+	   			}
+	   			for (Afinidad afinidad : usuario.getUsuario_idusuario()) {
+					usuarioJSON.getFamiliares().add(afinidad.getIdfamiliar());
+				}
+			}else {
+				usuarioJSON.setNombreUsuario(usuario.getNombreUsuario());
+				usuarioJSON.setLugarNacimiento(usuario.getLugarNacimiento());
+				usuarioJSON.setOcupacion(usuario.getOcupacion());
+				usuarioJSON.setDireccion(usuario.getDireccion());
+				usuarioJSON.setTelefonoFijo(usuario.getTelefonoFijo());
+				usuarioJSON.setTelefonoCelular(usuario.getTelefonoCelular());
+				usuarioJSON.setEmail(usuario.getEmail());
+				for (Rol rol: usuario.getRoles()){
+					usuarioJSON.getRoles().add(rol);
+				}
+			}
 			usuarioJSON.setEdad(usuario.getEdad());
-			usuarioJSON.setMeses(usuario.getMeses());
-			usuarioJSON.setGenero(usuario.getGenero());
-			usuarioJSON.setEscolaridad(usuario.getEscolaridad());
-			usuarioJSON.setTutela(usuario.getTutela());
-			usuarioJSON.setEps(usuario.getEps());
-			
-			for (Diagnostico diagnostico : usuario.getDiagnosticos()) {
-				usuarioJSON.getDiagnosticos().add(diagnostico);
-			}
-			
-			for (Afinidad afinidad : usuario.getUsuario_idusuario()) {
-				usuarioJSON.getFamiliares().add(afinidad.getIdfamiliar());
-			}
-			
+			usuarioJSON.setGenero_idgenero(usuario.getGenero_idgenero());
+			usuarioJSON.setEscolaridad_idescolaridad(usuario.getEscolaridad_idescolaridad());
 		}
 		return usuarioJSON;
 	}

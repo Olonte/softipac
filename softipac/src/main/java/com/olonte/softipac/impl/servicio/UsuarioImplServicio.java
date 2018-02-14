@@ -1,5 +1,10 @@
 package com.olonte.softipac.impl.servicio;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,9 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.olonte.softipac.json.JSON;
 import com.olonte.softipac.json.UsuarioJSON;
 import com.olonte.softipac.modelo.Diagnostico;
+import com.olonte.softipac.modelo.Rol;
 import com.olonte.softipac.modelo.Usuario;
+import com.olonte.softipac.modelo.UsuarioForma;
 import com.olonte.softipac.predicado.UsuarioPredicado;
 import com.olonte.softipac.repositorio.UsuarioRepositorio;
+import com.olonte.softipac.servicio.EstadoServicio;
 import com.olonte.softipac.servicio.UsuarioServicio;
 
 @Service
@@ -17,9 +25,15 @@ public class UsuarioImplServicio implements UsuarioServicio {
 	
 	private UsuarioRepositorio usuarioRepositorio;
 	
+	private EstadoServicio estadoServicio;
+	
+	@PersistenceContext
+	EntityManager entityManager;
+	
 	@Autowired
-	public UsuarioImplServicio(UsuarioRepositorio usuarioRepositorio) {
+	public UsuarioImplServicio(UsuarioRepositorio usuarioRepositorio, EstadoServicio estadoServicio) {
 		this.usuarioRepositorio = usuarioRepositorio;
+		this.estadoServicio = estadoServicio;
 	}
 
 	@Override
@@ -53,7 +67,54 @@ public class UsuarioImplServicio implements UsuarioServicio {
 	@Override
 	@Transactional(readOnly = true)
 	public Usuario buscarAcudientePorId(Integer idUsuario, Integer idTipoUsuario) {
-		return this.usuarioRepositorio.findOne(UsuarioPredicado.buscarPorIdUsuario(idUsuario,idTipoUsuario));
+		return this.usuarioRepositorio.findOne(UsuarioPredicado.buscarAcudientePorId(idUsuario,idTipoUsuario));
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Usuario buscarFamiliarPorId(Integer idUsuario, Integer idParentesco) {
+		return this.usuarioRepositorio.findOne(UsuarioPredicado.buscarFamiliarPorId(idUsuario, idParentesco));
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void guardar(UsuarioForma usuarioForma, Integer idEstado) {
+		usuarioForma.getUsuario().setEstado_idestado(this.estadoServicio.bucarporId(idEstado));
+		if (usuarioForma.isJavaScript()) {
+			guardarRol(usuarioForma);
+		}
+		this.usuarioRepositorio.save(usuarioForma.getUsuario());
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Usuario> buscarPorIdTipoUsuario(Integer idTipoUsuarioApl, Integer idTipoUsuariSis) {
+		return (List<Usuario>) this.usuarioRepositorio.findAll(UsuarioPredicado.buscarPorIdTipoUsuario(idTipoUsuarioApl,idTipoUsuariSis));
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Usuario buscarPorId(Integer idUsuario) {
+		Usuario usuario = this.usuarioRepositorio.findOne(idUsuario);
+		for(Rol rol : usuario.getRoles()) {
+			usuario.getRoles().add(rol);
+		}
+		return usuario;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public void cambiarEstadoUsuario(Integer idUsuario, Integer idEstado) {
+		UsuarioPredicado.cambiarEstadoUsuario(entityManager, idUsuario, idEstado);
+		
+	}
+	
+	private void guardarRol(UsuarioForma usuarioForma) {
+		if (usuarioForma.getUsuario().getRoles().isEmpty()) {
+			usuarioForma.getUsuario().setRoles(this.usuarioRepositorio.findOne(usuarioForma.getUsuario().getIdUsuario()).getRoles());
+		}else {
+			usuarioForma.getUsuario().getRoles().addAll(this.usuarioRepositorio.findOne(usuarioForma.getUsuario().getIdUsuario()).getRoles());
+		}
 	}
 
 }

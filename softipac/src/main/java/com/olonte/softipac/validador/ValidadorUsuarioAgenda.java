@@ -26,15 +26,15 @@ public class ValidadorUsuarioAgenda implements Validator {
 			}
 		}
 		
-		if (agenda.getPaciente().getDocumento().getTipoDocumento().getIdTipoDocumento() == Utilidad.SELECCION) {
+		if (agenda.getPaciente().getDocumento_iddocumento().getTipoDocumento().getIdTipoDocumento() == Utilidad.SELECCION) {
 			errors.rejectValue(Utilidad.TIPO_DOC_PACIENTE, "tipoDocumento.validar.mensaje");
 		}
 		
-		if (agenda.getPaciente().getGenero().getIdGenero() == Utilidad.SELECCION) {
-			errors.rejectValue(Utilidad.GENERO, "genero.validar.mensaje");
+		if (agenda.getPaciente().getGenero_idgenero().getIdGenero() == Utilidad.SELECCION) {
+			errors.rejectValue(Utilidad.GENERO_PACIENTE, "genero.validar.mensaje");
 		}
 		
-		if (agenda.getPaciente().getEscolaridad().getIdEscolaridad() == Utilidad.SELECCION) {
+		if (agenda.getPaciente().getEscolaridad_idescolaridad().getIdEscolaridad() == Utilidad.SELECCION) {
 			errors.rejectValue(Utilidad.ESCOLARIDAD_PACIENTE, "escolaridad.validar.mensaje");
 		}
 		
@@ -42,7 +42,7 @@ public class ValidadorUsuarioAgenda implements Validator {
 			errors.rejectValue(Utilidad.TUTELA, "tutela.validar.mensaje");
 		}
 		
-		if (agenda.getPaciente().getEps().getIdEps() == Utilidad.SELECCION) {
+		if (agenda.getPaciente().getEps_ideps().getIdEps() == Utilidad.SELECCION) {
 			errors.rejectValue(Utilidad.EPS, "eps.validar.mensaje");
 		}
 		if (!agenda.isJavaScript()) {
@@ -61,11 +61,11 @@ public class ValidadorUsuarioAgenda implements Validator {
 			 * Validacion Campos Madre
 			 */
 			
-			if (((CitaInformacion)agenda).getMadre().getDocumento().getTipoDocumento().getIdTipoDocumento() == Utilidad.SELECCION) {
+			if (((CitaInformacion)agenda).getMadre().getDocumento_iddocumento().getTipoDocumento().getIdTipoDocumento() == Utilidad.SELECCION) {
 				errors.rejectValue(Utilidad.TIPO_DOC_MADRE, "tipoDocumento.validar.mensaje");
 			}
 			
-			if (((CitaInformacion)agenda).getMadre().getEscolaridad().getIdEscolaridad() == Utilidad.SELECCION) {
+			if (((CitaInformacion)agenda).getMadre().getEscolaridad_idescolaridad().getIdEscolaridad() == Utilidad.SELECCION) {
 				errors.rejectValue(Utilidad.ESCOLARIDAD_MADRE, "escolaridad.validar.mensaje");
 			}
 			
@@ -78,11 +78,11 @@ public class ValidadorUsuarioAgenda implements Validator {
 			 * Validacion Campos Padre
 			 */
 			
-			if (((CitaInformacion)agenda).getPadre().getDocumento().getTipoDocumento().getIdTipoDocumento() == Utilidad.SELECCION) {
+			if (((CitaInformacion)agenda).getPadre().getDocumento_iddocumento().getTipoDocumento().getIdTipoDocumento() == Utilidad.SELECCION) {
 				errors.rejectValue(Utilidad.TIPO_DOC_PADRE, "tipoDocumento.validar.mensaje");
 			}
 			
-			if (((CitaInformacion)agenda).getPadre().getEscolaridad().getIdEscolaridad() == Utilidad.SELECCION) {
+			if (((CitaInformacion)agenda).getPadre().getEscolaridad_idescolaridad().getIdEscolaridad() == Utilidad.SELECCION) {
 				errors.rejectValue(Utilidad.ESCOLARIDAD_PADRE, "escolaridad.validar.mensaje");
 			}
 			
@@ -96,15 +96,15 @@ public class ValidadorUsuarioAgenda implements Validator {
 		/**
 		 * Validacion Campos Acudiente
 		 */
-		if (agenda.getAcudiente().getDocumento().getTipoDocumento().getIdTipoDocumento() == Utilidad.SELECCION) {
+		if (agenda.getAcudiente().getDocumento_iddocumento().getTipoDocumento().getIdTipoDocumento() == Utilidad.SELECCION) {
 			errors.rejectValue(Utilidad.TIPO_DOC_ACUDIENTE, "tipoDocumento.validar.mensaje");
 		}
 		
-		if (agenda.getAcudiente().getParentesco().getIdParentesco() == Utilidad.SELECCION) {
+		if (agenda.getAcudiente().getParentesco_idparentesco().getIdParentesco() == Utilidad.SELECCION) {
 			errors.rejectValue(Utilidad.PARENTESCO, "parentesco.validador.mensaje");
 		}
 		
-		if (agenda.getAcudiente().getEscolaridad().getIdEscolaridad() == Utilidad.SELECCION) {
+		if (agenda.getAcudiente().getEscolaridad_idescolaridad().getIdEscolaridad() == Utilidad.SELECCION) {
 			errors.rejectValue(Utilidad.ESCOLARIDAD_ACUDIENTE, "escolaridad.validar.mensaje");
 		}
 		

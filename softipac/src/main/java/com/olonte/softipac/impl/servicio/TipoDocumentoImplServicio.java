@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.olonte.softipac.modelo.TipoDocumento;
+import com.olonte.softipac.predicado.TipoDocumentoPredicado;
 import com.olonte.softipac.repositorio.TipoDocumentoRepositorio;
 import com.olonte.softipac.servicio.TipoDocumentoServicio;
 
@@ -24,6 +25,13 @@ public class TipoDocumentoImplServicio implements TipoDocumentoServicio {
 	@Cacheable(value = "tiposDocumento")
 	public Iterable<TipoDocumento> buscarTodos() {
 		return this.tipoDocumentoRepositorio.findAll();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	@Cacheable(value = "tiposDocumentoUsuario")
+	public Iterable<TipoDocumento> buscarTiposDocumentoUsuario() {
+		return this.tipoDocumentoRepositorio.findAll(TipoDocumentoPredicado.buscarTiposDocumentosUsuario());
 	}
 
 }

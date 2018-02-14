@@ -31,7 +31,7 @@
                                             <h5>${citaEtiqueta}<i class="fa fa-angle-right"></i></h5>
                                             <h4></h4>
                                             <div class="icon">
-                                                <i class="fa fa-copy"></i>
+                                                <i class="fa fa-newspaper-o"></i>
                                             </div> <!-- .icon -->
                                         </div> <!-- .box -->   
                                     </a>
@@ -44,7 +44,7 @@
                                             <h5>${paginaAgendaEtiqueta}<i class="fa fa-angle-right"></i></h5>
                                             <h4></h4>
                                             <div class="icon">
-                                                <i class="fa fa-reorder"></i>
+                                                <i class="fa fa-list"></i>
                                             </div> <!-- .icon -->
                                         </div> <!-- .box -->   
                                     </a>
@@ -57,7 +57,7 @@
                                             <h5>${paginaCitaInformacionEtiqueta}<i class="fa fa-angle-right"></i></h5>
                                             <h4></h4>
                                             <div class="icon">
-                                                <i class="fa fa-reorder"></i>
+                                                <i class="fa fa-list"></i>
                                             </div> <!-- .icon -->
                                         </div> <!-- .box -->   
                                     </a>

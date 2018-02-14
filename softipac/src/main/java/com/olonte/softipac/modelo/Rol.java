@@ -11,8 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
 @Table(name = "rol")
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Rol {
 	
 	@Id
@@ -52,6 +56,5 @@ public class Rol {
 	public void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
-	
 	
 }

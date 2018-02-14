@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.olonte.softipac.modelo.TipoUsuario;
+import com.olonte.softipac.predicado.TipoUsuarioPredicado;
 import com.olonte.softipac.repositorio.TipoUsuarioRepositorio;
 import com.olonte.softipac.servicio.TipoUsuarioServicio;
 
@@ -23,7 +24,7 @@ public class TipoUsuarioImplServicio implements TipoUsuarioServicio {
 	@Transactional(readOnly = true)
 	@Cacheable(value = "tiposUsuario")
 	public Iterable<TipoUsuario> buscarTodos() {
-		return this.tipoUsuarioRepositorio.findAll();
+		return this.tipoUsuarioRepositorio.findAll(TipoUsuarioPredicado.buscarTodos());
 	}
 
 	@Override

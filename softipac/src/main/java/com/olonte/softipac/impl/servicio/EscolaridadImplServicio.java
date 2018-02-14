@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.olonte.softipac.modelo.Escolaridad;
+import com.olonte.softipac.predicado.EscolaridadPredicado;
 import com.olonte.softipac.repositorio.EscolaridadRepositorio;
 import com.olonte.softipac.servicio.EscolaridadServicio;
 
@@ -24,6 +25,13 @@ public class EscolaridadImplServicio implements EscolaridadServicio {
 	@Cacheable(value = "escolaridades")
 	public Iterable<Escolaridad> buscarTodos() {
 		return this.escolaridadRepositorio.findAll();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	@Cacheable(value ="escolaridadesUsuario")
+	public Iterable<Escolaridad> buscarEscolaridadesUsuario() {
+		return this.escolaridadRepositorio.findAll(EscolaridadPredicado.buscarEscolaridadesUsuario());
 	}
 
 }

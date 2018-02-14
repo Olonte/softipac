@@ -2,7 +2,8 @@
 
 	 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	 	<script src="<c:url value="/static/js/jquery/jquery-3.2.1.min.js"></c:url>"></script> 
-	 	<script src="<c:url value="/static/js/functions/funciones.js"></c:url>"></script>
+	 	<script src="<c:url value="/static/js/functions/funcionesCita.js"></c:url>"></script>
+	 	<script src="<c:url value="/static/js/functions/funcionesUsuario.js"></c:url>"></script>
 	    <script src="<c:url value="/static/js/tether/tether.min.js"></c:url>"></script>
 	 	<script src="<c:url value="/static/js/bootstrap/bootstrap.min.js"></c:url>"></script> 
         <script src="<c:url value="/static/js/datatables/jquery.dataTables.min.js"></c:url>"></script>

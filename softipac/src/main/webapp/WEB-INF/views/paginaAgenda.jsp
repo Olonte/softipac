@@ -17,10 +17,10 @@
 								<tr>
 						    		<th>${fechaEtiqueta}</th>
 	                            	<th>${horaEtiqueta}</th>
-	                            	<th>${listAgendaNombresEtiqueta}</th>
-	                            	<th>${apellidoEtiqueta}</th>
+	                            	<th>${nombresPaginaEtiqueta}</th>
+	                            	<th>${apellidoPaginaEtiqueta}</th>
 	                            	<th>${telefonofijoEtiqueta}</th>
-	                            	<th>${celularEtiqueta}</th>
+	                            	<th>${celularPaginaEtiqueta}</th>
 	                            	<th>${accionesEtiqueta}</th>
 								</tr>
 							</thead><!-- .thead -->

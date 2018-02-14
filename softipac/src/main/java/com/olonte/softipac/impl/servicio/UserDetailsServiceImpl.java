@@ -38,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("Usuario no encontrado");
 		}
 		
-		return new UsuarioLoqueado(usuario.getNomnbreUsuario(), usuario.getPassword() , getGrantedAuthorities(usuario), usuario);
+		return new UsuarioLoqueado(usuario.getNombreUsuario(), usuario.getPassword() , getGrantedAuthorities(usuario), usuario);
 	}
 	
 	private Set<GrantedAuthority> getGrantedAuthorities(Usuario usuario) {

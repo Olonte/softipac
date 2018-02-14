@@ -11,35 +11,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.olonte.softipac.json.CitaJSON;
-import com.olonte.softipac.json.UsuarioJSON;
 import com.olonte.softipac.modelo.Hora;
 import com.olonte.softipac.servicio.CitaServicio;
-import com.olonte.softipac.servicio.DiagnosticoServcio;
 import com.olonte.softipac.servicio.HoraServicio;
-import com.olonte.softipac.servicio.UsuarioServicio;
 import com.olonte.softipac.utilidad.Utilidad;
 
 @RestController
 @Scope(value = "session")
 public class CitaRestControlador {
 	
-	private UsuarioServicio usuarioServicio;
-	
 	private HoraServicio horaServicio;
 	
 	private CitaServicio citaServicio;
 	
-	private DiagnosticoServcio diagnosticoServcio;
-	
 	@Autowired
-	public CitaRestControlador(UsuarioServicio usuarioServicio, HoraServicio horaServicio, CitaServicio citaServicio,
-			DiagnosticoServcio diagnosticoServcio) {
-		this.usuarioServicio = usuarioServicio;
+	public CitaRestControlador(HoraServicio horaServicio, CitaServicio citaServicio) {
 		this.horaServicio = horaServicio;
 		this.citaServicio = citaServicio;
-		this.diagnosticoServcio = diagnosticoServcio;
 	}
-
 
 	/**
 	 * 
@@ -57,20 +46,9 @@ public class CitaRestControlador {
 	 * @param documento
 	 * @return
 	 */
-	@RequestMapping(value = "/obtenerPaciente/{parametros}", method = RequestMethod.GET)
-	public UsuarioJSON obtenerUsuarioPorDocumento(@PathVariable("parametros") String documento){
-		return this.usuarioServicio.bucarPorDocumento(documento);
-	}
-
-	/**
-	 * 
-	 * @param documento
-	 * @return
-	 */
 	@RequestMapping(value = "/obtenerCita/{parametros}", method = RequestMethod.GET)
 	public CitaJSON obtenerCitaPorDocumento(@PathVariable("parametros") String parametros){
 		return this.citaServicio.buscarPorDocumento(parametros);
 	}
 	
-
 }

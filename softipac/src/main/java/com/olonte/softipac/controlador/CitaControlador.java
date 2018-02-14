@@ -86,7 +86,7 @@ public class CitaControlador {
 
 	@ModelAttribute(value = "usuarioLogueado")
 	public UsuarioSession getUsuarioSession() {
-		return usuarioSession;
+		return this.usuarioSession;
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class CitaControlador {
 	public String procesarNuevaAgenda(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		int transaccion = Utilidad.TRANS_GUARDAR;
 		if (bindingResult.hasErrors()) {
-			redirectAttributes.addFlashAttribute("msj_err","Error guardado con paciente");
+			redirectAttributes.addFlashAttribute("msj_err","Error guardando Paciente");
 		}
 		if (nuevaAgenda.getPaciente().getDiagnosticos().isEmpty()) {
 			if (!nuevaAgenda.isJavaScript()) {
@@ -188,7 +188,7 @@ public class CitaControlador {
 	 * @return
 	 */
 	@RequestMapping(value = "/editar/agenda", method = RequestMethod.GET)
-	public String editarCita(@RequestParam("idUsuario") Integer idUsuario, @RequestParam("indiceActual") Integer indiceActual, Model model) {
+	public String editarAgenda(@RequestParam("idUsuario") Integer idUsuario, @RequestParam("indiceActual") Integer indiceActual, Model model) {
 		Agenda agenda = new Agenda();
 		agenda = this.citaServicio.buscarUsuarioAgenda(idUsuario,Utilidad.USUARIO_ACUDIENTE,Utilidad.CITA_AGENDA);
 		this.diagnosticosTemp = agenda.getPaciente().getDiagnosticos();
@@ -208,6 +208,11 @@ public class CitaControlador {
 	 */
 	@RequestMapping(value = "/editar/agenda", method = RequestMethod.POST)
 	public String procesarEdicionCita(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, @ModelAttribute("indiceActual") int indiceActual, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		
+		if (bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("msj_error", "Error guardando el paciente");
+		}
+		
 		if (nuevaAgenda.getPaciente().getDiagnosticos().isEmpty()) {
 			nuevaAgenda.getPaciente().setDiagnosticos(this.diagnosticosTemp);
 		}
@@ -253,12 +258,12 @@ public class CitaControlador {
 		
 		Usuario familiar = this.usuarioServicio.buscarAcudientePorId(idUsuario,Utilidad.USUARIO_ACUDIENTE);
 		citaInformacion.setCita(new Cita());
-		citaInformacion.getCita().setFechaCitaIni(this.citaServicio.obtenerFechaCitaIni(idUsuario,Utilidad.CITA_AGENDA));
+		citaInformacion.getCita().setFechaCitaIni(this.citaServicio.buscarPorIdPaciente(idUsuario,Utilidad.CITA_AGENDA).getFechaCitaIni());
 		citaInformacion.setPaciente(this.usuarioServicio.buscarPacientePorId(idUsuario));
 			
-		if (familiar.getParentesco().getIdParentesco() == Utilidad.MADRE) {
+		if (familiar.getParentesco_idparentesco().getIdParentesco() == Utilidad.MADRE) {
 			citaInformacion.setMadre(familiar);
-		}else if (familiar.getParentesco().getIdParentesco() == Utilidad.PADRE) {
+		}else if (familiar.getParentesco_idparentesco().getIdParentesco() == Utilidad.PADRE) {
 			citaInformacion.setPadre(familiar);
 		}
 				
@@ -319,7 +324,7 @@ public class CitaControlador {
 	public String procesarCrearCitaInformacion(@ModelAttribute("citaInformacion") CitaInformacion citaInformacion, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		int transaccion = Utilidad.TRANS_GUARDAR;
 		if (bindingResult.hasErrors()) {
-			redirectAttributes.addFlashAttribute("msj_err","Error guardado con paciente");
+			redirectAttributes.addFlashAttribute("msj_err","Error guardando el paciente");
 		}
 		if (citaInformacion.isJavaScript()) {
 			transaccion = Utilidad.TRANS_ACTUALIZAR;
@@ -348,6 +353,46 @@ public class CitaControlador {
 		model.addAttribute("indiceActual",paginaActual);
 		return "paginaCitaInformacion";
 	}
+	
+	/**
+	 * 
+	 * @param idUsuario
+	 * @param indiceActual
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/editar/citaInformacion", method = RequestMethod.GET)
+	public String editarCitaInformacion(@RequestParam("idUsuario") Integer idUsuario, @RequestParam("indiceActual") Integer indiceActual, Model model) {
+		CitaInformacion citaInformacion = new CitaInformacion();
+		citaInformacion.setCita(this.citaServicio.buscarPorIdPaciente(idUsuario,Utilidad.CITA_INFORMACION));
+		if (citaInformacion.getCita().getFechaCitaIni() == null) {
+			citaInformacion.getCita().setFechaCitaIni(this.citaServicio.buscarPorIdPaciente(idUsuario,Utilidad.CITA_AGENDA).getFechaCitaIni());
+		}
+		citaInformacion.setPaciente(this.usuarioServicio.buscarPacientePorId(idUsuario));
+		citaInformacion.setMadre(this.usuarioServicio.buscarFamiliarPorId(idUsuario, Utilidad.MADRE));
+		citaInformacion.setPadre(this.usuarioServicio.buscarFamiliarPorId(idUsuario, Utilidad.PADRE));
+		citaInformacion.setAcudiente(this.usuarioServicio.buscarAcudientePorId(idUsuario, Utilidad.USUARIO_ACUDIENTE));
+		citaInformacion.setUsuarioAplica(getUsuarioSession().obtenerNombresApellidos());
+	
+		model.addAttribute("citaInformacion", citaInformacion);
+		model.addAttribute("indiceActual",indiceActual);
+		
+		iniciarListas(model, citaInformacion, Utilidad.CITA_INFO_EDIT);
+		
+		return "citaInformacion";
+	}
+	
+	@RequestMapping(value = "/editar/citaInformacion", method = RequestMethod.POST)
+	public String procesarEditarCitaInformacion(@ModelAttribute("citaInformacion") CitaInformacion citaInformacion, @ModelAttribute("indiceActual") int indiceActual,
+    		Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		if (bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("msj_error", "Error guardando el paciente");
+		}
+		
+		return validarAgenda(Utilidad.CITA_INFO_EDIT, Utilidad.CITA_INFORMACION, Utilidad.TRANS_ACTUALIZAR,  Utilidad.ESTADO_PENDIENTE, citaInformacion, indiceActual, model, bindingResult, redirectAttributes);
+	}
+	
+	
 	/**
 	 * *****************************************************************************************************************************************
 	 * 
@@ -387,18 +432,16 @@ public class CitaControlador {
 		}
 		
 		model.addAttribute("tiposDocumento", this.tipoDocumentoServicio.buscarTodos());
+		model.addAttribute("tiposDocumentoUsuario", this.tipoDocumentoServicio.buscarTiposDocumentoUsuario());
 		model.addAttribute("generos", this.generoServicio.buscarTodos());
 		model.addAttribute("escolaridades", this.escolaridadServicio.buscarTodos());
+		model.addAttribute("escolaridadesUsuario", this.escolaridadServicio.buscarEscolaridadesUsuario());
 		model.addAttribute("eps", this.epsServicio.buscarTodos());
 		model.addAttribute("diagnosticos", this.diagnosticoServicio.buscarTodos());
 		model.addAttribute("parentescos", this.parentescoServicio.buscarTodos());	
 		
 		if (origen != Utilidad.AGENDA_NUEVA && origen != Utilidad.AGENDA_PROCESADA && origen != Utilidad.CITA_INFO_CREAR) {
 			model.addAttribute("diagnosticosPaciente", agenda.getPaciente().getDiagnosticos());
-		}
-		
-		if (origen == Utilidad.CITA_INFO_NUEVA || origen == Utilidad.CITA_INFO_PROC || origen == Utilidad.CITA_INFO_CREAR) {
-			model.addAttribute("meses", this.citaServicio.obtenerMeses());
 		}
 
 	}
@@ -419,10 +462,10 @@ public class CitaControlador {
 		if (!bindingResult.hasErrors()) {
 			this.citaServicio.guardarActualizar(tipoCita, transaccion, idEstado, agenda);
 			redirectAttributes.addFlashAttribute("msj_ext","Paciente guardado con éxito");
-			return obtenerJSP(tipoCita, indiceActual, agenda, false);
+			return obtenerJSP(origen, tipoCita, indiceActual, agenda, false);
 		}else {
 			iniciarListas(model, agenda, origen);
-			return obtenerJSP(tipoCita, indiceActual, agenda, true);
+			return obtenerJSP(origen, tipoCita, indiceActual, agenda, true);
 		}
 	}
 	
@@ -432,7 +475,7 @@ public class CitaControlador {
 	 * @param error
 	 * @return
 	 */
-	private String obtenerJSP(int tipoCita,int indiceActual, Agenda agenda, boolean error) {
+	private String obtenerJSP(int origen, int tipoCita,int indiceActual, Agenda agenda, boolean error) {
 		String ruta = null;
 		
 		switch (tipoCita) {
@@ -453,7 +496,11 @@ public class CitaControlador {
 				if (indiceActual == Utilidad.INDICE_DEFECTO) {
 					ruta = "redirect:/crear/citaInformacion";
 				}else{
-					ruta = "forward:/paginaAgenda/" + indiceActual;
+					if (origen == Utilidad.CITA_INFO_PROC ) {
+						ruta = "forward:/paginaAgenda/" + indiceActual;
+					}else {
+						ruta = "forward:/paginaCitaInformacion/" + indiceActual;
+					}
 				}
 			}else {
 				ruta = "citaInformacion";

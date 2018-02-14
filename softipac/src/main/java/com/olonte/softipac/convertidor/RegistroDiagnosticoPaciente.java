@@ -19,9 +19,7 @@ public class RegistroDiagnosticoPaciente implements Converter<Object, Diagnostic
 
 	@Override
 	public Diagnostico convert(Object source) {
-		Integer idDiagnostico = Integer.parseInt((String) source);
-		Diagnostico diagnostico = this.diagnosticoServcio.bucarPorId(idDiagnostico);
-		return diagnostico;
+		return this.diagnosticoServcio.bucarPorId(Integer.parseInt((String) source));
 	}
 
 }

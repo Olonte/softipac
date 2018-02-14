@@ -46,14 +46,14 @@ public class HoraPredicado {
 								JPAExpressions
 								.select(QUsuario.usuario.idUsuario)
 								.from(QUsuario.usuario)
-								.where(QUsuario.usuario.documento.idDocumento.in(
+								.where(QUsuario.usuario.documento_iddocumento.idDocumento.in(
 										JPAExpressions
 										.select(QDocumento.documento1.idDocumento)
 										.from(QDocumento.documento1)
 										.where(QDocumento.documento1.documento.eq(parametro.getDocumento()))
-										).and(QUsuario.usuario.tipoUsuario.idTipoUsuario.eq(Utilidad.USUARIO_PACIENTE))
+										).and(QUsuario.usuario.tipousuario_idtipousuario.idTipoUsuario.eq(Utilidad.USUARIO_PACIENTE))
 									)
-								).and(QCita.cita.citaId.tipocita_idtipocita.idTipoCita.eq(parametro.getId()))
+								).and(QCita.cita.citaId.tipocita_idtipocita.idTipoCita.in(parametro.getIds()))
 							)
 						).and(QHora.hora1.horaId.tipohora_idtipohora.idTipoHora.eq(Utilidad.HORA_AGENDA) ) ) 
 				).and(QHora.hora1.horaId.tipohora_idtipohora.idTipoHora.eq(Utilidad.HORA_AGENDA));

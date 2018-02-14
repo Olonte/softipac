@@ -23,12 +23,14 @@ import org.springframework.web.servlet.view.JstlView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import com.olonte.softipac.convertidor.RegistroDiagnosticoPaciente;
+import com.olonte.softipac.convertidor.RegistroRolUsuario;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = ("com.olonte.softipac"))
 public class WebApplicationContextConfiguration extends WebMvcConfigurerAdapter {
 	
+	private RegistroRolUsuario registroRolUsuario;
 	private RegistroDiagnosticoPaciente registroDiagnosticoPaciente;
 	
 	private String prefix            = "/WEB-INF/views/";
@@ -39,7 +41,9 @@ public class WebApplicationContextConfiguration extends WebMvcConfigurerAdapter 
 	
 	
 	@Autowired
-	public WebApplicationContextConfiguration(RegistroDiagnosticoPaciente registroDiagnosticoPaciente) {
+	public WebApplicationContextConfiguration(RegistroRolUsuario registroRolUsuario,
+			RegistroDiagnosticoPaciente registroDiagnosticoPaciente) {
+		this.registroRolUsuario = registroRolUsuario;
 		this.registroDiagnosticoPaciente = registroDiagnosticoPaciente;
 	}
 
@@ -66,6 +70,7 @@ public class WebApplicationContextConfiguration extends WebMvcConfigurerAdapter 
 	
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
+		registry.addConverter(registroRolUsuario);
 		registry.addConverter(registroDiagnosticoPaciente);
 	}
 

@@ -22,10 +22,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private String passwordParameter 		= "password";
 	private String defaultSuccessUrl 		= "/panel";
 	private String authenticationFailureUrl = "/login?error";
-	private String method	 = "/";
-	private String _method   = "/panel";
-	private String attribute = "hasRole('ROLE_ADMIN')";
-	//private String _attribute = "hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')";
+	private String accessDeniedUrl 			= "/accessDenied";
+	private String inicio	 				= "/";
+	private String panel   					= "/panel";
+	private String roleAdmin 				= "hasRole('ROLE_ADMIN')";
+	//private String roleUser                 = "hasRole('ROLE_USER')";
+	private String roleAdminUser 			= "hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')";
+	private String confUsuario 				= "/panelUsuario";
 	
 	private UserDetailsService userDetailsService;
 	
@@ -33,7 +36,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public WebSecurityConfiguration(UserDetailsService userDetailsService) {
 		this.userDetailsService = userDetailsService;
 	}
-
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.formLogin()
@@ -45,9 +48,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.defaultSuccessUrl(defaultSuccessUrl)
 				.failureUrl(authenticationFailureUrl);
 		
+		http.exceptionHandling()
+		.accessDeniedPage(accessDeniedUrl);
+		
 		http.authorizeRequests()
-			.antMatchers(method).permitAll()
-			.antMatchers(_method).access(attribute);
+			.antMatchers(inicio).permitAll()
+			.antMatchers(panel).access(roleAdminUser)
+			.antMatchers(confUsuario).access(roleAdmin);
 		
 		http.csrf().disable();
 	}
@@ -61,6 +68,5 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public void configuredGlobalSecurity(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
-	
 
 }

@@ -15,12 +15,12 @@
 							</c:choose>
 							<thead>
 								<tr>
-						    		<th>${documentoPagCitaInfoEtiqueta}</th>
-	                            	<th>${nombresPagCitaInfoEtiqueta}</th>
-	                            	<th>${apellidoPagCitaInfoEtiqueta}</th>
+						    		<th>${documentoPaginaEtiqueta}</th>
+	                            	<th>${nombresPaginaEtiqueta}</th>
+	                            	<th>${apellidoPaginaEtiqueta}</th>
 	                            	<th>${epsPagCitaInfoEtiqueta}</th>
 	                            	<th>${escolaridadPagCitaInfoEtiqueta}</th>
-	                            	<th>${celularPagCitaInfoEtiqueta}</th>
+	                            	<th>${celularPaginaEtiqueta}</th>
 	                            	<th>${accionesEtiqueta}</th>
 								</tr>
 							</thead><!-- .thead -->
@@ -38,7 +38,7 @@
 											<div class="btn-group btn-actions">
 			                                	<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">${accionEtiqueta}</button>
 			                                    <div class="dropdown-menu">
-			                                    	<a href="<spring:url value="/editar/citaInformacion?idUsuario=${cita.idUsuario}"></spring:url>" class="dropdown-item">
+			                                    	<a href="<spring:url value="/editar/citaInformacion?idUsuario=${cita.idUsuario}&indiceActual=${indiceActual}"></spring:url>" class="dropdown-item">
 			                                    		<i class="fa fa-edit"></i>
 			                                        	${editarEtiqueta}
 			                                    	</a>
