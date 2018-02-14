@@ -138,7 +138,7 @@ public class CitaControlador {
 	public String procesarNuevaAgenda(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		int transaccion = Utilidad.TRANS_GUARDAR;
 		if (bindingResult.hasErrors()) {
-			redirectAttributes.addFlashAttribute("msj_err","Error guardando Paciente");
+			redirectAttributes.addFlashAttribute("msj_err","Error guardando la cita");
 		}
 		if (nuevaAgenda.getPaciente().getDiagnosticos().isEmpty()) {
 			if (!nuevaAgenda.isJavaScript()) {
@@ -210,7 +210,7 @@ public class CitaControlador {
 	public String procesarEdicionCita(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, @ModelAttribute("indiceActual") int indiceActual, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		
 		if (bindingResult.hasErrors()) {
-			redirectAttributes.addFlashAttribute("msj_error", "Error guardando el paciente");
+			redirectAttributes.addFlashAttribute("msj_error", "Error guardando la cita");
 		}
 		
 		if (nuevaAgenda.getPaciente().getDiagnosticos().isEmpty()) {
@@ -324,7 +324,7 @@ public class CitaControlador {
 	public String procesarCrearCitaInformacion(@ModelAttribute("citaInformacion") CitaInformacion citaInformacion, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		int transaccion = Utilidad.TRANS_GUARDAR;
 		if (bindingResult.hasErrors()) {
-			redirectAttributes.addFlashAttribute("msj_err","Error guardando el paciente");
+			redirectAttributes.addFlashAttribute("msj_err","Error guardando la cita");
 		}
 		if (citaInformacion.isJavaScript()) {
 			transaccion = Utilidad.TRANS_ACTUALIZAR;
@@ -386,7 +386,7 @@ public class CitaControlador {
 	public String procesarEditarCitaInformacion(@ModelAttribute("citaInformacion") CitaInformacion citaInformacion, @ModelAttribute("indiceActual") int indiceActual,
     		Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
-			redirectAttributes.addFlashAttribute("msj_error", "Error guardando el paciente");
+			redirectAttributes.addFlashAttribute("msj_error", "Error guardando la cita");
 		}
 		
 		return validarAgenda(Utilidad.CITA_INFO_EDIT, Utilidad.CITA_INFORMACION, Utilidad.TRANS_ACTUALIZAR,  Utilidad.ESTADO_PENDIENTE, citaInformacion, indiceActual, model, bindingResult, redirectAttributes);
@@ -461,7 +461,7 @@ public class CitaControlador {
 		
 		if (!bindingResult.hasErrors()) {
 			this.citaServicio.guardarActualizar(tipoCita, transaccion, idEstado, agenda);
-			redirectAttributes.addFlashAttribute("msj_ext","Paciente guardado con éxito");
+			redirectAttributes.addFlashAttribute("msj_ext","Cita guardada con éxito");
 			return obtenerJSP(origen, tipoCita, indiceActual, agenda, false);
 		}else {
 			iniciarListas(model, agenda, origen);
@@ -484,7 +484,7 @@ public class CitaControlador {
 				if (indiceActual == Utilidad.INDICE_DEFECTO) {
 					ruta = "redirect:/agenda";
 				}else {
-					ruta = "forward:/paginaAgenda/" + indiceActual;
+					ruta = "redirect:/paginaAgenda/" + indiceActual;
 				}
 				
 			}else{
@@ -497,9 +497,9 @@ public class CitaControlador {
 					ruta = "redirect:/crear/citaInformacion";
 				}else{
 					if (origen == Utilidad.CITA_INFO_PROC ) {
-						ruta = "forward:/paginaAgenda/" + indiceActual;
+						ruta = "redirect:/paginaAgenda/" + indiceActual;
 					}else {
-						ruta = "forward:/paginaCitaInformacion/" + indiceActual;
+						ruta = "redirect:/paginaCitaInformacion/" + indiceActual;
 					}
 				}
 			}else {

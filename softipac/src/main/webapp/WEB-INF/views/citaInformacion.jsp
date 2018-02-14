@@ -118,7 +118,7 @@
 														<div class="form-group">
 															<form:label path="paciente.fechaNacimiento">${fechaNacimientoEtiqueta}</form:label>
 															<div class="input-group">    
-																<form:input type="text" cssClass="form-control" path="paciente.fechaNacimiento" id="fechaNacimiento" name="fechaNacimiento" placeholder="${fechaNacimientoMarcador}" required="required"></form:input>
+																<form:input type="text" cssClass="form-control" path="paciente.fechaNacimiento" id="pacienteFechaNacimiento" name="pacienteFechaNacimiento" placeholder="${fechaNacimientoMarcador}" required="required"></form:input>
 															</div><!-- .input-group -->
 														</div><!-- .form-group -->
 													</div><!-- .col-md-4 -->
