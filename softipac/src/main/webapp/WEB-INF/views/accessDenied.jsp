@@ -7,7 +7,9 @@
 				<%@include file="/WEB-INF/views/template/page-title.jsp"%> 
 				<div class="content-inner">
 					<%@include file="/WEB-INF/views/template/etiquetas_marcadores.jsp"%> 
-					<span>Apreciado <strong>${loggedinuser}</strong>${accesoDenegadoMSJ} </span>
+					<div class="alert alert-danger alert-dismissible" role="alert">
+						<h5>Estimado <strong>${loggedinuser}&nbsp</strong>${accesoDenegadoMSJ} </h5>
+					</div>
 				</div><!-- .content-inner -->
 			</div><!-- .content-container -->
 		</div><!-- .page-container -->
