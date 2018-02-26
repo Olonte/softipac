@@ -8,27 +8,32 @@
 				<div class="stat-boxes">
 					<div class="container-fluid">
 						<div class="row">
-							<form:form id="citaInformacion" name="citaInformacion" modelAttribute="citaInformacion" method="post">
+							<form:form id="citaInformacion" name="citaInformacion" modelAttribute="nuevaCitaInformacion" method="post">
 								<c:choose>
 									<c:when test="${not empty msj_ext}"><%@include file="/WEB-INF/views/messages/mensaje_exito.jsp"%></c:when>
 									<c:when test="${not empty msj_err}"><%@include file="/WEB-INF/views/messages/mensaje_error.jsp"%></c:when>
 								</c:choose>
 								<%@include file="/WEB-INF/views/template/etiquetas_marcadores.jsp"%> 
 								<!-- **************************************************Id - Tipo - Estado  Cita**************************************************************** -->
-									<form:input type="hidden" cssClass="form-control" path="cita.citaId.idcita" id="citaIdCita" name="citaIdCita"></form:input>
-									<form:input type="hidden" cssClass="form-control" path="cita.citaId.tipocita_idtipocita.idTipoCita" id="citaIdTipoCita" name="citaIdTipoCita"></form:input>
-									<form:input type="hidden" cssClass="form-control" path="cita.citaId.estado_idestado.idEstado" id="citaIdEstado" name="citaIdEstado"></form:input>
-									<form:input type="hidden" cssClass="form-control" path="cita.citaId.usuario_idusuapl.idUsuario" id="citaIdUsuarioApl" name="citaIdUsuarioApl"></form:input>
-									<form:input type="hidden" cssClass="form-control" path="cita.citaId.usuario_idusuario.idUsuario" id="citaIdUsuario" name="citaIdUsuario"></form:input>
-									<form:input type="hidden" cssClass="form-control" path="citaAgenda" id="citaAgenda" name="citaAgenda" value="${citaInformacion}"></form:input>
-									<form:input type="hidden" cssClass="form-control" path="javaScript" id="javaScript" name="javaScript"></form:input>
-									<c:set var="indiceActual" value="${indiceActual}"></c:set>
+								<form:input type="hidden" cssClass="form-control" path="cita.citaId.idcita" id="citaIdCita" name="citaIdCita"></form:input>
+								<form:input type="hidden" cssClass="form-control" path="cita.citaId.tipocita_idtipocita.idTipoCita" id="citaIdTipoCita" name="citaIdTipoCita"></form:input>
+								<form:input type="hidden" cssClass="form-control" path="cita.citaId.estado_idestado.idEstado" id="citaIdEstado" name="citaIdEstado"></form:input>
+								<form:input type="hidden" cssClass="form-control" path="cita.citaId.usuario_idusuapl.idUsuario" id="citaIdUsuarioApl" name="citaIdUsuarioApl"></form:input>
+								<form:input type="hidden" cssClass="form-control" path="cita.citaId.usuario_idusuario.idUsuario" id="citaIdUsuario" name="citaIdUsuario"></form:input>
+								<form:input type="hidden" cssClass="form-control" path="citaAgenda" id="citaAgenda" name="citaAgenda" value="${citaInformacion}"></form:input>
+								<form:input type="hidden" cssClass="form-control" path="javaScript" id="javaScript" name="javaScript"></form:input>
+								<c:set var="indiceActual" value="${indiceActual}"></c:set>
+								<br>
+								<br>
+								<br>
+								<br>
+								<br>								
 								<div class="card ">
                                     <div class="card-header" role="tab" id="headingInformacion">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseInformacion" aria-expanded="true" aria-controls="collapseInformacion">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseInformacion" aria-expanded="true" aria-controls="collapse">
                                             <h5 class="mb-0">${citaInfoTituloEtiqueta}</h5>
                                         </a>
-                                    </div><!-- .card-header -->
+                                    </div><!-- .card-header -->                                                                                                                                         
                                     <div id="collapseInformacion" class="collapse show" role="tabpanel" aria-labelledby="headingInformacion">
                                         <div class="card-block">
                                             <div class="card-body">
@@ -233,7 +238,7 @@
 																		<form:options items="${tiposDocumentoUsuario}" itemValue="idTipoDocumento" itemLabel="tipo"></form:options>
 																	</form:select>
 																</div><!-- .input-group -->
-																<div class="has-error">
+																<div class="has-error">																
 																	<form:errors path="madre.documento_iddocumento.tipoDocumento.idTipoDocumento" cssClass="text-danger"></form:errors>
 																</div><!-- .has-error -->
 								   							</div><!-- .form-group -->

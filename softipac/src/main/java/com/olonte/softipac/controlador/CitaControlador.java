@@ -64,7 +64,6 @@ public class CitaControlador {
 	
 	private Set<Diagnostico> diagnosticosTemp;
 	
-	
 	@Autowired
 	public CitaControlador(UsuarioSession usuarioSession, ValidadorUsuarioAgenda validadorUsuarioAgenda,
 			CitaServicio citaServicio, UsuarioServicio usuarioServicio, HoraServicio horaServicio,
@@ -207,7 +206,7 @@ public class CitaControlador {
 	 * @return
 	 */
 	@RequestMapping(value = "/editar/agenda", method = RequestMethod.POST)
-	public String procesarEdicionCita(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, @ModelAttribute("indiceActual") int indiceActual, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String procesarEdicionCita(@ModelAttribute("nuevaAgenda") Agenda nuevaAgenda, BindingResult bindingResult, @ModelAttribute("indiceActual") int indiceActual, Model model, RedirectAttributes redirectAttributes) {
 		
 		if (bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("msj_error", "Error guardando la cita");
@@ -272,7 +271,7 @@ public class CitaControlador {
 			
 		this.diagnosticosTemp = citaInformacion.getPaciente().getDiagnosticos();
 		
-		model.addAttribute("citaInformacion", citaInformacion);
+		model.addAttribute("nuevaCitaInformacion", citaInformacion);
 		model.addAttribute("indiceActual",indiceActual);
 		iniciarListas(model, citaInformacion, Utilidad.CITA_INFO_NUEVA);
 		
@@ -288,8 +287,8 @@ public class CitaControlador {
 	 * @return
 	 */
 	@RequestMapping(value = "/citaInformacion", method = RequestMethod.POST)
-    public String procesarNuevaCitaInformacion(@ModelAttribute("citaInformacion") CitaInformacion citaInformacion, @ModelAttribute("indiceActual") int indiceActual,
-    		Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String procesarNuevaCitaInformacion(@ModelAttribute("nuevaCitaInformacion") CitaInformacion citaInformacion, BindingResult bindingResult, @ModelAttribute("indiceActual") int indiceActual,
+    		Model model, RedirectAttributes redirectAttributes){
 
 		if (citaInformacion.getPaciente().getDiagnosticos().isEmpty()) {
 			citaInformacion.getPaciente().setDiagnosticos(diagnosticosTemp);
@@ -306,7 +305,7 @@ public class CitaControlador {
 	public String crearCitaInformacion(Model model) {
 		CitaInformacion citaInformacion = new CitaInformacion();
 		citaInformacion.setUsuarioAplica(getUsuarioSession().obtenerNombresApellidos());
-		model.addAttribute("citaInformacion", citaInformacion);
+		model.addAttribute("nuevaCitaInformacion", citaInformacion);
 		iniciarListas(model, citaInformacion, Utilidad.CITA_INFO_CREAR);
 		return "citaInformacion";
 	}
@@ -321,7 +320,7 @@ public class CitaControlador {
 	 */
 
 	@RequestMapping(value = "/crear/citaInformacion", method = RequestMethod.POST)
-	public String procesarCrearCitaInformacion(@ModelAttribute("citaInformacion") CitaInformacion citaInformacion, Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String procesarCrearCitaInformacion(@ModelAttribute("nuevaCitaInformacion") CitaInformacion citaInformacion, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		int transaccion = Utilidad.TRANS_GUARDAR;
 		if (bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("msj_err","Error guardando la cita");
@@ -374,7 +373,7 @@ public class CitaControlador {
 		citaInformacion.setAcudiente(this.usuarioServicio.buscarAcudientePorId(idUsuario, Utilidad.USUARIO_ACUDIENTE));
 		citaInformacion.setUsuarioAplica(getUsuarioSession().obtenerNombresApellidos());
 	
-		model.addAttribute("citaInformacion", citaInformacion);
+		model.addAttribute("nuevaCitaInformacion", citaInformacion);
 		model.addAttribute("indiceActual",indiceActual);
 		
 		iniciarListas(model, citaInformacion, Utilidad.CITA_INFO_EDIT);
@@ -383,8 +382,8 @@ public class CitaControlador {
 	}
 	
 	@RequestMapping(value = "/editar/citaInformacion", method = RequestMethod.POST)
-	public String procesarEditarCitaInformacion(@ModelAttribute("citaInformacion") CitaInformacion citaInformacion, @ModelAttribute("indiceActual") int indiceActual,
-    		Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String procesarEditarCitaInformacion(@ModelAttribute("nuevaCitaInformacion") CitaInformacion citaInformacion,  BindingResult bindingResult, @ModelAttribute("indiceActual") int indiceActual,
+    		Model model, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("msj_error", "Error guardando la cita");
 		}
@@ -456,9 +455,8 @@ public class CitaControlador {
 	 */
 	private String validarAgenda(int origen, int tipoCita, int transaccion, Integer idEstado, Agenda agenda,
 			int indiceActual, Model model, BindingResult bindingResult, 
-			RedirectAttributes redirectAttributes) {
-		this.validadorUsuarioAgenda.validate(agenda, bindingResult);
-		
+			RedirectAttributes redirectAttributes) {		
+		this.validadorUsuarioAgenda.validate(agenda, bindingResult);		
 		if (!bindingResult.hasErrors()) {
 			this.citaServicio.guardarActualizar(tipoCita, transaccion, idEstado, agenda);
 			redirectAttributes.addFlashAttribute("msj_ext","Cita guardada con éxito");
