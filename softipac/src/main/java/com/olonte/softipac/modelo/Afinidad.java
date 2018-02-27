@@ -1,5 +1,8 @@
 package com.olonte.softipac.modelo;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.AssociationOverride;
 import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
@@ -9,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -37,6 +41,9 @@ public class Afinidad {
 	private Integer idAfinidad;
 	
 	private AfinidadUsuarioId afinidadUsuarioId = new AfinidadUsuarioId();
+	
+	@ManyToMany(mappedBy = "afinidades")
+	private Set<HistoriaClinica> historiaClinicas = new HashSet<HistoriaClinica>(0);
 	
 	public Afinidad() {
 	}
@@ -74,6 +81,15 @@ public class Afinidad {
 
 	public void setIdfamiliar(Usuario idfamiliar) {
 		getAfinidadUsuarioId().setIdfamiliar(idfamiliar);
+	}
+	
+	
+	public Set<HistoriaClinica> getHistoriaClinicas() {
+		return historiaClinicas;
+	}
+
+	public void setHistoriaClinicas(Set<HistoriaClinica> historiaClinicas) {
+		this.historiaClinicas = historiaClinicas;
 	}
 
 }

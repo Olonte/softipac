@@ -24,6 +24,8 @@ public class QAfinidad extends EntityPathBase<Afinidad> {
 
     public final QAfinidadUsuarioId afinidadUsuarioId;
 
+    public final SetPath<HistoriaClinica, QHistoriaClinica> historiaClinicas = this.<HistoriaClinica, QHistoriaClinica>createSet("historiaClinicas", HistoriaClinica.class, QHistoriaClinica.class, PathInits.DIRECT2);
+
     public final NumberPath<Integer> idAfinidad = createNumber("idAfinidad", Integer.class);
 
     public QAfinidad(String variable) {
