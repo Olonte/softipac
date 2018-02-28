@@ -22,8 +22,6 @@ public class QHistoriaClinica extends EntityPathBase<HistoriaClinica> {
 
     public static final QHistoriaClinica historiaClinica = new QHistoriaClinica("historiaClinica");
 
-    public final SetPath<Afinidad, QAfinidad> afinidades = this.<Afinidad, QAfinidad>createSet("afinidades", Afinidad.class, QAfinidad.class, PathInits.DIRECT2);
-
     public final StringPath caractambiente = createString("caractambiente");
 
     public final SetPath<Estimulo, QEstimulo> estimulos = this.<Estimulo, QEstimulo>createSet("estimulos", Estimulo.class, QEstimulo.class, PathInits.DIRECT2);

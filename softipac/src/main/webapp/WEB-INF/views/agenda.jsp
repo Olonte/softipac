@@ -19,7 +19,7 @@
 									<form:input type="hidden" cssClass="form-control" path="cita.citaId.idcita" id="citaIdCita" name="citaIdCita"></form:input>
 									<form:input type="hidden" cssClass="form-control" path="cita.citaId.tipocita_idtipocita.idTipoCita" id="citaIdTipoCita" name="citaIdTipoCita"></form:input>
 									<form:input type="hidden" cssClass="form-control" path="cita.citaId.estado_idestado.idEstado" id="citaIdEstado" name="citaIdEstado"></form:input>
-									<form:input type="hidden" cssClass="form-control" path="cita.hora.horaId.tipohora_idtipohora.idTipoHora" id="citaidTipoHora" name="citaidTipoHora"></form:input>"
+									<form:input type="hidden" cssClass="form-control" path="cita.hora.horaId.tipohora_idtipohora.idTipoHora" id="citaidTipoHora" name="citaidTipoHora"></form:input>
 									<form:input type="hidden" cssClass="form-control" path="cita.citaId.usuario_idusuario.idUsuario" id="citaIdUsuario" name="citaIdUsuario"></form:input>
 									<form:input type="hidden" cssClass="form-control" path="cita.citaId.usuario_idusuapl.idUsuario" id="citaIdUsuarioApl" name="citaIdUsuarioApl"></form:input>
 									<form:input type="hidden" cssClass="form-control" path="citaAgenda" id="citaAgenda" name="citaAgenda" value="${citaAgenda}"></form:input>

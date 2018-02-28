@@ -42,8 +42,10 @@ public class Afinidad {
 	
 	private AfinidadUsuarioId afinidadUsuarioId = new AfinidadUsuarioId();
 	
+	/*
 	@ManyToMany(mappedBy = "afinidades")
 	private Set<HistoriaClinica> historiaClinicas = new HashSet<HistoriaClinica>(0);
+	*/
 	
 	public Afinidad() {
 	}
@@ -83,13 +85,13 @@ public class Afinidad {
 		getAfinidadUsuarioId().setIdfamiliar(idfamiliar);
 	}
 	
-	
+	/*
 	public Set<HistoriaClinica> getHistoriaClinicas() {
 		return historiaClinicas;
 	}
 
 	public void setHistoriaClinicas(Set<HistoriaClinica> historiaClinicas) {
 		this.historiaClinicas = historiaClinicas;
-	}
-
+	}*/
+	
 }

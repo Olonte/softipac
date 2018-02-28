@@ -167,8 +167,8 @@ public class UsuarioControlador {
 	 * @return
 	 */
 	@RequestMapping(value = "/editar/usuario", method = RequestMethod.POST)
-	public String procesarEditarUsuario(@ModelAttribute("nuevoUsuario") UsuarioForma usuarioForma, @ModelAttribute("indiceActual") int indiceActual, 
-			Model model, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String procesarEditarUsuario(@ModelAttribute("nuevoUsuario") UsuarioForma usuarioForma, BindingResult bindingResult, @ModelAttribute("indiceActual") int indiceActual, 
+			Model model, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			redirectAttributes.addFlashAttribute("msj_error", "Error guardando Usuario");
 		}
