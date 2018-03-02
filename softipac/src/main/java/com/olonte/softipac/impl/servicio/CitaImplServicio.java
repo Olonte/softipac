@@ -153,7 +153,6 @@ public class CitaImplServicio implements CitaServicio {
 						 * Si el usuario se crea por primera vez por medio de la cita de informacion
 						 */
 						if (((CitaInformacion)agenda).getPaciente().getIdUsuario() == null) {
-							
 							/**
 							 * Se procesa los datos del paciente
 							 */
@@ -200,35 +199,37 @@ public class CitaImplServicio implements CitaServicio {
 							 */
 							this.usuarioServicio.guardar(((CitaInformacion)agenda).getPaciente());
 							/**
-							 * Se procesa los datos de la Madre y el Padre si el Acudiente no es ninguno de los dos
+							 * Si el Acudiente no es ni la Madre ni el Padre 
 							 */
 							if (((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() != Utilidad.MADRE &&
 									((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() != Utilidad.PADRE) {
 								((CitaInformacion)agenda).getAcudiente().setEstado_idestado(estado_idestado);
 								this.usuarioServicio.guardar(((CitaInformacion)agenda).getAcudiente());
+							/**
+							 * Si el Acudiente es la Madre 	
+							 */
+							}else if (((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() == Utilidad.MADRE) {
 								/**
-								 * Se procesa los datos de la Madre
+								 * Se actualizan los datos de la Madre
 								 */
-								 guardarUsuario(((CitaInformacion)agenda).getPaciente(), ((CitaInformacion)agenda).getMadre(), Utilidad.USUARIO_PARIENTE, Utilidad.MADRE, estado_idestado); 			
+								this.usuarioServicio.guardar(((CitaInformacion)agenda).getMadre());
 								/**
-								 * Se procesa los datos del padre
-								 */
-								guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getPadre(), Utilidad.USUARIO_PARIENTE, Utilidad.PADRE, estado_idestado); 								
-							}else if (((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() == Utilidad.MADRE) { /** El Acudiente no es ni la Madre ni el Padre */
-								agenda.getAcudiente().setEstado_idestado(estado_idestado);                                          /**  y el Padre no se ha creado */
-								this.usuarioServicio.guardar(agenda.getAcudiente());
+								* Se procesa los datos del Padre
+								*/
+								guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getPadre(), Utilidad.USUARIO_PARIENTE, Utilidad.PADRE, estado_idestado); 		
+							/**
+							 * Si el Acudiente es el Padre	
+							 */
+							}else if (((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() == Utilidad.PADRE) {
 								/**
-								 * Se procesa los datos del padre
+								 * Se actualizan los datos de la Padre
 								 */
-								 guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getPadre(), Utilidad.USUARIO_PARIENTE, Utilidad.PADRE, estado_idestado); 	 
-							}else if (((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() == Utilidad.PADRE) { /** El Acudiente no es ni la Madre ni el Padre */
-								((CitaInformacion)agenda).getAcudiente().setEstado_idestado(estado_idestado);										   /** y la Madre no se ha creado */	
-								this.usuarioServicio.guardar(((CitaInformacion)agenda).getAcudiente());
+								this.usuarioServicio.guardar(((CitaInformacion)agenda).getPadre());
 								/**
-								 * Se procesa los datos de la Madre
-								 */
-								 guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getMadre(), Utilidad.USUARIO_PARIENTE, Utilidad.MADRE, estado_idestado); 					
-							}
+								* Se procesa los datos del Madre
+								*/
+								guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getMadre(), Utilidad.USUARIO_PARIENTE, Utilidad.MADRE, estado_idestado); 								
+							}							
 							/**
 							 * Se procesa la cita
 							 */
@@ -238,7 +239,6 @@ public class CitaImplServicio implements CitaServicio {
 							*/
 							cambiarEstadoCita(((CitaInformacion)agenda).getPaciente().getIdUsuario(), Utilidad.CITA_AGENDA, Utilidad.ESTADO_TERMINADO);
 						}
-						
 						break;
 					case Utilidad.TRANS_ACTUALIZAR:
 						if (((CitaInformacion)agenda).isJavaScript()) {
@@ -249,21 +249,20 @@ public class CitaImplServicio implements CitaServicio {
 						 */
 						this.usuarioServicio.guardar(((CitaInformacion)agenda).getPaciente());
 						/**
-						 * Se actualizan los datos de la Madre y el Padre si el Acudiente no es ninguno de los dos
+						 * Se actualizan los datos de  el Acudiente sino es ni la Madre ni el Padre
 						 */
 						if (((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() != Utilidad.MADRE && 
 								((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() != Utilidad.PADRE) {
-							this.usuarioServicio.guardar(((CitaInformacion)agenda).getMadre());
-							this.usuarioServicio.guardar(((CitaInformacion)agenda).getPadre());
 							this.usuarioServicio.guardar(((CitaInformacion)agenda).getAcudiente());
-							/**
-							 * Se actualizan los datos de la Madre y el Padre si el Acudiente es la Madre
-							 */	
-						}else if (((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() == Utilidad.MADRE || 
-								((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() == Utilidad.PADRE) {
-							this.usuarioServicio.guardar(((CitaInformacion)agenda).getMadre());
-							this.usuarioServicio.guardar(((CitaInformacion)agenda).getPadre());
 						}
+						/**
+						 * Se actualizan los datos de la Madre
+						 */
+						this.usuarioServicio.guardar(((CitaInformacion)agenda).getMadre());
+						/**
+						 * Se actualizan los datos del Padre
+						 */
+						this.usuarioServicio.guardar(((CitaInformacion)agenda).getPadre());
 						/**
 						 * Se actualizan los datos de la cita
 						 */

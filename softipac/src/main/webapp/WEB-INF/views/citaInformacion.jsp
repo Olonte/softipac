@@ -443,7 +443,7 @@
 																<div class="form-group">
 																	<form:label path="padre.ocupacion">${ocupacionEtiqueta}</form:label>
 																	<div class="input-group">  
-																		<form:input type="text" cssClass="form-control" path="padre.ocupacion" id="padreOcupacion" name="padreOcupacion" placeholder="${ocupacionMarcador}"></form:input>
+																		<form:input type="text" cssClass="form-control" path="padre.ocupacion" id="padreOcupacion" name="padreOcupacion" placeholder="${ocupacionMarcador}" required="required"></form:input>
 																	</div><!-- .input-group -->
 																</div><!-- .form-group -->
 															</div><!-- .col-md-4 -->
