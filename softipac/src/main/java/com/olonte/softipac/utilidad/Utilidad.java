@@ -1,6 +1,6 @@
 package com.olonte.softipac.utilidad;
 
-public interface Utilidad {
+public interface Utilidad {	
 	static final String EMAIL_PATTERN         = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"  + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"; 
 	static final String STRING_PATTERN        = "[a-zA-Z]+";
 	static final String HORA          	      = "cita.hora.horaId.idhora";
@@ -27,7 +27,7 @@ public interface Utilidad {
 	static final String ROLES	              = "usuario.roles";
 	static final String SELECCION_OPCION      = "Seleccione";
 	static final String SEPARADOR             = "-";
-	static final String CADENA_DEFAULT        = "";
+	static final String CADENA_DEFAULT        = "";	
 	static final int AGENDA_NUEVA      	   = 1;
 	static final int AGENDA_PROCESADA  	   = 2;
 	static final int AGENDA_EDITADA    	   = 3;
@@ -76,4 +76,9 @@ public interface Utilidad {
 	static final int JARDIN                = 1; 
 	static final int INCLUSION_ESCOLAR     = 4;
 	static final int LONGITUD_DEFECTO      = 1;
+	static final int TIPO_DOC_REG_CV       = 1;
+	static final int TIPO_DOC_TRJ_ID       = 2;
+	static final int ESCOLARIDAD_JARDIN    = 1;
+	static final int ESCOLARIDAD_INC_ESC   = 4;
+
 }

@@ -36,6 +36,10 @@ public class Diagnostico {
 	
 	@ManyToMany(mappedBy = "diagnosticos")
 	private Set<Usuario> usuarios = new HashSet<Usuario>();
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "datos_iddatos", referencedColumnName = "iddatos")
+	private Datos datos_iddatos;
 
 	public Diagnostico() {
 	}
@@ -70,6 +74,14 @@ public class Diagnostico {
 
 	public void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	public Datos getDatos_iddatos() {
+		return datos_iddatos;
+	}
+
+	public void setDatos_iddatos(Datos datos_iddatos) {
+		this.datos_iddatos = datos_iddatos;
 	}
 
 }

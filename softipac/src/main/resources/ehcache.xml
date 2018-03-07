@@ -15,7 +15,27 @@
         memoryStoreEvictionPolicy="FIFO">
     </defaultCache>
     
-     <cache name="com.olonte.softipac.modelo.TipoUsuario" 
+     <cache name="com.olonte.softipac.modelo.Datos" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+	
+	<cache name="datos" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+    
+    <cache name="com.olonte.softipac.modelo.TipoUsuario" 
 		maxEntriesLocalHeap="100"
 		maxEntriesLocalDisk="1000" 
 		eternal="false" 
@@ -166,6 +186,26 @@
 	</cache>
 	
 	 <cache name="com.olonte.softipac.modelo.Documento" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+	
+	 <cache name="com.olonte.softipac.modelo.TipoHora" 
+		maxEntriesLocalHeap="100"
+		maxEntriesLocalDisk="1000" 
+		eternal="false" 
+		timeToIdleSeconds="300" 
+		timeToLiveSeconds="600"
+		overflowToDisk="false"
+		diskPersistent="false">
+	</cache>
+	
+	<cache name="tiposHora" 
 		maxEntriesLocalHeap="100"
 		maxEntriesLocalDisk="1000" 
 		eternal="false" 

@@ -18,5 +18,5 @@ public interface CitaServicio {
 	ArrayList<Hora> obtenerHoras(Agenda agenda, Integer idTipoHora);
 	void cambiarEstadoCita(Integer idUsuario, Integer idTipoCita, Integer idEstado);
 	List<RegistroListaAgenda> buscarCitasAgenda();
-	List<RegistroListaCitaInformacion> buscarCitasInformacion();
+	List<RegistroListaCitaInformacion> buscarCitasInformacion();	
 }

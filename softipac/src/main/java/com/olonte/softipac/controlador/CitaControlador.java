@@ -19,12 +19,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.olonte.softipac.modelo.Agenda;
 import com.olonte.softipac.modelo.Cita;
 import com.olonte.softipac.modelo.CitaInformacion;
+import com.olonte.softipac.modelo.Datos;
 import com.olonte.softipac.modelo.Diagnostico;
+import com.olonte.softipac.modelo.Genero;
 import com.olonte.softipac.modelo.RegistroListaAgenda;
 import com.olonte.softipac.modelo.RegistroListaCitaInformacion;
 import com.olonte.softipac.modelo.Usuario;
 import com.olonte.softipac.modelo.UsuarioSession;
 import com.olonte.softipac.servicio.CitaServicio;
+import com.olonte.softipac.servicio.DatosServicio;
 import com.olonte.softipac.servicio.DiagnosticoServcio;
 import com.olonte.softipac.servicio.EpsServicio;
 import com.olonte.softipac.servicio.EscolaridadServicio;
@@ -50,6 +53,8 @@ public class CitaControlador {
 	
 	private HoraServicio horaServicio;
 	
+	private DatosServicio datosServicio;
+	
 	private TipoDocumentoServicio tipoDocumentoServicio;
 	
 	private GeneroServicio generoServicio;
@@ -67,7 +72,7 @@ public class CitaControlador {
 	@Autowired
 	public CitaControlador(UsuarioSession usuarioSession, ValidadorUsuarioAgenda validadorUsuarioAgenda,
 			CitaServicio citaServicio, UsuarioServicio usuarioServicio, HoraServicio horaServicio,
-			TipoDocumentoServicio tipoDocumentoServicio, GeneroServicio generoServicio,
+			DatosServicio datosServicio, TipoDocumentoServicio tipoDocumentoServicio, GeneroServicio generoServicio,
 			EscolaridadServicio escolaridadServicio, EpsServicio epsServicio, DiagnosticoServcio diagnosticoServicio,
 			ParentescoServicio parentescoServicio) {
 		this.usuarioSession = usuarioSession;
@@ -75,6 +80,7 @@ public class CitaControlador {
 		this.citaServicio = citaServicio;
 		this.usuarioServicio = usuarioServicio;
 		this.horaServicio = horaServicio;
+		this.datosServicio = datosServicio;
 		this.tipoDocumentoServicio = tipoDocumentoServicio;
 		this.generoServicio = generoServicio;
 		this.escolaridadServicio = escolaridadServicio;
@@ -119,8 +125,8 @@ public class CitaControlador {
 	 * @return
 	 */
 	@RequestMapping(value = "/agenda", method = RequestMethod.GET)
-	public String crearNuevaAgenda(Model model) {
-		model.addAttribute("nuevaAgenda", new Agenda());
+	public String crearNuevaAgenda(Model model) {		
+		model.addAttribute("nuevaAgenda", new Agenda());		
 		iniciarListas(model, null, Utilidad.AGENDA_NUEVA);
 		return "agenda";
 	}
@@ -189,9 +195,9 @@ public class CitaControlador {
 	@RequestMapping(value = "/editar/agenda", method = RequestMethod.GET)
 	public String editarAgenda(@RequestParam("idUsuario") Integer idUsuario, @RequestParam("indiceActual") Integer indiceActual, Model model) {
 		Agenda agenda = new Agenda();
-		agenda = this.citaServicio.buscarUsuarioAgenda(idUsuario,Utilidad.USUARIO_ACUDIENTE,Utilidad.CITA_AGENDA);
+		agenda = this.citaServicio.buscarUsuarioAgenda(idUsuario,Utilidad.USUARIO_ACUDIENTE,Utilidad.CITA_AGENDA);			
 		this.diagnosticosTemp = agenda.getPaciente().getDiagnosticos();
-		model.addAttribute("nuevaAgenda", agenda);
+		model.addAttribute("nuevaAgenda", agenda);		
 		model.addAttribute("indiceActual", indiceActual);
 		iniciarListas(model, agenda, Utilidad.AGENDA_EDITADA);
 		return "agenda";
@@ -267,7 +273,7 @@ public class CitaControlador {
 		}
 				
 		citaInformacion.setAcudiente(familiar);
-		citaInformacion.setUsuarioAplica(getUsuarioSession().obtenerNombresApellidos());
+		//citaInformacion.setUsuarioAplica(getUsuarioSession().obtenerNombresApellidos());
 			
 		this.diagnosticosTemp = citaInformacion.getPaciente().getDiagnosticos();
 		
@@ -406,7 +412,8 @@ public class CitaControlador {
 	 * @param agenda
 	 * @param origen
 	 */
-	private void iniciarListas(Model model, Agenda agenda, int origen) {
+	private void iniciarListas(Model model, Agenda agenda, int origen) {		
+		List<Datos> datos = this.datosServicio.buscarTodos();	
 		switch (origen) {
 			case Utilidad.AGENDA_PROCESADA:
 				model.addAttribute("horas", this.horaServicio.buscarAgendaPorFecha(agenda.getCita().getFechaCitaIni(),Utilidad.CITA_AGENDA,Utilidad.HORA_AGENDA));
@@ -430,14 +437,14 @@ public class CitaControlador {
 				break;
 		}
 		
-		model.addAttribute("tiposDocumento", this.tipoDocumentoServicio.buscarTodos());
-		model.addAttribute("tiposDocumentoUsuario", this.tipoDocumentoServicio.buscarTiposDocumentoUsuario());
-		model.addAttribute("generos", this.generoServicio.buscarTodos());
-		model.addAttribute("escolaridades", this.escolaridadServicio.buscarTodos());
-		model.addAttribute("escolaridadesUsuario", this.escolaridadServicio.buscarEscolaridadesUsuario());
-		model.addAttribute("eps", this.epsServicio.buscarTodos());
-		model.addAttribute("diagnosticos", this.diagnosticoServicio.buscarTodos());
-		model.addAttribute("parentescos", this.parentescoServicio.buscarTodos());	
+		model.addAttribute("tiposDocumento", this.tipoDocumentoServicio.buscarTodos(datos));
+		model.addAttribute("tiposDocumentoUsuario", this.tipoDocumentoServicio.buscarTiposDocumentoUsuario(datos));
+		model.addAttribute("generos", this.generoServicio.buscarTodos(datos));
+		model.addAttribute("escolaridades", this.escolaridadServicio.buscarTodos(datos));
+		model.addAttribute("escolaridadesUsuario", this.escolaridadServicio.buscarEscolaridadesUsuario(datos));
+		model.addAttribute("eps", this.epsServicio.buscarTodos(datos));
+		model.addAttribute("diagnosticos", this.diagnosticoServicio.buscarTodos(datos));
+		model.addAttribute("parentescos", this.parentescoServicio.buscarTodos(datos));	
 		
 		if (origen != Utilidad.AGENDA_NUEVA && origen != Utilidad.AGENDA_PROCESADA && origen != Utilidad.CITA_INFO_CREAR) {
 			model.addAttribute("diagnosticosPaciente", agenda.getPaciente().getDiagnosticos());
