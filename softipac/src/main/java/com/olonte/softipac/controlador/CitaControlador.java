@@ -21,7 +21,6 @@ import com.olonte.softipac.modelo.Cita;
 import com.olonte.softipac.modelo.CitaInformacion;
 import com.olonte.softipac.modelo.Datos;
 import com.olonte.softipac.modelo.Diagnostico;
-import com.olonte.softipac.modelo.Genero;
 import com.olonte.softipac.modelo.RegistroListaAgenda;
 import com.olonte.softipac.modelo.RegistroListaCitaInformacion;
 import com.olonte.softipac.modelo.Usuario;

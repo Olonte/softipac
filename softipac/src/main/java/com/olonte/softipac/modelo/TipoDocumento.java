@@ -1,8 +1,5 @@
 package com.olonte.softipac.modelo;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -34,10 +30,6 @@ public class TipoDocumento {
 	@JoinColumn(name = "datos_iddatos", referencedColumnName = "iddatos") 
 	private Datos datos_iddatos;
 	
-	/*
-	@OneToMany
-	private Set<Documento> documentos = new HashSet<Documento>(0);
-     */
 	public TipoDocumento() {
 	}
 
@@ -64,15 +56,5 @@ public class TipoDocumento {
 	public void setDatos_iddatos(Datos datos_iddatos) {
 		this.datos_iddatos = datos_iddatos;
 	}
-
-	/*
-	public Set<Documento> getDocumentos() {
-		return documentos;
-	}
-
-	public void setDocumentos(Set<Documento> documentos) {
-		this.documentos = documentos;
-	}
-	*/
 
 }

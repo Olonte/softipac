@@ -1,8 +1,5 @@
 package com.olonte.softipac.modelo;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -41,11 +37,6 @@ public class Eps {
 	
 	@Column(name = "email")
 	private String email;
-	
-	/*
-	@OneToMany
-	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
-	*/
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "datos_iddatos", referencedColumnName = "iddatos")
@@ -101,16 +92,6 @@ public class Eps {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	/*
-	public Set<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(Set<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-	*/
 
 	public Datos getDatos_iddatos() {
 		return datos_iddatos;

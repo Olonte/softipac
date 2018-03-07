@@ -46,7 +46,7 @@ public class QDocumento extends EntityPathBase<Documento> {
 
     public QDocumento(Class<? extends Documento> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.tipoDocumento = inits.isInitialized("tipoDocumento") ? new QTipoDocumento(forProperty("tipoDocumento")) : null;
+        this.tipoDocumento = inits.isInitialized("tipoDocumento") ? new QTipoDocumento(forProperty("tipoDocumento"), inits.get("tipoDocumento")) : null;
     }
 
 }

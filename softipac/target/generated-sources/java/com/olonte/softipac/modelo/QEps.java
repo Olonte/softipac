@@ -18,7 +18,11 @@ public class QEps extends EntityPathBase<Eps> {
 
     private static final long serialVersionUID = -2099452761L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QEps eps = new QEps("eps");
+
+    public final QDatos datos_iddatos;
 
     public final StringPath direccion = createString("direccion");
 
@@ -32,18 +36,25 @@ public class QEps extends EntityPathBase<Eps> {
 
     public final StringPath telefono = createString("telefono");
 
-    public final SetPath<Usuario, QUsuario> usuarios = this.<Usuario, QUsuario>createSet("usuarios", Usuario.class, QUsuario.class, PathInits.DIRECT2);
-
     public QEps(String variable) {
-        super(Eps.class, forVariable(variable));
+        this(Eps.class, forVariable(variable), INITS);
     }
 
     public QEps(Path<? extends Eps> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
     }
 
     public QEps(PathMetadata metadata) {
-        super(Eps.class, metadata);
+        this(metadata, metadata.isRoot() ? INITS : PathInits.DEFAULT);
+    }
+
+    public QEps(PathMetadata metadata, PathInits inits) {
+        this(Eps.class, metadata, inits);
+    }
+
+    public QEps(Class<? extends Eps> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.datos_iddatos = inits.isInitialized("datos_iddatos") ? new QDatos(forProperty("datos_iddatos")) : null;
     }
 
 }

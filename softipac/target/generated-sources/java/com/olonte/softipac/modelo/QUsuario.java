@@ -95,11 +95,11 @@ public class QUsuario extends EntityPathBase<Usuario> {
     public QUsuario(Class<? extends Usuario> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.documento_iddocumento = inits.isInitialized("documento_iddocumento") ? new QDocumento(forProperty("documento_iddocumento"), inits.get("documento_iddocumento")) : null;
-        this.eps_ideps = inits.isInitialized("eps_ideps") ? new QEps(forProperty("eps_ideps")) : null;
-        this.escolaridad_idescolaridad = inits.isInitialized("escolaridad_idescolaridad") ? new QEscolaridad(forProperty("escolaridad_idescolaridad")) : null;
+        this.eps_ideps = inits.isInitialized("eps_ideps") ? new QEps(forProperty("eps_ideps"), inits.get("eps_ideps")) : null;
+        this.escolaridad_idescolaridad = inits.isInitialized("escolaridad_idescolaridad") ? new QEscolaridad(forProperty("escolaridad_idescolaridad"), inits.get("escolaridad_idescolaridad")) : null;
         this.estado_idestado = inits.isInitialized("estado_idestado") ? new QEstado(forProperty("estado_idestado")) : null;
-        this.genero_idgenero = inits.isInitialized("genero_idgenero") ? new QGenero(forProperty("genero_idgenero")) : null;
-        this.parentesco_idparentesco = inits.isInitialized("parentesco_idparentesco") ? new QParentesco(forProperty("parentesco_idparentesco")) : null;
+        this.genero_idgenero = inits.isInitialized("genero_idgenero") ? new QGenero(forProperty("genero_idgenero"), inits.get("genero_idgenero")) : null;
+        this.parentesco_idparentesco = inits.isInitialized("parentesco_idparentesco") ? new QParentesco(forProperty("parentesco_idparentesco"), inits.get("parentesco_idparentesco")) : null;
         this.serviciosalud_idserviciosalud = inits.isInitialized("serviciosalud_idserviciosalud") ? new QServicioSalud(forProperty("serviciosalud_idserviciosalud")) : null;
         this.tipousuario_idtipousuario = inits.isInitialized("tipousuario_idtipousuario") ? new QTipoUsuario(forProperty("tipousuario_idtipousuario")) : null;
     }

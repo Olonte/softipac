@@ -1,9 +1,5 @@
 package com.olonte.softipac.modelo;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -30,11 +25,6 @@ public class Genero {
 	
 	@Column(name = "genero")
 	private String genero;
-	
-	/*
-	@OneToMany
-	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
-	*/
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "datos_iddatos", referencedColumnName = "iddatos")
@@ -59,15 +49,6 @@ public class Genero {
 		this.genero = genero;
 	}
 	
-	/*
-	public Set<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(Set<Usuario> usuarios) {
-		this.usuarios = usuarios;
-	}
-	*/
 	public Datos getDatos_iddatos() {
 		return datos_iddatos;
 	}
@@ -75,6 +56,5 @@ public class Genero {
 	public void setDatos_iddatos(Datos datos_iddatos) {
 		this.datos_iddatos = datos_iddatos;
 	}
-	
 	
 }

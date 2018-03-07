@@ -22,6 +22,8 @@ public class QDiagnostico extends EntityPathBase<Diagnostico> {
 
     public static final QDiagnostico diagnostico1 = new QDiagnostico("diagnostico1");
 
+    public final QDatos datos_iddatos;
+
     public final StringPath diagnostico = createString("diagnostico");
 
     public final NumberPath<Integer> idDiagnostico = createNumber("idDiagnostico", Integer.class);
@@ -48,6 +50,7 @@ public class QDiagnostico extends EntityPathBase<Diagnostico> {
 
     public QDiagnostico(Class<? extends Diagnostico> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.datos_iddatos = inits.isInitialized("datos_iddatos") ? new QDatos(forProperty("datos_iddatos")) : null;
         this.tipoDiagnostico = inits.isInitialized("tipoDiagnostico") ? new QTipoDiagnostico(forProperty("tipoDiagnostico")) : null;
     }
 

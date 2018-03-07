@@ -18,24 +18,35 @@ public class QParentesco extends EntityPathBase<Parentesco> {
 
     private static final long serialVersionUID = 635424997L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QParentesco parentesco1 = new QParentesco("parentesco1");
+
+    public final QDatos datos_iddatos;
 
     public final NumberPath<Integer> idParentesco = createNumber("idParentesco", Integer.class);
 
     public final StringPath parentesco = createString("parentesco");
 
-    public final SetPath<Usuario, QUsuario> usuarios = this.<Usuario, QUsuario>createSet("usuarios", Usuario.class, QUsuario.class, PathInits.DIRECT2);
-
     public QParentesco(String variable) {
-        super(Parentesco.class, forVariable(variable));
+        this(Parentesco.class, forVariable(variable), INITS);
     }
 
     public QParentesco(Path<? extends Parentesco> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
     }
 
     public QParentesco(PathMetadata metadata) {
-        super(Parentesco.class, metadata);
+        this(metadata, metadata.isRoot() ? INITS : PathInits.DEFAULT);
+    }
+
+    public QParentesco(PathMetadata metadata, PathInits inits) {
+        this(Parentesco.class, metadata, inits);
+    }
+
+    public QParentesco(Class<? extends Parentesco> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.datos_iddatos = inits.isInitialized("datos_iddatos") ? new QDatos(forProperty("datos_iddatos")) : null;
     }
 
 }
