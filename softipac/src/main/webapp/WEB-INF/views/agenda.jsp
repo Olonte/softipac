@@ -47,7 +47,7 @@
 														</div><!-- .col-md-4 -->
 														<div class="col-md-4">
 															<div class="form-group">
-																<form:label path="cita.hora.horaId.idhora">${horaEtiqueta}</form:label>
+																<form:label path="cita.hora.horaId.idhora">${horaEtiquetaAg}</form:label>
 																<div class="input-group">
 																	<form:select path="cita.hora.horaId.idhora" id="horas" cssClass="form-control">
 																		<form:option  value="${seleccion}" label="${seleccionEtiqueta}"></form:option>

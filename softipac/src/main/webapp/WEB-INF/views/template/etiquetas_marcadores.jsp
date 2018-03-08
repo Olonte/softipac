@@ -98,7 +98,7 @@
 								<spring:message code="panelCita.jsp.paginaCitaInformacion.etiqueta" var="paginaCitaInformacionEtiqueta"></spring:message>
 <!-- ****************************************************Etiquetas Agenda ******************************************************************* -->								
 								<spring:message code="agenda.jsp.conf.hora.etiqueta" var="confHoraEtiqueta"></spring:message>
-								<spring:message code="agenda.jsp.hora.etiqueta" var="horaEtiqueta"></spring:message>							
+								<spring:message code="agenda.jsp.hora.etiqueta" var="horaEtiquetaAg"></spring:message>							
 <!-- ****************************************************Etiquetas Pagina Agenda ******************************************************************* -->							
 								<spring:message code="paginaAgenda.jsp.fecha.etiqueta" var="fechaEtiqueta"></spring:message>
                             	<spring:message code="paginaAgenda.jsp.hora.etiqueta" var="horaEtiqueta"></spring:message>
@@ -108,7 +108,6 @@
                             	<spring:message code="citaInformacion.jsp.titulo.etiqueta" var="citaInfoTituloEtiqueta"></spring:message>
                             	<spring:message code="citaInformacion.jsp.aplica.etiqueta" var="aplicaEtiqueta"></spring:message>
                             	<spring:message code="citaInformacion.jsp.datos.madre.etiqueta" var="madreEtiqueta"></spring:message>   
-                            	<spring:message code="citaInformacion.jsp.ocupacion.etiqueta" var="ocupacionEtiqueta"></spring:message>
                             	<spring:message code="citaInformacion.jsp.datos.padre.etiqueta" var="padreEtiqueta"></spring:message>
                             	<spring:message code="citaInformacion.jsp.motivoconsulta.etiqueta" var="motivoConsultaEtiqueta"></spring:message>
                             	<spring:message code="citaInformacion.jsp.diagnosticos.previos.etiqueta" var="diagnosticosPrevEtiqueta"></spring:message>
