@@ -205,6 +205,14 @@ public class CitaImplServicio implements CitaServicio {
 									((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() != Utilidad.PADRE) {
 								((CitaInformacion)agenda).getAcudiente().setEstado_idestado(estado_idestado);
 								this.usuarioServicio.guardar(((CitaInformacion)agenda).getAcudiente());
+								/**
+								* Se procesa los datos de la Madre
+								*/
+								guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getMadre(), Utilidad.USUARIO_PARIENTE, Utilidad.MADRE, estado_idestado);
+								/**
+								* Se procesa los datos del Padre
+								*/
+								guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getPadre(), Utilidad.USUARIO_PARIENTE, Utilidad.PADRE, estado_idestado);								
 							/**
 							 * Si el Acudiente es la Madre 	
 							 */
@@ -291,10 +299,10 @@ public class CitaImplServicio implements CitaServicio {
 	@Override
 	@Transactional(readOnly = true)
 	public Agenda buscarUsuarioAgenda(Integer idUsuario, Integer idTipoUsuario, Integer idTipoCita) {
-		Agenda agenda = new Agenda();
-		agenda.setCita(buscarPorIdPaciente(idUsuario,idTipoCita));
-		agenda.setPaciente(this.usuarioServicio.buscarPacientePorId(idUsuario));
-		agenda.setAcudiente(this.usuarioServicio.buscarAcudientePorId(idUsuario,idTipoUsuario));
+		Agenda agenda = new Agenda();				
+		agenda.setCita(buscarPorIdPaciente(idUsuario,idTipoCita));		
+		agenda.setPaciente(this.usuarioServicio.buscarPorId(agenda.getCita().getCitaId().getUsuario_idusuario()));		
+		agenda.setAcudiente(this.usuarioServicio.buscarAcudientePorId(agenda.getPaciente()));
 		return agenda;
 	}
 

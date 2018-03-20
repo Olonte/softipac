@@ -228,7 +228,6 @@ public class Usuario {
 	}
 	
 	
-	
 	public TipoUsuario getTipousuario_idtipousuario() {
 		return tipousuario_idtipousuario;
 	}

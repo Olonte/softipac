@@ -17,13 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.olonte.softipac.modelo.Agenda;
-import com.olonte.softipac.modelo.Cita;
 import com.olonte.softipac.modelo.CitaInformacion;
 import com.olonte.softipac.modelo.Datos;
 import com.olonte.softipac.modelo.Diagnostico;
 import com.olonte.softipac.modelo.RegistroListaAgenda;
 import com.olonte.softipac.modelo.RegistroListaCitaInformacion;
-import com.olonte.softipac.modelo.Usuario;
 import com.olonte.softipac.modelo.UsuarioSession;
 import com.olonte.softipac.servicio.CitaServicio;
 import com.olonte.softipac.servicio.DatosServicio;
@@ -252,27 +250,27 @@ public class CitaControlador {
 	
 	/**
 	 * 
-	 * @param model
 	 * @param idUsuario
+	 * @param indiceActual
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "/citaInformacion", method = RequestMethod.GET)
 	public String crearNuevaCitaInformacion(@RequestParam("idUsuario") Integer idUsuario, @RequestParam("indiceActual") int indiceActual, Model model) {
 		CitaInformacion citaInformacion = new CitaInformacion();
-		
-		Usuario familiar = this.usuarioServicio.buscarAcudientePorId(idUsuario,Utilidad.USUARIO_ACUDIENTE);
-		citaInformacion.setCita(new Cita());
-		citaInformacion.getCita().setFechaCitaIni(this.citaServicio.buscarPorIdPaciente(idUsuario,Utilidad.CITA_AGENDA).getFechaCitaIni());
-		citaInformacion.setPaciente(this.usuarioServicio.buscarPacientePorId(idUsuario));
+		Agenda agenda = new Agenda();
+		agenda = this.citaServicio.buscarUsuarioAgenda(idUsuario,Utilidad.USUARIO_ACUDIENTE,Utilidad.CITA_AGENDA);								
+		citaInformacion.setCita(agenda.getCita());
+		citaInformacion.getCita().setFechaCitaIni(agenda.getCita().getFechaCitaIni());
+		citaInformacion.setPaciente(agenda.getPaciente());
 			
-		if (familiar.getParentesco_idparentesco().getIdParentesco() == Utilidad.MADRE) {
-			citaInformacion.setMadre(familiar);
-		}else if (familiar.getParentesco_idparentesco().getIdParentesco() == Utilidad.PADRE) {
-			citaInformacion.setPadre(familiar);
+		if (agenda.getAcudiente().getParentesco_idparentesco().getIdParentesco() == Utilidad.MADRE) {
+			citaInformacion.setMadre(agenda.getAcudiente());
+		}else if (agenda.getAcudiente().getParentesco_idparentesco().getIdParentesco() == Utilidad.PADRE) {
+			citaInformacion.setPadre(agenda.getAcudiente());
 		}
 				
-		citaInformacion.setAcudiente(familiar);
-		//citaInformacion.setUsuarioAplica(getUsuarioSession().obtenerNombresApellidos());
+		citaInformacion.setAcudiente(agenda.getAcudiente());		
 			
 		this.diagnosticosTemp = citaInformacion.getPaciente().getDiagnosticos();
 		
@@ -323,7 +321,6 @@ public class CitaControlador {
 	 * @param redirectAttributes
 	 * @return
 	 */
-
 	@RequestMapping(value = "/crear/citaInformacion", method = RequestMethod.POST)
 	public String procesarCrearCitaInformacion(@ModelAttribute("nuevaCitaInformacion") CitaInformacion citaInformacion, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		int transaccion = Utilidad.TRANS_GUARDAR;
@@ -368,15 +365,27 @@ public class CitaControlador {
 	@RequestMapping(value = "/editar/citaInformacion", method = RequestMethod.GET)
 	public String editarCitaInformacion(@RequestParam("idUsuario") Integer idUsuario, @RequestParam("indiceActual") Integer indiceActual, Model model) {
 		CitaInformacion citaInformacion = new CitaInformacion();
-		citaInformacion.setCita(this.citaServicio.buscarPorIdPaciente(idUsuario,Utilidad.CITA_INFORMACION));
-		if (citaInformacion.getCita().getFechaCitaIni() == null) {
-			citaInformacion.getCita().setFechaCitaIni(this.citaServicio.buscarPorIdPaciente(idUsuario,Utilidad.CITA_AGENDA).getFechaCitaIni());
-		}
-		citaInformacion.setPaciente(this.usuarioServicio.buscarPacientePorId(idUsuario));
-		citaInformacion.setMadre(this.usuarioServicio.buscarFamiliarPorId(idUsuario, Utilidad.MADRE));
-		citaInformacion.setPadre(this.usuarioServicio.buscarFamiliarPorId(idUsuario, Utilidad.PADRE));
-		citaInformacion.setAcudiente(this.usuarioServicio.buscarAcudientePorId(idUsuario, Utilidad.USUARIO_ACUDIENTE));
-		citaInformacion.setUsuarioAplica(getUsuarioSession().obtenerNombresApellidos());
+		
+		Agenda agenda = new Agenda();
+		agenda = this.citaServicio.buscarUsuarioAgenda(idUsuario, Utilidad.USUARIO_PACIENTE, Utilidad.CITA_AGENDA);		
+		
+		citaInformacion.setCita(agenda.getCita());		
+		citaInformacion.setPaciente(agenda.getPaciente());
+		citaInformacion.setAcudiente(agenda.getAcudiente());
+		
+		if (agenda.getAcudiente().getParentesco_idparentesco().getIdParentesco() == Utilidad.MADRE) {
+			citaInformacion.setMadre(agenda.getAcudiente());
+			citaInformacion.setPadre(this.usuarioServicio.buscarFamiliarPorId(citaInformacion.getPaciente(), Utilidad.PADRE));
+		}else if (agenda.getAcudiente().getParentesco_idparentesco().getIdParentesco() == Utilidad.PADRE) {
+			citaInformacion.setPadre(agenda.getAcudiente());
+			citaInformacion.setMadre(this.usuarioServicio.buscarFamiliarPorId(citaInformacion.getPaciente(), Utilidad.MADRE));
+		}else {
+			citaInformacion.setMadre(this.usuarioServicio.buscarFamiliarPorId(citaInformacion.getPaciente(), Utilidad.MADRE));
+			citaInformacion.setPadre(this.usuarioServicio.buscarFamiliarPorId(citaInformacion.getPaciente(), Utilidad.PADRE));
+		}		
+		
+		citaInformacion.setUsuarioAplica(citaInformacion.getCita().getCitaId().getUsuario_idusuapl().getNombres() + " " +
+				citaInformacion.getCita().getCitaId().getUsuario_idusuapl().getPrimerApellido());
 	
 		model.addAttribute("nuevaCitaInformacion", citaInformacion);
 		model.addAttribute("indiceActual",indiceActual);
@@ -385,7 +394,15 @@ public class CitaControlador {
 		
 		return "citaInformacion";
 	}
-	
+	/**
+	 * 
+	 * @param citaInformacion
+	 * @param bindingResult
+	 * @param indiceActual
+	 * @param model
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@RequestMapping(value = "/editar/citaInformacion", method = RequestMethod.POST)
 	public String procesarEditarCitaInformacion(@ModelAttribute("nuevaCitaInformacion") CitaInformacion citaInformacion,  BindingResult bindingResult, @ModelAttribute("indiceActual") int indiceActual,
     		Model model, RedirectAttributes redirectAttributes) {

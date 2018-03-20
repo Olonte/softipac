@@ -27,8 +27,9 @@ public class Estado {
 	@Column(name = "estado")
 	private String estado;
 	
+	/*
 	@OneToMany
-	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
+	private Set<Usuario> usuarios = new HashSet<Usuario>(0);*/
 
 	public Estado() {
 	}
@@ -48,7 +49,8 @@ public class Estado {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-
+	
+	/*
 	public Set<Usuario> getUsuarios() {
 		return usuarios;
 	}
@@ -56,5 +58,6 @@ public class Estado {
 	public void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
+	*/
 	
 }

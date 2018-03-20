@@ -12,9 +12,12 @@ public interface UsuarioServicio {
 	void guardar(UsuarioForma usuarioForma, Integer idEstado);
 	UsuarioJSON bucarPorDocumento(String parametros);
 	Usuario buscarPorId(Integer idUsuario);
+	Usuario buscarPorId(Usuario usuario);
 	Usuario buscarPacientePorId(Integer idUsuario);
 	Usuario buscarAcudientePorId(Integer idUsuario, Integer idTipoUsuario);
+	Usuario buscarAcudientePorId(Usuario paciente);
 	Usuario buscarFamiliarPorId(Integer idUsuario, Integer idParentesco);
+	Usuario buscarFamiliarPorId(Usuario paciente, Integer idParentesco);
 	List<Usuario> buscarPorIdTipoUsuario(Integer idTipoUsuarioApl, Integer idTipoUsuariSis);
 	void cambiarEstadoUsuario(Integer idUsuario, Integer idEstado);
 }
