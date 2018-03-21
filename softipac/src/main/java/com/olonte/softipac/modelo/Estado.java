@@ -1,14 +1,10 @@
 package com.olonte.softipac.modelo;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cache;
@@ -26,9 +22,6 @@ public class Estado {
 	
 	@Column(name = "estado")
 	private String estado;
-	
-	@OneToMany
-	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 
 	public Estado() {
 	}
@@ -47,14 +40,6 @@ public class Estado {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
-	}
-
-	public Set<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(Set<Usuario> usuarios) {
-		this.usuarios = usuarios;
 	}
 	
 }

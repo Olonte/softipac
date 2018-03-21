@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -23,8 +22,6 @@ public class QTipoUsuario extends EntityPathBase<TipoUsuario> {
     public final NumberPath<Integer> idTipoUsuario = createNumber("idTipoUsuario", Integer.class);
 
     public final StringPath tipo = createString("tipo");
-
-    public final SetPath<Usuario, QUsuario> usuarios = this.<Usuario, QUsuario>createSet("usuarios", Usuario.class, QUsuario.class, PathInits.DIRECT2);
 
     public QTipoUsuario(String variable) {
         super(TipoUsuario.class, forVariable(variable));

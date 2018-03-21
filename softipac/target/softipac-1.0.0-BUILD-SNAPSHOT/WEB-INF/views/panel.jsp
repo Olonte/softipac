@@ -17,7 +17,7 @@
 										<h5>${usuariosEtiqueta}<i class="fa fa-angle-right"></i></h5>
 										<h4></h4>
 										<div class="icon">
-											<i class="fa fa-male"></i>
+											<i class="fa fa-users"></i>
 										</div><!-- .icon -->
 									</div><!-- .box -->
 								</a>
@@ -30,7 +30,7 @@
                                         <h5>${citasEtiqueta}<i class="fa fa-angle-right"></i></h5>
                                         <h4></h4>
                                         <div class="icon">
-                                        	<i class="fa fa-copy"></i>
+                                        	<i class="fa fa-list-alt"></i>
                                         </div> <!-- .icon -->
                                     </div> <!-- .box -->   
                            		</a>
