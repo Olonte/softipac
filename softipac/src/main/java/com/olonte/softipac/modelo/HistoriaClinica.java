@@ -36,8 +36,6 @@ public class HistoriaClinica {
 	@Column(name = "caractambiente")
 	private String caractambiente;
 	
-	//private Set<Afinidad> afinidades = new HashSet<Afinidad>(0);
-	
 	@OneToOne(mappedBy = "historiaclinica_idhistoriaclinica")
 	private Remision remision;
 	
@@ -103,26 +101,7 @@ public class HistoriaClinica {
 	public void setCaractambiente(String caractambiente) {
 		this.caractambiente = caractambiente;
 	}
-	/*
-	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "constitucionfamiliar",
-			joinColumns = {
-					@JoinColumn(name = "historiaclinica_idhistoriaclinica", referencedColumnName = "idhistoriaclinica")
-					},
-			inverseJoinColumns = {
-					@JoinColumn(name = "afinidad_idafinidad", referencedColumnName = "idafinidad"),
-					@JoinColumn(name = "afinidad_usuario_idusuario", referencedColumnName = "usuario_idusuario"),
-					@JoinColumn(name = "afinidad_idfamiliar", referencedColumnName = "idfamiliar")
-					}
-	)
-	public Set<Afinidad> getAfinidades() {
-		return afinidades;
-	}
 	
-	public void setAfinidades(Set<Afinidad> afinidades) {
-		this.afinidades = afinidades;
-	}
-	*/
 	public Remision getRemision() {
 		return remision;
 	}
