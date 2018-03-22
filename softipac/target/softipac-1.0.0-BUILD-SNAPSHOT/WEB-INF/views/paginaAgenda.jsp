@@ -17,15 +17,15 @@
 								<tr>
 						    		<th>${fechaEtiqueta}</th>
 	                            	<th>${horaEtiqueta}</th>
-	                            	<th>${listAgendaNombresEtiqueta}</th>
-	                            	<th>${apellidoEtiqueta}</th>
+	                            	<th>${nombresPaginaEtiqueta}</th>
+	                            	<th>${apellidoPaginaEtiqueta}</th>
 	                            	<th>${telefonofijoEtiqueta}</th>
-	                            	<th>${celularEtiqueta}</th>
+	                            	<th>${celularPaginaEtiqueta}</th>
 	                            	<th>${accionesEtiqueta}</th>
 								</tr>
 							</thead><!-- .thead -->
 							<tbody>
-								<c:forEach items="${citas}" var ="cita">
+								<c:forEach items="${citasAgenda}" var ="cita">
 									<%@include file="/WEB-INF/views/modals/modal_cancelarCita.jsp"%> 
 							    	<tr>
 										<th>${cita.fechaCitaIni}</th>
@@ -38,15 +38,15 @@
 											<div class="btn-group btn-actions">
 			                                	<button type="button" class="btn dropdown-toggle" data-toggle="dropdown">${accionEtiqueta}</button>
 			                                    <div class="dropdown-menu">
-			                                    	<a href="<spring:url value="/editar/agenda?idUsuario=${cita.idUsuario}"></spring:url>" class="dropdown-item">
+			                                    	<a href="<spring:url value="/editar/agenda?idUsuario=${cita.idUsuario}&indiceActual=${indiceActual}"></spring:url>" class="dropdown-item">
 			                                    		<i class="fa fa-edit"></i>
 			                                        	${editarEtiqueta}
 			                                    	</a>
-			                                    		<a href="" data-target="#modalCancelarCita_${cita.idUsuario}_${indiceActual}" data-toggle="modal" class="dropdown-item">
+			                                    		<a href="" data-target="#modalCancelarCita_${cita.idUsuario}_${cita.idTipoCita}_${indiceActual}" data-toggle="modal" class="dropdown-item">
 			                                    		<i class="fa fa-eraser"></i>
 			                                        	${cancelarEtiqueta}
 			                                    	</a>
-			                                    	<a href="<spring:url value="/citaInformacion?idUsuario=${cita.idUsuario}"></spring:url>" class="dropdown-item">
+			                                    	<a href="<spring:url value="/citaInformacion?idUsuario=${cita.idUsuario}&indiceActual=${indiceActual}"></spring:url>" class="dropdown-item">
 			                                    		<i class="fa fa-file-text-o"></i>
 			                                        	${citaInformacionEtiqueta}
 			                                    	</a>
@@ -57,7 +57,7 @@
 								</c:forEach>
 							</tbody><!-- .tbody -->
 						</table><!-- .table-responsive -->
-						<%@include file="/WEB-INF/views/pagination/paginacion.jsp"%>	
+						<%@include file="/WEB-INF/views/pagination/paginacionAgenda.jsp"%>	
 					</div><!-- .table-responsive -->
 				</div><!-- .content-inner -->
 			</div><!-- .page-container -->

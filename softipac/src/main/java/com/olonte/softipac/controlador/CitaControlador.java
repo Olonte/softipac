@@ -367,7 +367,7 @@ public class CitaControlador {
 		CitaInformacion citaInformacion = new CitaInformacion();
 		
 		Agenda agenda = new Agenda();
-		agenda = this.citaServicio.buscarUsuarioAgenda(idUsuario, Utilidad.USUARIO_PACIENTE, Utilidad.CITA_AGENDA);		
+		agenda = this.citaServicio.buscarUsuarioAgenda(idUsuario, Utilidad.USUARIO_PACIENTE, Utilidad.CITA_INFORMACION);		
 		
 		citaInformacion.setCita(agenda.getCita());		
 		citaInformacion.setPaciente(agenda.getPaciente());

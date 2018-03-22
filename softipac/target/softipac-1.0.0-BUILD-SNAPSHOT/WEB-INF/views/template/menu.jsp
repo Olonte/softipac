@@ -24,15 +24,15 @@
 		<ul class="sidebar-nav">
 			<li>
 		    	<a href="<spring:url value="/panel"></spring:url>">
-		    		<i class="fa fa-fw fa-dashboard"></i>
+		    		<i class="fa fa-th"></i>
 		    		${icono}
 		    	</a>
 		    </li>
 		    <li>
-		    	<a href="#"><i class="fa fa-fw fa-male"></i> Usuarios</a>
+		    	<a href="<spring:url value="/panelUsuario"></spring:url>"><i class="fa fa-users"></i> Usuarios</a>
 		    </li>
 		    <li>
-		        <a href="<spring:url value="/panelCita"></spring:url>"><i class="fa fa-fw fa-copy"></i> Citas</a>
+		        <a href="<spring:url value="/panelCita"></spring:url>"><i class="fa fa-list-alt"></i> Citas</a>
 		    </li>
 		</ul>
 	</div><!-- .sidebar-container -->

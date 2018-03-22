@@ -42,5 +42,8 @@ public class Estado {
 		this.estado = estado;
 	}
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> branch 'master' of https://github.com/Olonte/softipac
 }
