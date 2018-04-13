@@ -224,17 +224,14 @@
 									   							</div><!-- .input-group -->
 									   						</div><!-- .form-group -->
 									   					</div><!-- .col-md-4 -->
-									   					<div class="form-group col-md-2">
+									   					<div class="form-group col-md-2"  style="text-align:center">
 											   					<br>
 											   					<br>
 											   					<br>
-											   					<center>
-											   							<input id="btnAgregarRol" type="button" class="btn btn-blue" value="${botonAdicionarEtiqueta}">
-											   					</center>
+											   					<input id="btnAgregarRol" type="button" class="btn btn-blue" value="${botonAdicionarEtiqueta}">
 											   					<br>
-											   					<center>
-											   						<input id="btnEliminarRol" type="button" class="btn btn-blue" value="${botonEliminarEtiqueta}">
-											   					</center>
+											   					<br>
+											   					<input id="btnEliminarRol" type="button" class="btn btn-blue" value="${botonEliminarEtiqueta}">
 											   			</div><!-- .col-md-2 -->
 									   					<div class="col-md-4">
 									   						<div class="form-group">
@@ -253,10 +250,8 @@
 										</div><!-- .collap show -->
 									</div><!-- .card -->
 									<br>
-									<div class="col-md-12">
-										<center>
-											<input id="btnUsuario" type="submit" class="btn btn-blue" value="${botonGuardarEtiqueta}" style="float:center;">
-										</center>
+									<div class="col-md-12"  style="text-align:center">
+										<input id="btnUsuario" type="submit" class="btn btn-blue" value="${botonGuardarEtiqueta}">
 									</div><!-- .col-md-12 -->
 								</form:form><!-- .form:form-->
 							</div><!-- .row -->

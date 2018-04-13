@@ -15,7 +15,7 @@
 			</c:otherwise>
 		</c:choose>
 		<c:forEach var="i" begin="${indiceInicio}" end="${indiceFinal}">
-			<c:url var="paginaUrl" value="/paginaAgenda/${i}"></c:url>
+			<c:url var="paginaUrl" value="/paginaUsuario/${i}"></c:url>
 			<c:choose>
 				<c:when test="${i == indiceActual}">
 					<i class="active"><a href="${paginaUrl}"><c:out value="${i}"></c:out></a></i>

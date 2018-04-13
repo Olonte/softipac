@@ -245,7 +245,8 @@ public class CitaImplServicio implements CitaServicio {
 							/**
 							 * Se cambia el estadoa la cita tipo Agenda
 							*/
-							cambiarEstadoCita(((CitaInformacion)agenda).getPaciente().getIdUsuario(), Utilidad.CITA_AGENDA, Utilidad.ESTADO_TERMINADO);
+							//cambiarEstadoCita(((CitaInformacion)agenda).getPaciente().getIdUsuario(), Utilidad.CITA_AGENDA, Utilidad.ESTADO_TERMINADO);
+							cambiarEstadoCita(((CitaInformacion)agenda).getCita().getCitaId().getIdcita(), Utilidad.ESTADO_TERMINADO);
 						}
 						break;
 					case Utilidad.TRANS_ACTUALIZAR:
@@ -323,8 +324,8 @@ public class CitaImplServicio implements CitaServicio {
 
 	@Override
 	@Transactional(readOnly = false)
-	public void cambiarEstadoCita(Integer idUsuario, Integer idTipoCita, Integer idEstado) {
-		CitaPredicado.cambiarEstadoCita(entityManager, idUsuario, idTipoCita, idEstado);
+	public void cambiarEstadoCita(Integer idcita, Integer idEstado) {
+		CitaPredicado.cambiarEstadoCita(entityManager, idcita, idEstado);
 	}
 
 	@Override

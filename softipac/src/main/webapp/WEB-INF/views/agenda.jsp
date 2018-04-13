@@ -355,6 +355,7 @@
 																</div><!-- .has-error -->
 									   						</div><!-- .form-group -->
 									   					</div><!-- .col-md-4 -->
+									   					<!-- **************************************************Ocupacion Acudiente**************************************************************** -->
 									   					<div class="col-md-4">
 															<div class="form-group">
 																<form:label path="acudiente.ocupacion">${ocupacionEtiqueta}</form:label>
@@ -363,7 +364,7 @@
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
-														<!-- ***********************************************Datos Direccion************************************************************************* -->
+														<!-- ***********************************************Datos Direccion Acudiente************************************************************************* -->
 														<div class="col-md-4">
 															<div class="form-group">
 																<form:label path="acudiente.direccion">${direccionEtiqueta}</form:label>
@@ -372,7 +373,7 @@
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
-														<!-- ***********************************************Datos Telefonos************************************************************************* -->
+														<!-- ***********************************************Datos Telefonos Acudiente************************************************************************* -->
 														<div class="col-md-4">
 															<div class="form-group">
 																<form:label path="acudiente.telefonoFijo">${telefonoFijoEtiqueta}</form:label>
@@ -389,7 +390,7 @@
 																</div><!-- .input-group -->
 															</div><!-- .form-group -->
 														</div><!-- .col-md-4 -->
-														<!-- ***********************************************Datos Correo Electronico************************************************************************* -->
+														<!-- ***********************************************Datos Correo Electronico Acudiente************************************************************************* -->
 														<div class="col-md-4">
 															<div class="form-group">
 																<form:label path="acudiente.email">${emailEtiqueta}</form:label>
@@ -416,10 +417,8 @@
 										</div><!-- .collapse-show -->
 									</div><!-- .card -->
 									<br>
-									<div class="col-md-12">
-										<center>
-											<input id="btnAgenda" type="submit" class="btn btn-blue" value="${botonGuardarEtiqueta}" style="float:center;">
-										</center>
+									<div class="col-md-12" style="text-align:center">
+											<input id="btnAgenda" type="submit" class="btn btn-blue" value="${botonGuardarEtiqueta}">
 									</div><!-- .col-md-12 -->
 								</form:form><!-- .form:form-->
 							</div><!-- .row -->

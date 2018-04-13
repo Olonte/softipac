@@ -300,6 +300,7 @@
 																</div><!-- .has-error -->
 									   						</div><!-- .form-group -->
 									   					</div><!-- .col-md-4 -->
+									   					<!-- **************************************************Datos  Ocupacion Madre**************************************************************** -->
 									   					<div class="col-md-4">
 															<div class="form-group">
 																<form:label path="madre.ocupacion">${ocupacionEtiqueta}</form:label>
@@ -367,7 +368,7 @@
 		                                    				<form:input type="hidden" cssClass="form-control" path="padre.tipousuario_idtipousuario.idTipoUsuario" id="padreIdTipoUsuario" name="padreIdTipoUsuario"></form:input>
 		                                    				<form:input type="hidden" cssClass="form-control" path="padre.estado_idestado.idEstado" id="padreIdEstado" name="padreIdEstado"></form:input>
 		                                    				<form:input type="hidden" cssClass="form-control" path="padre.parentesco_idparentesco.idParentesco" id="padreIdParentesco" name="padreIdParentesco"></form:input>
-		                                    				<!-- **************************************************Datos  Documento Acudiente**************************************************************** -->
+		                                    				<!-- **************************************************Datos  Documento Padre**************************************************************** -->
 		                                    				<div class="col-md-4">
 		                                    					<div class="form-group">
 								 									<form:label path="padre.documento_iddocumento.tipoDocumento.idTipoDocumento">${tipoDocumentoEtiqueta}</form:label>
@@ -439,6 +440,7 @@
 																	</div><!-- .has-error -->
 									   							</div><!-- .form-group -->
 									   						</div><!-- .col-md-4 -->
+									   						<!-- ***********************************************Datos Ocupacion Padre************************************************************************* -->
 									   						<div class="col-md-4">
 																<div class="form-group">
 																	<form:label path="padre.ocupacion">${ocupacionEtiqueta}</form:label>
@@ -779,10 +781,8 @@
 		                                    </div><!-- .collapse -->
                                 		</div><!-- .card -->
                                 		<br>
-                   						<div class="col-md-12">
-											<center>
-												<input id="btnCitaInfo" type="submit" class="btn btn-blue" value="${botonGuardarEtiqueta}" style="float:center;">
-											</center>
+                   						<div class="col-md-12" style="text-align:center">
+											<input id="btnCitaInfo" type="submit" class="btn btn-blue" value="${botonGuardarEtiqueta}">
 										</div><!-- .col-md-12 -->
 									</div><!-- .accordion -->
 								</form:form><!-- .form -->

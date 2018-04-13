@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class RegistroListaAgenda {
 	
+	private Integer idcita;
 	private Integer idTipoCita;
 	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private LocalDate fechaCitaIni;
@@ -19,8 +20,9 @@ public class RegistroListaAgenda {
 	public RegistroListaAgenda() {
 	}
 
-	public RegistroListaAgenda(Integer idTipoCita, LocalDate fechaCitaIni, String hora, Integer idUsuario,
-			String nombres, String primerApellido, String telefonoFijo, String telefonoCelular) {
+	public RegistroListaAgenda(Integer idcita, Integer idTipoCita, LocalDate fechaCitaIni, String hora,
+			Integer idUsuario, String nombres, String primerApellido, String telefonoFijo, String telefonoCelular) {
+		this.idcita = idcita;
 		this.idTipoCita = idTipoCita;
 		this.fechaCitaIni = fechaCitaIni;
 		this.hora = hora;
@@ -29,6 +31,14 @@ public class RegistroListaAgenda {
 		this.primerApellido = primerApellido;
 		this.telefonoFijo = telefonoFijo;
 		this.telefonoCelular = telefonoCelular;
+	}
+
+	public Integer getIdcita() {
+		return idcita;
+	}
+
+	public void setIdcita(Integer idcita) {
+		this.idcita = idcita;
 	}
 
 	public Integer getIdTipoCita() {

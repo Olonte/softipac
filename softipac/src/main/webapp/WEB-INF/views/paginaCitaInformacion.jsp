@@ -42,7 +42,7 @@
 			                                    		<i class="fa fa-edit"></i>
 			                                        	${editarEtiqueta}
 			                                    	</a>
-			                                    		<a href="" data-target="#modalCancelarCita_${cita.idUsuario}_${cita.idTipoCita}_${indiceActual}" data-toggle="modal" class="dropdown-item">
+			                                    		<a href="" data-target="#modalCancelarCita_${cita.idTipoCita}_${cita.idcita}_${indiceActual}" data-toggle="modal" class="dropdown-item">
 			                                    		<i class="fa fa-eraser"></i>
 			                                        	${cancelarEtiqueta}
 			                                    	</a>

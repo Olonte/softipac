@@ -228,8 +228,8 @@ public class CitaControlador {
 	 * @return
 	 */
 	@RequestMapping(value = "/cancelar/agenda")
-	public String cancelarCita(@RequestParam("idUsuario") Integer idUsuario, @RequestParam("idTipoCita") Integer idTipoCita, @RequestParam("indiceActual") Integer indiceActual, RedirectAttributes redirectAttributes) {	
-		this.citaServicio.cambiarEstadoCita(idUsuario,idTipoCita,Utilidad.ESTADO_CANCELADO);
+	public String cancelarCita(@RequestParam("idTipoCita") Integer idTipoCita, @RequestParam("idcita") Integer idcita, @RequestParam("indiceActual") Integer indiceActual, RedirectAttributes redirectAttributes) {	
+		this.citaServicio.cambiarEstadoCita(idcita,Utilidad.ESTADO_CANCELADO);
 		redirectAttributes.addFlashAttribute("msj_ext","Cita cancelada con éxito");
 		
 		if (idTipoCita == Utilidad.CITA_AGENDA) {

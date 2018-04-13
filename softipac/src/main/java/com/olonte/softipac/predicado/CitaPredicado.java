@@ -54,7 +54,8 @@ public class CitaPredicado {
 		
 		JPAQuery<Tuple> jpaQuery = new JPAQuery<>(entityManager);
 		
-		List<Tuple> listaAgendas = jpaQuery.select( qCita.citaId.tipocita_idtipocita.idTipoCita,
+		List<Tuple> listaAgendas = jpaQuery.select(	qCita.citaId.idcita,
+													qCita.citaId.tipocita_idtipocita.idTipoCita,
 													qCita.fechaCitaIni,
 													qCita.hora.hora,
 													qPaciente.idUsuario,
@@ -75,7 +76,8 @@ public class CitaPredicado {
 											.orderBy(qCita.fechaCitaIni.asc(),qCita.hora.horaId.idhora.asc()).fetch();
 		
 		for (Tuple tuple : listaAgendas) {
-			RegistroListaAgenda registroListaAgenda = new RegistroListaAgenda(tuple.get(qCita.citaId.tipocita_idtipocita.idTipoCita),
+			RegistroListaAgenda registroListaAgenda = new RegistroListaAgenda(tuple.get(qCita.citaId.idcita),
+					tuple.get(qCita.citaId.tipocita_idtipocita.idTipoCita),
 					tuple.get(qCita.fechaCitaIni),
 					tuple.get(qCita.hora.hora),
 					tuple.get(qPaciente.idUsuario),
@@ -102,7 +104,8 @@ public class CitaPredicado {
 		
 		JPAQuery<Tuple> jpaQuery = new JPAQuery<>(entityManager);
 		
-		List<Tuple> listaCitasInformacion = jpaQuery.select(qCita.citaId.tipocita_idtipocita.idTipoCita,
+		List<Tuple> listaCitasInformacion = jpaQuery.select(qCita.citaId.idcita,
+															qCita.citaId.tipocita_idtipocita.idTipoCita,
 															qDocumento.documento,
 															qPaciente.idUsuario,
 															qPaciente.nombres,
@@ -129,7 +132,8 @@ public class CitaPredicado {
 													.and(qAcudiente.tipousuario_idtipousuario.idTipoUsuario.eq(Utilidad.USUARIO_ACUDIENTE)))
 													.orderBy(qCita.citaId.idcita.asc()).fetch();
 		for (Tuple tuple : listaCitasInformacion) {
-			RegistroListaCitaInformacion registroListaCitaInformacion = new RegistroListaCitaInformacion(tuple.get(qCita.citaId.tipocita_idtipocita.idTipoCita),
+			RegistroListaCitaInformacion registroListaCitaInformacion = new RegistroListaCitaInformacion(tuple.get(qCita.citaId.idcita),
+					tuple.get(qCita.citaId.tipocita_idtipocita.idTipoCita),
 					tuple.get(qDocumento.documento),
 					tuple.get(qPaciente.idUsuario),
 					tuple.get(qPaciente.nombres),
@@ -153,12 +157,11 @@ public class CitaPredicado {
 				);
 	}
 	
-	public static void cambiarEstadoCita(EntityManager entityManager, Integer idUsuario, Integer idTipoCita, Integer idEstado) {
+	public static void cambiarEstadoCita(EntityManager entityManager, Integer idcita, Integer idEstado) {
 		JPQLQueryFactory jpqlQueryFactory = new JPAQueryFactory(entityManager);
 		jpqlQueryFactory.update(QCita.cita)
 		.set(QCita.cita.citaId.estado_idestado.idEstado, idEstado)
-		.where(QCita.cita.citaId.usuario_idusuario.idUsuario.eq(idUsuario)
-				.and(QCita.cita.citaId.tipocita_idtipocita.idTipoCita.eq(idTipoCita)))
+		.where(QCita.cita.citaId.idcita.eq(idcita))
 		.execute();
 	}
 	

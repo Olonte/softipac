@@ -48,7 +48,7 @@
 						</div><!-- input-group -->
 					</div> <!-- .form-group -->	
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>		
-					<div class="form-group">
+					<div class="form-group" style="text-align:center">
 						<input id="btnLogin" type="submit" class="btn btn-blue" value="${botonLoguinEtiqueta}">
 					</div> <!-- .form-group -->
 				</form> <!-- .form -->

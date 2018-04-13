@@ -2,6 +2,7 @@ package com.olonte.softipac.modelo;
 
 public class RegistroListaCitaInformacion {
 	
+	private Integer idcita;
 	private Integer idTipoCita;
 	private String documento;
 	private Integer idUsuario;
@@ -11,13 +12,12 @@ public class RegistroListaCitaInformacion {
 	private String escolaridad;
 	private String telefonoCelular;
 	
-	
 	public RegistroListaCitaInformacion() {
 	}
 
-
-	public RegistroListaCitaInformacion(Integer idTipoCita, String documento, Integer idUsuario, String nombres,
-			String primerApellido, String eps, String escolaridad, String telefonoCelular) {
+	public RegistroListaCitaInformacion(Integer idcita, Integer idTipoCita, String documento, Integer idUsuario,
+			String nombres, String primerApellido, String eps, String escolaridad, String telefonoCelular) {
+		this.idcita = idcita;
 		this.idTipoCita = idTipoCita;
 		this.documento = documento;
 		this.idUsuario = idUsuario;
@@ -28,6 +28,13 @@ public class RegistroListaCitaInformacion {
 		this.telefonoCelular = telefonoCelular;
 	}
 
+	public Integer getIdcita() {
+		return idcita;
+	}
+
+	public void setIdcita(Integer idcita) {
+		this.idcita = idcita;
+	}
 
 	public Integer getIdTipoCita() {
 		return idTipoCita;
@@ -107,6 +114,5 @@ public class RegistroListaCitaInformacion {
 	public void setTelefonoCelular(String telefonoCelular) {
 		this.telefonoCelular = telefonoCelular;
 	}
-
 
 }
