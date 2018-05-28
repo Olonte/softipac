@@ -92,10 +92,13 @@ public class CitaImplServicio implements CitaServicio {
 	@Override
 	@Transactional(readOnly = false)
 	public void guardarActualizar(int tipoCita, int transaccion, Integer idEstado, Agenda agenda) {
-		Estado estado_idestado = null;
+		Estado estado_idestado_cita = null;
+		Estado estado_idestado_usuario = null;
 		TipoCita tipocita_idtipocita =this.tipoCitaServicio.buscarPorId(tipoCita);
 		if (transaccion == Utilidad.TRANS_GUARDAR) {
-			 estado_idestado = this.estadoServicio.bucarporId(idEstado);
+			estado_idestado_cita = this.estadoServicio.buscarporId(idEstado);
+			estado_idestado_usuario = this.estadoServicio.buscarporId(Utilidad.ESTADO_INACTIVO);
+			 
 		}
 		switch (tipoCita) {
 			case Utilidad.CITA_AGENDA:
@@ -107,12 +110,12 @@ public class CitaImplServicio implements CitaServicio {
 						 */
 						/** Paciente */
 						agenda.getPaciente().setTipousuario_idtipousuario((this.tipoUsuarioServicio.buscarPorId(Utilidad.USUARIO_PACIENTE)));
-						agenda.getPaciente().setEstado_idestado(estado_idestado);
+						agenda.getPaciente().setEstado_idestado(estado_idestado_usuario);
 						agenda.getPaciente().setParentesco_idparentesco(this.parentescoServicio.buscarPorId(Utilidad.HIJO));
 						this.usuarioServicio.guardar(agenda.getPaciente());
 						/** Acudiente */
 						agenda.getAcudiente().setTipousuario_idtipousuario(this.tipoUsuarioServicio.buscarPorId(Utilidad.USUARIO_ACUDIENTE));
-						agenda.getAcudiente().setEstado_idestado(estado_idestado);
+						agenda.getAcudiente().setEstado_idestado(estado_idestado_usuario);
 						this.usuarioServicio.guardar(agenda.getAcudiente());
 						 /*
 						 * Se procesa la Afinidad
@@ -128,7 +131,7 @@ public class CitaImplServicio implements CitaServicio {
 						/**
 						 * Se procesa la Cita
 						 */
-						 CitaId citaId = new CitaId(tipocita_idtipocita,estado_idestado,agenda.getPaciente(),this.usuarioSession);
+						 CitaId citaId = new CitaId(tipocita_idtipocita,estado_idestado_cita,agenda.getPaciente(),this.usuarioSession);
 						 agenda.getCita().setCitaId(citaId);
 						 this.citaRepositorio.save(agenda.getCita());
 						break;
@@ -147,7 +150,7 @@ public class CitaImplServicio implements CitaServicio {
 			case Utilidad.CITA_INFORMACION:
 				switch (transaccion) {
 					case Utilidad.TRANS_GUARDAR:
-						((CitaInformacion)agenda).getPaciente().setEstado_idestado(estado_idestado);	
+						((CitaInformacion)agenda).getPaciente().setEstado_idestado(estado_idestado_cita);	
 						Integer idTipoUsuario = Utilidad.USUARIO_PARIENTE;
 						/**
 						 * Si el usuario se crea por primera vez por medio de la cita de informacion
@@ -169,7 +172,7 @@ public class CitaImplServicio implements CitaServicio {
 							if (((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() == Utilidad.MADRE) {
 								idTipoUsuario = Utilidad.USUARIO_ACUDIENTE;
 							}
-							guardarUsuario(((CitaInformacion)agenda).getPaciente(), ((CitaInformacion)agenda).getMadre(), idTipoUsuario, Utilidad.MADRE, estado_idestado);
+							guardarUsuario(((CitaInformacion)agenda).getPaciente(), ((CitaInformacion)agenda).getMadre(), idTipoUsuario, Utilidad.MADRE, estado_idestado_usuario);
 							idTipoUsuario = Utilidad.USUARIO_PARIENTE; 
 							/**
 							 * Se procesa los datos del Padre
@@ -180,19 +183,19 @@ public class CitaImplServicio implements CitaServicio {
 							if (((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() == Utilidad.PADRE) {
 								idTipoUsuario = Utilidad.USUARIO_ACUDIENTE;
 							}
-							guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getPadre(), idTipoUsuario, Utilidad.PADRE, estado_idestado); 
+							guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getPadre(), idTipoUsuario, Utilidad.PADRE, estado_idestado_usuario); 
 							
 							/**
 							 * Se procesa los datos del Acudiente sino es ni la Madre ni el Padre
 							 */
 							if (((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() != Utilidad.MADRE &&
 									((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() != Utilidad.PADRE) {					
-								guardarUsuario(((CitaInformacion)agenda).getPaciente(), ((CitaInformacion)agenda).getAcudiente(), Utilidad.USUARIO_ACUDIENTE, ((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco(), estado_idestado); 		
+								guardarUsuario(((CitaInformacion)agenda).getPaciente(), ((CitaInformacion)agenda).getAcudiente(), Utilidad.USUARIO_ACUDIENTE, ((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco(), estado_idestado_usuario); 		
 							}
 							/**
 							 * Se procesa la cita
 							 */
-							guardarCita(((CitaInformacion)agenda), tipocita_idtipocita, estado_idestado);
+							guardarCita(((CitaInformacion)agenda), tipocita_idtipocita, estado_idestado_cita);
 						}else { /** El usuario ya ha sido creado por medio de la Agenda **/
 							/**
 							 * Se procesa los datos del paciente
@@ -203,16 +206,16 @@ public class CitaImplServicio implements CitaServicio {
 							 */
 							if (((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() != Utilidad.MADRE &&
 									((CitaInformacion)agenda).getAcudiente().getParentesco_idparentesco().getIdParentesco() != Utilidad.PADRE) {
-								((CitaInformacion)agenda).getAcudiente().setEstado_idestado(estado_idestado);
+								((CitaInformacion)agenda).getAcudiente().setEstado_idestado(estado_idestado_usuario);
 								this.usuarioServicio.guardar(((CitaInformacion)agenda).getAcudiente());
 								/**
 								* Se procesa los datos de la Madre
 								*/
-								guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getMadre(), Utilidad.USUARIO_PARIENTE, Utilidad.MADRE, estado_idestado);
+								guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getMadre(), Utilidad.USUARIO_PARIENTE, Utilidad.MADRE, estado_idestado_usuario);
 								/**
 								* Se procesa los datos del Padre
 								*/
-								guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getPadre(), Utilidad.USUARIO_PARIENTE, Utilidad.PADRE, estado_idestado);								
+								guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getPadre(), Utilidad.USUARIO_PARIENTE, Utilidad.PADRE, estado_idestado_usuario);								
 							/**
 							 * Si el Acudiente es la Madre 	
 							 */
@@ -224,7 +227,7 @@ public class CitaImplServicio implements CitaServicio {
 								/**
 								* Se procesa los datos del Padre
 								*/
-								guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getPadre(), Utilidad.USUARIO_PARIENTE, Utilidad.PADRE, estado_idestado); 		
+								guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getPadre(), Utilidad.USUARIO_PARIENTE, Utilidad.PADRE, estado_idestado_usuario); 		
 							/**
 							 * Si el Acudiente es el Padre	
 							 */
@@ -236,17 +239,19 @@ public class CitaImplServicio implements CitaServicio {
 								/**
 								* Se procesa los datos del Madre
 								*/
-								guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getMadre(), Utilidad.USUARIO_PARIENTE, Utilidad.MADRE, estado_idestado); 								
+								guardarUsuario(((CitaInformacion)agenda).getPaciente(),((CitaInformacion)agenda).getMadre(), Utilidad.USUARIO_PARIENTE, Utilidad.MADRE, estado_idestado_usuario); 								
 							}							
 							/**
 							 * Se procesa la cita
 							 */
-							guardarCita(((CitaInformacion)agenda), tipocita_idtipocita, estado_idestado);
+							guardarCita(((CitaInformacion)agenda), tipocita_idtipocita, estado_idestado_cita);
 							/**
 							 * Se cambia el estadoa la cita tipo Agenda
 							*/
 							//cambiarEstadoCita(((CitaInformacion)agenda).getPaciente().getIdUsuario(), Utilidad.CITA_AGENDA, Utilidad.ESTADO_TERMINADO);
-							cambiarEstadoCita(((CitaInformacion)agenda).getCita().getCitaId().getIdcita(), Utilidad.ESTADO_TERMINADO);
+							Integer idCita = agenda.getCita().getCitaId().getIdcita();
+							//cambiarEstadoCita(((CitaInformacion)agenda).getCita().getCitaId().getIdcita(), Utilidad.ESTADO_TERMINADO);
+							cambiarEstadoCita(idCita, Utilidad.ESTADO_TERMINADO);
 						}
 						break;
 					case Utilidad.TRANS_ACTUALIZAR:

@@ -4,5 +4,5 @@ import com.olonte.softipac.modelo.Estado;
 
 public interface EstadoServicio {
 	Iterable<Estado> buscarTodos();
-	Estado bucarporId(Integer idEstado);
+	Estado buscarporId(Integer idEstado);
 }

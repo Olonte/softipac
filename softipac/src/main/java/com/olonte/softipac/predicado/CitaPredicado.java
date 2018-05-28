@@ -71,7 +71,7 @@ public class CitaPredicado {
 												.join(qCita)
 													.on(qCita.citaId.usuario_idusuario.idUsuario.eq(qPaciente.idUsuario))
 											.where(qCita.citaId.tipocita_idtipocita.idTipoCita.eq(Utilidad.CITA_AGENDA)
-											.and(qCita.citaId.estado_idestado.idEstado.eq(Utilidad.ESTADO_INACTIVO))
+											.and(qCita.citaId.estado_idestado.idEstado.eq(Utilidad.ESTADO_PENDIENTE))
 											.and(qAcudiente.tipousuario_idtipousuario.idTipoUsuario.eq(Utilidad.USUARIO_ACUDIENTE)))
 											.orderBy(qCita.fechaCitaIni.asc(),qCita.hora.horaId.idhora.asc()).fetch();
 		

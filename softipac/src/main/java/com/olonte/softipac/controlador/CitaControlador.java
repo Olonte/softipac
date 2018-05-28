@@ -158,7 +158,7 @@ public class CitaControlador {
 				transaccion = Utilidad.TRANS_ACTUALIZAR;
 			}
 		}
-		return validarAgenda(Utilidad.AGENDA_PROCESADA, Utilidad.CITA_AGENDA, transaccion, Utilidad.ESTADO_INACTIVO, nuevaAgenda, Utilidad.INDICE_DEFECTO, model, bindingResult, redirectAttributes);
+		return validarAgenda(Utilidad.AGENDA_PROCESADA, Utilidad.CITA_AGENDA, transaccion, Utilidad.ESTADO_PENDIENTE, nuevaAgenda, Utilidad.INDICE_DEFECTO, model, bindingResult, redirectAttributes);
 	}
 	
 	/**

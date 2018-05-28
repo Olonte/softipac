@@ -29,7 +29,7 @@ public class EstadoImplServicio implements EstadoServicio {
 	@Override
 	@Transactional(readOnly = true)
 	@Cacheable(value = "estadoPorId")
-	public Estado bucarporId(Integer idEstado) {
+	public Estado buscarporId(Integer idEstado) {
 		return this.estadoRepositorio.findOne(idEstado);
 	}
 

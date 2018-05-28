@@ -81,7 +81,7 @@ public class UsuarioImplServicio implements UsuarioServicio {
 	@Override
 	@Transactional(readOnly = false)
 	public void guardar(UsuarioForma usuarioForma, Integer idEstado) {
-		usuarioForma.getUsuario().setEstado_idestado(this.estadoServicio.bucarporId(idEstado));
+		usuarioForma.getUsuario().setEstado_idestado(this.estadoServicio.buscarporId(idEstado));
 		if (usuarioForma.isJavaScript()) {
 			guardarRol(usuarioForma);
 		}
