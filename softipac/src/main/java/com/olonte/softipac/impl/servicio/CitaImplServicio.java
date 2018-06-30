@@ -92,9 +92,10 @@ public class CitaImplServicio implements CitaServicio {
 	@Override
 	@Transactional(readOnly = false)
 	public void guardarActualizar(int tipoCita, int transaccion, Integer idEstado, Agenda agenda) {
+		Integer idCita = agenda.getCita().getCitaId().getIdcita();
 		Estado estado_idestado_cita = null;
 		Estado estado_idestado_usuario = null;
-		TipoCita tipocita_idtipocita =this.tipoCitaServicio.buscarPorId(tipoCita);
+		TipoCita tipocita_idtipocita = this.tipoCitaServicio.buscarPorId(tipoCita);
 		if (transaccion == Utilidad.TRANS_GUARDAR) {
 			estado_idestado_cita = this.estadoServicio.buscarporId(idEstado);
 			estado_idestado_usuario = this.estadoServicio.buscarporId(Utilidad.ESTADO_INACTIVO);
@@ -248,9 +249,6 @@ public class CitaImplServicio implements CitaServicio {
 							/**
 							 * Se cambia el estadoa la cita tipo Agenda
 							*/
-							//cambiarEstadoCita(((CitaInformacion)agenda).getPaciente().getIdUsuario(), Utilidad.CITA_AGENDA, Utilidad.ESTADO_TERMINADO);
-							Integer idCita = agenda.getCita().getCitaId().getIdcita();
-							//cambiarEstadoCita(((CitaInformacion)agenda).getCita().getCitaId().getIdcita(), Utilidad.ESTADO_TERMINADO);
 							cambiarEstadoCita(idCita, Utilidad.ESTADO_TERMINADO);
 						}
 						break;

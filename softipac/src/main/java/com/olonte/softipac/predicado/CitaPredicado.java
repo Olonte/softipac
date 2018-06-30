@@ -53,7 +53,7 @@ public class CitaPredicado {
 		ArrayList<RegistroListaAgenda> registrosListadoAgenda = new ArrayList<RegistroListaAgenda>();
 		
 		JPAQuery<Tuple> jpaQuery = new JPAQuery<>(entityManager);
-		
+		/*
 		List<Tuple> listaAgendas = jpaQuery.select(	qCita.citaId.idcita,
 													qCita.citaId.tipocita_idtipocita.idTipoCita,
 													qCita.fechaCitaIni,
@@ -72,6 +72,27 @@ public class CitaPredicado {
 													.on(qCita.citaId.usuario_idusuario.idUsuario.eq(qPaciente.idUsuario))
 											.where(qCita.citaId.tipocita_idtipocita.idTipoCita.eq(Utilidad.CITA_AGENDA)
 											.and(qCita.citaId.estado_idestado.idEstado.eq(Utilidad.ESTADO_PENDIENTE))
+											.and(qAcudiente.tipousuario_idtipousuario.idTipoUsuario.eq(Utilidad.USUARIO_ACUDIENTE)))
+											.orderBy(qCita.fechaCitaIni.asc(),qCita.hora.horaId.idhora.asc()).fetch();
+		*/
+		List<Tuple> listaAgendas = jpaQuery.select(	qCita.citaId.idcita,
+													qCita.citaId.tipocita_idtipocita.idTipoCita,
+													qCita.fechaCitaIni,
+													qCita.hora.hora,
+													qPaciente.idUsuario,
+													qPaciente.nombres,
+													qPaciente.primerApellido,
+													qAcudiente.telefonoFijo,
+													qAcudiente.telefonoCelular)
+											.from(qPaciente)
+												.join(qAfinidad)
+													.on(qAfinidad.afinidadUsuarioId.usuario_idusuario.idUsuario.eq(qPaciente.idUsuario))
+												.join(qAcudiente)
+													.on(qAfinidad.afinidadUsuarioId.idfamiliar.idUsuario.eq(qAcudiente.idUsuario))
+												.join(qCita)
+													.on(qCita.citaId.usuario_idusuario.idUsuario.eq(qPaciente.idUsuario))
+											.where(qCita.citaId.tipocita_idtipocita.idTipoCita.eq(Utilidad.CITA_AGENDA)
+											.and(qCita.citaId.estado_idestado.idEstado.eq(Utilidad.ESTADO_INACTIVO))
 											.and(qAcudiente.tipousuario_idtipousuario.idTipoUsuario.eq(Utilidad.USUARIO_ACUDIENTE)))
 											.orderBy(qCita.fechaCitaIni.asc(),qCita.hora.horaId.idhora.asc()).fetch();
 		
@@ -131,6 +152,7 @@ public class CitaPredicado {
 													.and(qPaciente.tipousuario_idtipousuario.idTipoUsuario.eq(Utilidad.USUARIO_PACIENTE))
 													.and(qAcudiente.tipousuario_idtipousuario.idTipoUsuario.eq(Utilidad.USUARIO_ACUDIENTE)))
 													.orderBy(qCita.citaId.idcita.asc()).fetch();
+		
 		for (Tuple tuple : listaCitasInformacion) {
 			RegistroListaCitaInformacion registroListaCitaInformacion = new RegistroListaCitaInformacion(tuple.get(qCita.citaId.idcita),
 					tuple.get(qCita.citaId.tipocita_idtipocita.idTipoCita),
