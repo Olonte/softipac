@@ -26,7 +26,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private String inicio	 				= "/";
 	private String panel   					= "/panel";
 	private String roleAdmin 				= "hasRole('ROLE_ADMIN')";
-	//private String roleUser                 = "hasRole('ROLE_USER')";
+	//private String roleUser               = "hasRole('ROLE_USER')";
 	private String roleAdminUser 			= "hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')";
 	private String confUsuario 				= "/panelUsuario";
 	
@@ -39,6 +39,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
+		
 		http.formLogin()
 			.loginPage(loginPage)
 			.usernameParameter(usernameParameter)
